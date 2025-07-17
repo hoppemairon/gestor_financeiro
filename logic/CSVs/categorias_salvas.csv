@@ -1,0 +1,36 @@
+Descricao,Tipo,Categoria
+COFRE INTELIGENTE,Crédito,Receita de Vendas
+CREDITO TRANSFERENCIA,Crédito,Transferência entre contas
+DEP CHEQUE ATM,Crédito,Receita de Vendas
+DEPOSITO CHEQUE MOBILE,Crédito,Receita de Vendas
+ESTORNO CHEQUE COMPE,Crédito,Saldo Inicial
+OP. CREDITO C/GARANTIA,Crédito,Receita de Vendas
+OP.CREDITO C/GARANTIA,Crédito,Receita de Vendas
+PIX RECEBIDO,Crédito,Receita de Vendas
+RESGATE AUTOMATICO,Crédito,Transferência entre contas
+TED - SPB,Crédito,Receita de Vendas
+VERO ANTECIPACAO BANRICARD,Crédito,Receita de Vendas
+APLICACAO AUTOMATICO,Débito,Transferência entre contas
+CHEQUE COMPE.NACIONAL FLO,Débito,Despesas com Fornecedores
+CHEQUE COMPENSADO,Débito,Outras Desp. Operacionais
+CHEQUE PARA DEPOSITO IA,Débito,Despesas com Fornecedores
+DEBITO FOLHA PAGAMENTO,Débito,Folha de Pagamento
+DEBITO RFB,Débito,FGTS
+DEBITO TRANSFERENCIA,Débito,Despesas com Fornecedores
+EMPRESTIMO BBH,Débito,Empréstimos
+EST.CHEQUE DEPOSITO ME SP,Débito,Tarifas Bancárias
+ESTORNO CHEQUE DEPOSITADO,Débito,Sem Identificação
+MENSALIDADE PACOTE,Débito,Tarifas Bancárias
+PAGAMENTO DARF,Débito,Impostos e Encargos
+PAGAMENTO GUIA DE ARRECADACAO,Débito,Impostos e Encargos
+PAGAMENTO PREFEITURA,Débito,Impostos e Encargos
+PAGAMENTO TITULO,Débito,Despesas com Fornecedores
+PAGAMENTO TITULO BRR,Débito,Despesas com Fornecedores
+PIX BANRISUL ENVIADO,Débito,Despesas com Fornecedores
+PIX ENVIADO,Débito,Despesas com Fornecedores
+RG CAPITALIZACAO,Débito,Tarifas Bancárias
+SEGURO RIOGRANDE,Débito,Seguro
+TARIFA SPB-CHEQUE COMPE,Débito,Tarifas Bancárias
+TARIFA TRANSACAO COM CHEQUE,Débito,Tarifas Bancárias
+TARIFA VISUALIZACAO DE CHEQUES,Débito,Tarifas Bancárias
+TRANSF. ENCARGOS CTA UNICA,Débito,Tarifas Bancárias
