@@ -80,7 +80,6 @@ Seja objetivo, evite jargões técnicos excessivos e use listas sempre que poss�
     # Botão para baixar análise
     if full_response and len(full_response) > 20:
         st.markdown("---")
-        st.code(full_response, language="markdown")
         st.download_button(
             "📥 Baixar análise em TXT",
             data=full_response,

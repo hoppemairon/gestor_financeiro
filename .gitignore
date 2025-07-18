@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.env
+.env
+.venv/
+venv/
+env/
+*.egg-info/
+*.egg
+
+# Jupyter
+.ipynb_checkpoints
+
+# Streamlit
+.streamlit/
+
+# VSCode
+.vscode/
+
+# Mac/Linux/Windows
+.DS_Store
+Thumbs.db
+
+# Logs e temporários
+*.log
+*.tmp
+*.bak
+
+# Arquivos de exportação
+*.xlsx
+*.xls
+*.csv
+
+# Diretórios de saída
+output/
+dist/
+build/
+
+# Arquivos de configuração pessoais
+*.local

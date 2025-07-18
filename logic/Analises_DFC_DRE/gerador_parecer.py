@@ -12,44 +12,50 @@ def formatar_brl(valor: float) -> str:
     return f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 def carregar_dados(path_fluxo: str, path_dre: str = None) -> Optional[pd.DataFrame]:
-    """Carrega os dados do fluxo de caixa e, se disponível, do DRE."""
+    """Carrega os dados do fluxo de caixa e, se disponível, do DRE. Valida presença de índices essenciais."""
     if not os.path.exists(path_fluxo):
         st.error("Arquivo de fluxo não encontrado.")
         return None, None
-    
     try:
         df_fluxo = pd.read_excel(path_fluxo, index_col=0)
         df_fluxo = df_fluxo[~df_fluxo.index.str.startswith(("🟦", "🟥"))]
-        
+        # Validação dos índices essenciais
+        indices_essenciais = ["🔷 Total de Receitas", "🔻 Total de Despesas", "🏦 Resultado do Período"]
+        for idx in indices_essenciais:
+            if idx not in df_fluxo.index:
+                st.error(f"Índice essencial '{idx}' não encontrado no fluxo de caixa.")
+                return None, None
         df_dre = None
         if path_dre and os.path.exists(path_dre):
             df_dre = pd.read_excel(path_dre, index_col=0)
-        
         return df_fluxo, df_dre
     except Exception as e:
         st.error(f"Erro ao carregar dados: {e}")
         return None, None
 
 def extrair_metricas_principais(df_fluxo: pd.DataFrame, df_dre: pd.DataFrame = None) -> Dict[str, pd.Series]:
-    """Extrai métricas principais do fluxo de caixa e DRE."""
+    """Extrai métricas principais do fluxo de caixa e DRE. Aceita variações nos nomes dos índices."""
+    def buscar_indice(df, nomes):
+        for nome in nomes:
+            if nome in df.index:
+                return df.loc[nome]
+        st.warning(f"Índice(s) {nomes} não encontrado(s).")
+        return pd.Series(dtype=float)
     metricas = {
-        "total_receita": df_fluxo.loc["🔷 Total de Receitas"],
-        "total_despesa": df_fluxo.loc["🔻 Total de Despesas"],
-        "resultado": df_fluxo.loc["🏦 Resultado do Período"]
+        "total_receita": buscar_indice(df_fluxo, ["🔷 Total de Receitas", "Total de Receitas"]),
+        "total_despesa": buscar_indice(df_fluxo, ["🔻 Total de Despesas", "Total de Despesas"]),
+        "resultado": buscar_indice(df_fluxo, ["🏦 Resultado do Período", "Resultado do Período"])
     }
-    
-    if "📦 Estoque Final" in df_fluxo.index:
-        metricas["estoque"] = df_fluxo.loc["📦 Estoque Final"]
-    
+    if buscar_indice(df_fluxo, ["📦 Estoque Final", "Estoque Final"]).size > 0:
+        metricas["estoque"] = buscar_indice(df_fluxo, ["📦 Estoque Final", "Estoque Final"])
     if df_dre is not None:
-        metricas["margem_contribuicao"] = df_dre.loc["MARGEM CONTRIBUIÇÃO"]
-        metricas["lucro_operacional"] = df_dre.loc["LUCRO OPERACIONAL"]
-        metricas["lucro_liquido"] = df_dre.loc["LUCRO LIQUIDO"]
-    
+        metricas["margem_contribuicao"] = buscar_indice(df_dre, ["MARGEM CONTRIBUIÇÃO", "Margem de Contribuição"])
+        metricas["lucro_operacional"] = buscar_indice(df_dre, ["LUCRO OPERACIONAL", "Lucro Operacional"])
+        metricas["lucro_liquido"] = buscar_indice(df_dre, ["LUCRO LIQUIDO", "Lucro Líquido"])
     return metricas
 
 def calcular_indicadores(metricas: Dict[str, pd.Series]) -> Dict[str, float]:
-    """Calcula indicadores financeiros avançados."""
+    """Calcula indicadores financeiros avançados. Compara com benchmarks do setor."""
     indicadores = {}
     meses = metricas["total_receita"].index
 
@@ -89,10 +95,18 @@ def calcular_indicadores(metricas: Dict[str, pd.Series]) -> Dict[str, float]:
         indicadores["estoque_medio"] = metricas["estoque"].mean()
         indicadores["giro_estoque"] = metricas["total_receita"].sum() / indicadores["estoque_medio"] if indicadores["estoque_medio"] != 0 else np.nan
 
+    # Benchmarks (exemplo: setor varejo)
+    benchmarks = {
+        "margem_media": 15,
+        "margem_bruta": 35,
+        "margem_operacional": 12,
+        "giro_estoque": 6
+    }
+    indicadores["benchmarks"] = benchmarks
     return indicadores
 
 def exibir_metricas_principais(metricas: Dict[str, pd.Series], indicadores: Dict[str, float]):
-    """Exibe métricas principais em cards com comparativos."""
+    """Exibe métricas principais em cards com comparativos e benchmarks."""
     st.subheader("📊 Indicadores Financeiros Principais")
     col1, col2, col3 = st.columns(3)
     
@@ -103,6 +117,13 @@ def exibir_metricas_principais(metricas: Dict[str, pd.Series], indicadores: Dict
     with col3:
         st.metric("Resultado Médio", formatar_brl(indicadores["resultado_medio"]), f"{indicadores['tendencia_resultado']:+.2f}", delta_color="normal")
     
+    # Comparativo com benchmarks
+    st.markdown("##### Benchmarks do setor (varejo):")
+    st.markdown(f"- Margem média esperada: {indicadores['benchmarks']['margem_media']}%")
+    st.markdown(f"- Margem bruta esperada: {indicadores['benchmarks']['margem_bruta']}%")
+    st.markdown(f"- Margem operacional esperada: {indicadores['benchmarks']['margem_operacional']}%")
+    st.markdown(f"- Giro de estoque esperado: {indicadores['benchmarks']['giro_estoque']:.2f}")
+
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Margem Média", f"{indicadores['margem_media']:.1f}%", help="Resultado Médio / Receita Média")
@@ -401,8 +422,20 @@ def exibir_recomendacoes(recomendacoes: list):
     for rec in recomendacoes:
         st.markdown(f"- **{rec['texto']}** (Prioridade: {rec['prioridade']}, Prazo: {rec['prazo']})")
 
-def gerar_parecer_automatico(df_fluxo=None, df_dre=None, path_fluxo="./logic/CSVs/transacoes_numericas.xlsx"):
-    """Função principal para gerar o parecer financeiro."""
+def exibir_projecoes_cenario(projecoes: dict):
+    """Exibe projeções de cenários futuros na análise do parecer."""
+    st.subheader("📈 Projeções de Cenário")
+    for nome, dados in projecoes.items():
+        st.markdown(f"**Cenário {nome.capitalize()}**")
+        if "df" in dados:
+            st.dataframe(dados["df"], use_container_width=True)
+        if "grafico" in dados:
+            st.plotly_chart(dados["grafico"], use_container_width=True)
+        if "comentario" in dados:
+            st.markdown(f"_Comentário: {dados['comentario']}_")
+
+def gerar_parecer_automatico(df_fluxo=None, df_dre=None, path_fluxo="./logic/CSVs/transacoes_numericas.xlsx", projecoes=None):
+    """Função principal para gerar o parecer financeiro. Permite exportação e seleção personalizada de datas."""
     st.header("📄 Diagnóstico Financeiro Interativo")
     
     # Inicializar session_state para o período selecionado
@@ -461,3 +494,13 @@ def gerar_parecer_automatico(df_fluxo=None, df_dre=None, path_fluxo="./logic/CSV
         exibir_insights(insights)
         recomendacoes = gerar_recomendacoes(insights, indicadores)
         exibir_recomendacoes(recomendacoes)
+        # Exibe projeções de cenário se fornecidas
+        if projecoes:
+            exibir_projecoes_cenario(projecoes)
+    
+    # Adiciona botão para exportar parecer
+    st.markdown("#### Exportar parecer:")
+    if st.button("Exportar para Excel"):
+        parecer_df = pd.DataFrame({"Indicador": list(indicadores.keys()), "Valor": list(indicadores.values())})
+        parecer_df.to_excel("parecer_financeiro.xlsx")
+        st.success("Parecer exportado para 'parecer_financeiro.xlsx'.")

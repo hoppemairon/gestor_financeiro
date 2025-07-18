@@ -487,6 +487,10 @@ if st.session_state.df_transacoes_total is not None:
                         st.error("⚠️ Gere o Fluxo de Caixa e DRE antes de criar projeções.")
                     else:
                         meses_futuros = 60
+                        # Salva resultados no session_state para uso em outras abas
+                        st.session_state["resultado_fluxo"] = resultado_fluxo
+                        st.session_state["resultado_dre"] = resultado_dre
+
                         abas_cenarios = st.tabs(["Cenário Atual", "Cenário Pessimista", "Cenário Otimista"])
 
                         # Cenário Atual
@@ -646,8 +650,9 @@ if st.session_state.df_transacoes_total is not None:
         if st.button("🧾 Gerar Parecer Diagnóstico", key="btn_parecer"):
             with st.spinner("Gerando parecer diagnóstico... ⏳"):
                 df_transacoes_total = st.session_state.df_transacoes_total
+                # Usa os resultados salvos no session_state
                 resultado_fluxo = st.session_state.get("resultado_fluxo", exibir_fluxo_caixa(df_transacoes_total))
-                resultado_dre = exibir_dre(df_fluxo=resultado_fluxo)
+                resultado_dre = st.session_state.get("resultado_dre", exibir_dre(df_fluxo=resultado_fluxo))
                 if resultado_dre is not None and any(col in resultado_dre.columns for col in ["Receita", "Despesas", "Lucro"]):
                     for col in ["Receita", "Despesas", "Lucro"]:
                         if col in resultado_dre.columns:
@@ -682,15 +687,6 @@ if st.session_state.df_transacoes_total is not None:
                 
                 st.success("✅ Parecer gerado com sucesso!")
                 
-                st.markdown("### 📝 Parecer Financeiro")
-                st.markdown(parecer)
-                
-                st.download_button(
-                    label="📥 Baixar Parecer (.txt)",
-                    data=parecer,
-                    file_name=f"parecer_financeiro_{datetime.now().strftime('%Y%m%d_%H%M')}.txt",
-                    mime="text/plain"
-                )
 # Rodapé
 st.markdown("---")
 st.caption("© 2025 Sistema de Análise Financeira | Versão 1.0")
