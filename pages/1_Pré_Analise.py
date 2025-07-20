@@ -6,6 +6,7 @@ from datetime import datetime
 import numpy as np
 from dateutil.relativedelta import relativedelta
 import re
+import logging
 
 # Módulos do projeto
 from extractors.pdf_extractor import extrair_lancamentos_pdf
@@ -28,7 +29,19 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Configuração do logging
+logging.basicConfig(level=logging.INFO)
+
 # Funções auxiliares
+
+def validar_arquivo(file):
+    """Valida se o arquivo enviado possui um nome e extensão suportada."""
+    if not hasattr(file, "name"):
+        return False
+    nome = file.name
+    tipo = os.path.splitext(nome)[-1].lower()
+    return tipo in [".pdf", ".ofx", ".xlsx", ".txt", ".xls"]
+
 def formatar_valor_br(valor):
     """Formata um valor numérico para o formato brasileiro (R$)"""
     if pd.isna(valor):
@@ -248,6 +261,9 @@ if processar and uploaded_files:
         
         for i, file in enumerate(uploaded_files):
             progress_bar.progress((i + 0.5) / total_files)
+            
+            if not validar_arquivo(file):
+                continue
             
             resultado = processar_arquivo(file)
             st.session_state.log_uploads.append(resultado["mensagem"])

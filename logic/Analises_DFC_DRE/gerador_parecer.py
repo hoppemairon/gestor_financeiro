@@ -55,7 +55,14 @@ def extrair_metricas_principais(df_fluxo: pd.DataFrame, df_dre: pd.DataFrame = N
     return metricas
 
 def calcular_indicadores(metricas: Dict[str, pd.Series]) -> Dict[str, float]:
-    """Calcula indicadores financeiros avançados. Compara com benchmarks do setor."""
+    """
+    Calcula indicadores financeiros avançados. Compara com benchmarks do setor.
+
+    Explicação do cálculo da tendência:
+    - Para cada indicador (receita, despesa, resultado), a tendência é calculada usando uma regressão linear simples (numpy.polyfit).
+    - O valor retornado representa a inclinação da linha de tendência, ou seja, o quanto o indicador cresce ou diminui, em média, a cada mês.
+    - Exemplo: Se a tendência da receita for +1000, significa que, em média, a receita está aumentando R$ 1.000 por mês.
+    """
     indicadores = {}
     meses = metricas["total_receita"].index
 
@@ -83,6 +90,8 @@ def calcular_indicadores(metricas: Dict[str, pd.Series]) -> Dict[str, float]:
         try:
             x = np.arange(len(meses))
             y = np.array(metricas[key], dtype=np.float64)
+            # A tendência é a inclinação da reta ajustada aos dados mensais
+            # Representa o crescimento ou queda média mensal do indicador
             if len(y) >= 2 and np.isfinite(y).all():
                 indicadores[name] = np.polyfit(x, y, 1)[0]
             else:
@@ -108,14 +117,43 @@ def calcular_indicadores(metricas: Dict[str, pd.Series]) -> Dict[str, float]:
 def exibir_metricas_principais(metricas: Dict[str, pd.Series], indicadores: Dict[str, float]):
     """Exibe métricas principais em cards com comparativos e benchmarks."""
     st.subheader("📊 Indicadores Financeiros Principais")
+    st.markdown(
+        """
+        <small>
+        <b>Como é calculada a tendência?</b><br>
+        A tendência de cada indicador (receita, despesa, resultado) mostra o quanto ele cresce ou diminui, em média, a cada mês.<br>
+        É calculada por uma linha de tendência (regressão linear) sobre os valores mensais.<br>
+        Exemplo: tendência de +R$ 1.000 indica crescimento médio de R$ 1.000 por mês.
+        </small>
+        """,
+        unsafe_allow_html=True
+    )
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.metric("Receita Média", formatar_brl(indicadores["receita_media"]), f"{indicadores['tendencia_receita']:+.2f}", delta_color="normal")
+        st.metric(
+            "Receita Média",
+            formatar_brl(indicadores["receita_media"]),
+            formatar_brl(indicadores["tendencia_receita"]),
+            delta_color="normal",
+            help="Receita média mensal, considerando todas as receitas e Tendência."
+        )
     with col2:
-        st.metric("Despesa Média", formatar_brl(indicadores["despesa_media"]), f"{indicadores['tendencia_despesa']:+.2f}", delta_color="inverse")
+        st.metric(
+            "Despesa Média",
+            formatar_brl(indicadores["despesa_media"]),
+            formatar_brl(indicadores["tendencia_despesa"]),
+            delta_color="inverse",
+            help="Despesa média mensal, considerando todas as receitas e Tendência."
+        )
     with col3:
-        st.metric("Resultado Médio", formatar_brl(indicadores["resultado_medio"]), f"{indicadores['tendencia_resultado']:+.2f}", delta_color="normal")
+        st.metric(
+            "Resultado Médio",
+            formatar_brl(indicadores["resultado_medio"]),
+            formatar_brl(indicadores["tendencia_resultado"]),
+            delta_color="normal",
+            help="Resultado médio mensal, considerando receitas e despesas e a tendência."
+        )
     
     # Comparativo com benchmarks
     st.markdown("##### Benchmarks do setor (varejo):")
@@ -435,50 +473,20 @@ def exibir_projecoes_cenario(projecoes: dict):
             st.markdown(f"_Comentário: {dados['comentario']}_")
 
 def gerar_parecer_automatico(df_fluxo=None, df_dre=None, path_fluxo="./logic/CSVs/transacoes_numericas.xlsx", projecoes=None):
-    """Função principal para gerar o parecer financeiro. Permite exportação e seleção personalizada de datas."""
+    """Função principal para gerar o parecer financeiro. Sempre analisa todo o período."""
     st.header("📄 Diagnóstico Financeiro Interativo")
-    
-    # Inicializar session_state para o período selecionado
-    if "periodo_selecionado" not in st.session_state:
-        st.session_state.periodo_selecionado = "Todo o período"
-    
-    # Adiciona seletor de período
-    periodo_options = ["Últimos 3 meses", "Últimos 6 meses", "Último ano", "Todo o período"]
-    periodo_selecionado = st.selectbox(
-        "Selecione o período para análise:",
-        options=periodo_options,
-        index=periodo_options.index(st.session_state.periodo_selecionado),
-        key="periodo_selector"
-    )
-    
-    # Atualizar session_state apenas se o valor mudar
-    if periodo_selecionado != st.session_state.periodo_selecionado:
-        st.session_state.periodo_selecionado = periodo_selecionado
     
     # Carregar dados
     if df_fluxo is None:
         df_fluxo, df_dre = carregar_dados(path_fluxo)
         if df_fluxo is None:
             return
-    
-    # Filtrar por período selecionado
-    if st.session_state.periodo_selecionado != "Todo o período":
-        num_meses = 3 if "3" in st.session_state.periodo_selecionado else (6 if "6" in st.session_state.periodo_selecionado else 12)
-        if len(df_fluxo.columns) > num_meses:
-            df_fluxo = df_fluxo.iloc[:, -num_meses:]
-        if df_dre is not None and len(df_dre.columns) > num_meses:
-            df_dre = df_dre.iloc[:, -num_meses:]
-    
-    # Extrair métricas e calcular indicadores
+
+    # Sempre usa todo o período, sem filtro
     metricas = extrair_metricas_principais(df_fluxo, df_dre)
     indicadores = calcular_indicadores(metricas)
-    
-    # Exibir métricas principais
     exibir_metricas_principais(metricas, indicadores)
-    
-    # Criar abas para visualizações
     tab1, tab2 = st.tabs(["📊 Gráficos", "🧠 Análise e Recomendações"])
-    
     with tab1:
         st.plotly_chart(criar_grafico_resultado(metricas), use_container_width=True)
         st.plotly_chart(criar_grafico_receita_despesa(metricas), use_container_width=True)
@@ -488,17 +496,13 @@ def gerar_parecer_automatico(df_fluxo=None, df_dre=None, path_fluxo="./logic/CSV
         fig_margens = criar_grafico_margens(metricas)
         if fig_margens:
             st.plotly_chart(fig_margens, use_container_width=True)
-    
     with tab2:
         insights = gerar_insights(metricas, indicadores)
         exibir_insights(insights)
         recomendacoes = gerar_recomendacoes(insights, indicadores)
         exibir_recomendacoes(recomendacoes)
-        # Exibe projeções de cenário se fornecidas
         if projecoes:
             exibir_projecoes_cenario(projecoes)
-    
-    # Adiciona botão para exportar parecer
     st.markdown("#### Exportar parecer:")
     if st.button("Exportar para Excel"):
         parecer_df = pd.DataFrame({"Indicador": list(indicadores.keys()), "Valor": list(indicadores.values())})
