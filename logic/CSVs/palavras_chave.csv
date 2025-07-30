@@ -1,1 +1,9 @@
 PalavraChave,Tipo,Categoria
+Pix,Crédito,Receita de Vendas
+REDE,Crédito,Receita de Vendas
+Antecipacao,Crédito,Receita de Vendas
+Recebimento vendas,Crédito,Receita de Vendas
+REND PAGO APLIC,Crédito,Juros Recebidos
+Rendimento,Crédito,Juros Recebidos
+SALDO,Crédito,Saldo Inicial
+Vendas,Crédito,Receita de Vendas
