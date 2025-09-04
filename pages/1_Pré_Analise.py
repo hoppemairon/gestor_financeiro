@@ -229,7 +229,7 @@ st.markdown("""
 Este sistema realiza a pré-análise de documentos bancários, extraindo transações, categorizando-as e gerando relatórios financeiros.
 
 ### 📋 Instruções
-1. Envie os arquivos bancários (.pdf, .ofx, .xlsx, .txt)
+1. Envie os arquivos bancários (.ofx, .xlsx, .txt)
 2. O sistema extrairá e consolidará os dados
 3. Categorize as transações
 4. Gere relatórios de fluxo de caixa e DRE
@@ -240,7 +240,7 @@ Este sistema realiza a pré-análise de documentos bancários, extraindo transa�
 with st.expander("📎 Upload de Arquivos", expanded=True):
     uploaded_files = st.file_uploader(
         "Selecione os arquivos para análise",
-        type=["pdf", "ofx", "xlsx", "txt"],
+        type=["ofx", "xlsx", "txt"],
         accept_multiple_files=True,
         key=f"uploader_{st.session_state.uploader_key}"
     )
