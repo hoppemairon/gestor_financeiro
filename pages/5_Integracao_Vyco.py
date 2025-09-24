@@ -10,10 +10,12 @@ st.set_page_config(
 import pandas as pd
 import io
 import os
+import json
 from datetime import datetime
 import numpy as np
 from dateutil.relativedelta import relativedelta
 import re
+import requests
 import logging
 import uuid
 from dotenv import load_dotenv
@@ -36,7 +38,7 @@ except ImportError as e:
 # Módulos do projeto
 from logic.Analises_DFC_DRE.deduplicator import remover_duplicatas
 from logic.Analises_DFC_DRE.categorizador import categorizar_transacoes
-from logic.Analises_DFC_DRE.fluxo_caixa import exibir_fluxo_caixa
+from logic.Analises_DFC_DRE.fluxo_caixa import exibir_fluxo_caixa  # Função original para compatibilidade
 from logic.Analises_DFC_DRE.faturamento import coletar_faturamentos
 from logic.Analises_DFC_DRE.estoque import coletar_estoques
 from logic.Analises_DFC_DRE.gerador_parecer import gerar_parecer_automatico
@@ -98,7 +100,6 @@ def carregar_categorias_licenca(arquivo_json):
     if os.path.exists(arquivo_json):
         try:
             with open(arquivo_json, 'r', encoding='utf-8') as f:
-                import json
                 dados = json.load(f)
                 # Retornar dicionário diretamente
                 return dados if dados else {}
@@ -114,13 +115,96 @@ def salvar_categorias_licenca(arquivo_json, categorias_dict):
     """
     try:
         with open(arquivo_json, 'w', encoding='utf-8') as f:
-            import json
             # Salvar dicionário diretamente
             json.dump(categorias_dict, f, ensure_ascii=False, indent=2)
         return True
     except Exception as e:
         st.error(f"❌ Erro ao salvar categorias da licença: {e}")
         return False
+
+def salvar_faturamento_json(licenca_nome, dados_faturamento):
+    """
+    Salva os dados de faturamento em arquivo JSON específico da licença
+    """
+    try:
+        # Criar diretório para dados de licenças se não existir
+        dir_licencas = "./logic/CSVs/licencas"
+        if not os.path.exists(dir_licencas):
+            os.makedirs(dir_licencas)
+        
+        # Nome do arquivo baseado na licença
+        nome_limpo = "".join(c for c in licenca_nome if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        nome_limpo = nome_limpo.replace(' ', '_').lower()
+        arquivo_json = f"{dir_licencas}/{nome_limpo}_faturamento.json"
+        
+        with open(arquivo_json, 'w', encoding='utf-8') as f:
+            json.dump(dados_faturamento, f, ensure_ascii=False, indent=2)
+        
+        st.success(f"✅ Faturamento salvo em: {arquivo_json}")
+        return True
+    except Exception as e:
+        st.error(f"❌ Erro ao salvar faturamento: {e}")
+        return False
+
+def carregar_faturamento_json(licenca_nome):
+    """
+    Carrega os dados de faturamento do arquivo JSON da licença
+    """
+    try:
+        dir_licencas = "./logic/CSVs/licencas"
+        nome_limpo = "".join(c for c in licenca_nome if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        nome_limpo = nome_limpo.replace(' ', '_').lower()
+        arquivo_json = f"{dir_licencas}/{nome_limpo}_faturamento.json"
+        
+        if os.path.exists(arquivo_json):
+            with open(arquivo_json, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        return {}
+    except Exception as e:
+        st.error(f"❌ Erro ao carregar faturamento: {e}")
+        return {}
+
+def salvar_estoque_json(licenca_nome, dados_estoque):
+    """
+    Salva os dados de estoque em arquivo JSON específico da licença
+    """
+    try:
+        # Criar diretório para dados de licenças se não existir
+        dir_licencas = "./logic/CSVs/licencas"
+        if not os.path.exists(dir_licencas):
+            os.makedirs(dir_licencas)
+        
+        # Nome do arquivo baseado na licença
+        nome_limpo = "".join(c for c in licenca_nome if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        nome_limpo = nome_limpo.replace(' ', '_').lower()
+        arquivo_json = f"{dir_licencas}/{nome_limpo}_estoque.json"
+        
+        with open(arquivo_json, 'w', encoding='utf-8') as f:
+            json.dump(dados_estoque, f, ensure_ascii=False, indent=2)
+        
+        st.success(f"✅ Estoque salvo em: {arquivo_json}")
+        return True
+    except Exception as e:
+        st.error(f"❌ Erro ao salvar estoque: {e}")
+        return False
+
+def carregar_estoque_json(licenca_nome):
+    """
+    Carrega os dados de estoque do arquivo JSON da licença
+    """
+    try:
+        dir_licencas = "./logic/CSVs/licencas"
+        nome_limpo = "".join(c for c in licenca_nome if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        nome_limpo = nome_limpo.replace(' ', '_').lower()
+        arquivo_json = f"{dir_licencas}/{nome_limpo}_estoque.json"
+        
+        if os.path.exists(arquivo_json):
+            with open(arquivo_json, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        return {}
+    except Exception as e:
+        st.error(f"❌ Erro ao carregar estoque: {e}")
+        return {}
 
 def categorizar_transacoes_vyco(
     df_transacoes,
@@ -336,7 +420,6 @@ def categorizar_transacoes_vyco(
         if not categoria_padrao:
             if usar_categoria_vyco and categoria_vyco:
                 # Tentar mapear categoria do Vyco para o plano de contas
-                import re
                 categoria_vyco_escaped = re.escape(categoria_vyco)
                 categoria_match = df_plano_filtrado[df_plano_filtrado["Categoria"].str.contains(categoria_vyco_escaped, case=False, na=False)]
                 if not categoria_match.empty:
@@ -495,13 +578,11 @@ def categorizar_transacoes_vyco(
 def obter_ip_publico():
     """Obtém o IP público do usuário para configuração do firewall"""
     try:
-        import requests
         response = requests.get("https://api.ipify.org?format=text", timeout=5)
         if response.status_code == 200:
             return response.text.strip()
     except:
         try:
-            import requests
             response = requests.get("https://httpbin.org/ip", timeout=5)
             if response.status_code == 200:
                 return response.json().get("origin", "").split(",")[0].strip()
@@ -778,6 +859,421 @@ def resumir_por_ano(df, meses_projetados):
             
     return df_anual
 
+def criar_dre_vyco(df_fluxo, plano, licenca_nome):
+    """
+    Cria o DataFrame do DRE incluindo dados JSON de faturamento e estoque
+    """
+    # Carregar dados JSON salvos
+    dados_faturamento = carregar_faturamento_json(licenca_nome)
+    dados_estoque = carregar_estoque_json(licenca_nome)
+    
+    meses = df_fluxo.columns.tolist()
+    
+    # Função auxiliar para criar linhas
+    def linha(nome, serie):
+        return pd.DataFrame([serie], index=[nome])
+    
+    # Função para somar por grupo
+    def soma_por_grupo_local(df_fluxo, plano, grupo):
+        cats = plano[plano["Grupo"] == grupo]["Categoria"].tolist()
+        valores = df_fluxo.loc[df_fluxo.index.isin(cats)].sum()
+        # Se for despesa, inverter o sinal para positivo
+        grupos_despesas = ["Despesas", "Investimentos", "Retiradas", "Extra Operacional"]
+        if any(desp in grupo for desp in grupos_despesas):
+            valores = valores.abs()
+        return valores
+    
+    # Função para somar por categoria
+    def soma_por_categoria_local(df_fluxo, *categorias):
+        return df_fluxo.loc[df_fluxo.index.isin(categorias)].sum()
+    
+    # Construção do DRE por etapas
+    dre = pd.DataFrame()
+    
+    # Criar linha de faturamento com dados JSON
+    faturamento_serie = pd.Series(index=meses, dtype=float)
+    for mes in meses:
+        faturamento_serie[mes] = dados_faturamento.get(mes, 0.0)
+    
+    # Bloco 1: Faturamento e Margem de Contribuição
+    dre = pd.concat([
+        linha("FATURAMENTO", faturamento_serie),
+        linha("RECEITA", soma_por_categoria_local(df_fluxo, "Receita de Vendas", "Receita de Serviços")),
+        linha("IMPOSTOS", soma_por_grupo_local(df_fluxo, plano, "Despesas Impostos")),
+        linha("DESPESA OPERACIONAL", soma_por_grupo_local(df_fluxo, plano, "Despesas Operacionais")),
+    ])
+    
+    dre.loc["MARGEM CONTRIBUIÇÃO"] = dre.loc["RECEITA"] - dre.loc["IMPOSTOS"] - dre.loc["DESPESA OPERACIONAL"]
+    
+    # Bloco 2: Lucro Operacional
+    dre = pd.concat([
+        dre,
+        linha("DESPESAS COM PESSOAL", soma_por_grupo_local(df_fluxo, plano, "Despesas RH")),
+        linha("DESPESA ADMINISTRATIVA", soma_por_grupo_local(df_fluxo, plano, "Despesas Administrativas")),
+    ])
+    
+    dre.loc["LUCRO OPERACIONAL"] = dre.loc["MARGEM CONTRIBUIÇÃO"] - dre.loc["DESPESAS COM PESSOAL"] - dre.loc["DESPESA ADMINISTRATIVA"]
+    
+    # Bloco 3: Lucro Líquido
+    dre = pd.concat([
+        dre,
+        linha("INVESTIMENTOS", soma_por_grupo_local(df_fluxo, plano, "Investimentos / Aplicações")),
+        linha("DESPESA EXTRA OPERACIONAL", soma_por_grupo_local(df_fluxo, plano, "Extra Operacional")),
+    ])
+    
+    dre.loc["LUCRO LIQUIDO"] = dre.loc["LUCRO OPERACIONAL"] - dre.loc["INVESTIMENTOS"] - dre.loc["DESPESA EXTRA OPERACIONAL"]
+    
+    # Bloco 4: Resultado Final
+    dre = pd.concat([
+        dre,
+        linha("RETIRADAS SÓCIOS", soma_por_grupo_local(df_fluxo, plano, "Retiradas")),
+        linha("RECEITA EXTRA OPERACIONAL", soma_por_categoria_local(df_fluxo, "Outros Recebimentos")),
+    ])
+    
+    dre.loc["RESULTADO"] = dre.loc["LUCRO LIQUIDO"] - dre.loc["RETIRADAS SÓCIOS"] + dre.loc["RECEITA EXTRA OPERACIONAL"]
+    
+    # Criar linha de estoque com dados JSON
+    estoque_serie = pd.Series(index=meses, dtype=float)
+    for mes in meses:
+        estoque_serie[mes] = dados_estoque.get(mes, 0.0)
+    
+    # Bloco 5: Saldo e Resultado Final
+    dre = pd.concat([
+        dre,
+        linha("ESTOQUE", estoque_serie),
+        linha("SALDO", pd.Series([0.0] * len(meses), index=meses)),  # Placeholder para saldo
+    ])
+    
+    dre.loc["RESULTADO GERENCIAL"] = dre.loc["RESULTADO"]
+    
+    # Adicionar coluna TOTAL (soma de todos os meses)
+    dre["TOTAL"] = dre[meses].sum(axis=1)
+    
+    # Adicionar coluna % (percentual em relação ao faturamento)
+    dre["%"] = pd.Series([0.0] * len(dre), index=dre.index)
+    faturamento_total = dre.loc["FATURAMENTO", "TOTAL"]
+    if faturamento_total != 0:
+        for idx in dre.index:
+            dre.loc[idx, "%"] = (dre.loc[idx, "TOTAL"] / faturamento_total) * 100
+    
+    return dre
+
+def exibir_dre_vyco(df_fluxo, licenca_nome, path_plano="./logic/CSVs/plano_de_contas.csv"):
+    """
+    Função para exibir DRE com dados JSON do Vyco
+    """
+    try:
+        plano = pd.read_csv(path_plano)
+        return criar_dre_vyco(df_fluxo, plano, licenca_nome)
+    except Exception as e:
+        st.error(f"Erro ao criar DRE: {e}")
+        return None
+
+def exibir_fluxo_caixa_vyco(df_transacoes, licenca_nome):
+    """
+    Gera e exibe o fluxo de caixa específico para Vyco usando dados JSON
+    """
+    st.markdown("## 📊 Fluxo de Caixa (por Categoria e Mês) - Vyco")
+
+    # Verificar se o DataFrame está vazio
+    if df_transacoes.empty:
+        st.warning("⚠️ Não há transações para gerar o fluxo de caixa.")
+        return pd.DataFrame()
+
+    # Verificar se as colunas necessárias existem
+    colunas_necessarias = ["Considerar", "Valor (R$)", "Data", "Categoria"]
+    colunas_faltantes = [col for col in colunas_necessarias if col not in df_transacoes.columns]
+
+    if colunas_faltantes:
+        st.error(f"❌ Colunas necessárias ausentes: {', '.join(colunas_faltantes)}")
+        return pd.DataFrame()
+
+    # Criar cópia para não modificar o original
+    df_filtrado = df_transacoes.copy()
+
+    # Filtrar apenas transações a considerar
+    if "Considerar" in df_filtrado.columns:
+        df_filtrado = df_filtrado[df_filtrado["Considerar"].astype(str).str.lower() == "sim"].copy()
+
+    # Converter valores para numérico
+    df_filtrado["Valor (R$)"] = pd.to_numeric(df_filtrado["Valor (R$)"], errors="coerce").fillna(0)
+
+    # Converter Data para datetime
+    df_filtrado["Data"] = pd.to_datetime(df_filtrado["Data"], errors="coerce")
+    df_filtrado = df_filtrado.dropna(subset=["Data"])
+
+    # Criar coluna Mês-Ano
+    df_filtrado["Mes"] = df_filtrado["Data"].dt.to_period("M").astype(str)
+
+    # Criar pivot table
+    df_pivot = df_filtrado.groupby(["Categoria", "Mes"])["Valor (R$)"].sum().unstack(fill_value=0)
+
+    # Obter todos os meses únicos
+    meses = sorted(df_pivot.columns)
+
+    # Adicionar informações de tipo (Crédito/Débito)
+    df_pivot["__tipo__"] = df_pivot.apply(lambda row: "Crédito" if row.sum() > 0 else "Débito", axis=1)
+
+    # Calcular totais básicos
+    receitas = df_pivot[df_pivot["__tipo__"] == "Crédito"][meses].sum()
+    despesas = df_pivot[df_pivot["__tipo__"] == "Débito"][meses].sum()
+    resultado = receitas + despesas  # Despesas já são negativas
+
+    # Carregar dados JSON de faturamento e estoque
+    dados_faturamento = carregar_faturamento_json(licenca_nome)
+    dados_estoque = carregar_estoque_json(licenca_nome)
+
+    # Criar linha de faturamento com dados JSON
+    faturamento_valores = []
+    for mes in meses:
+        faturamento_valores.append(dados_faturamento.get(mes, 0.0))
+    linha_fat = pd.DataFrame([faturamento_valores], index=["💰 Faturamento Bruto"], columns=meses)
+
+    # Criar linha de estoque com dados JSON
+    estoque_valores = []
+    for mes in meses:
+        estoque_valores.append(dados_estoque.get(mes, 0.0))
+    linha_estoque = pd.DataFrame([estoque_valores], index=["📦 Estoque Final"], columns=meses)
+
+    # Separar receitas e despesas
+    df_receitas = df_pivot[df_pivot["__tipo__"] == "Crédito"].drop(columns=["__tipo__"])
+    df_despesas = df_pivot[df_pivot["__tipo__"] == "Débito"].drop(columns=["__tipo__"])
+
+    # Criar linhas de divisão
+    linha_div_receitas = pd.DataFrame([[None]*len(meses)], index=["🟦 Receitas"], columns=meses)
+    linha_div_despesas = pd.DataFrame([[None]*len(meses)], index=["🟥 Despesas"], columns=meses)
+
+    # Criar linhas de totais
+    linha_total_receitas = pd.DataFrame([receitas], index=["🔷 Total de Receitas"])
+    linha_total_despesas = pd.DataFrame([despesas], index=["🔻 Total de Despesas"])
+    linha_resultado = pd.DataFrame([resultado], index=["🏦 Resultado do Período"])
+
+    # Concatenar tudo na ordem
+    df_final = pd.concat([
+        linha_fat,
+        linha_div_receitas,
+        df_receitas,
+        linha_total_receitas,
+        linha_div_despesas,
+        df_despesas,
+        linha_total_despesas,
+        linha_resultado,
+        linha_estoque
+    ])
+
+    # Calcular variações percentuais mês a mês
+    if len(meses) > 1:
+        df_variacoes = pd.DataFrame(index=df_final.index, columns=[f"Var. {meses[-1]}" if len(meses) == 2 
+                                                                  else f"Var. {meses[-2]}/{meses[-1]}"])
+        for idx in df_final.index:
+            if idx in ["🟦 Receitas", "🟥 Despesas"] or pd.isna(df_final.loc[idx, meses[-1]]) or pd.isna(df_final.loc[idx, meses[-2]]):
+                df_variacoes.loc[idx] = None
+            else:
+                def calcular_variacao_percentual_local(valor_atual, valor_anterior):
+                    if valor_anterior == 0:
+                        return float('inf') if valor_atual > 0 else float('-inf') if valor_atual < 0 else 0
+                    return ((valor_atual - valor_anterior) / abs(valor_anterior)) * 100
+                
+                variacao = calcular_variacao_percentual_local(df_final.loc[idx, meses[-1]], df_final.loc[idx, meses[-2]])
+                df_variacoes.loc[idx] = variacao
+        df_variacoes_fmt = df_variacoes.map(lambda x: f"{x:+.1f}%" if pd.notnull(x) else "")
+        df_final_com_var = pd.concat([df_final, df_variacoes_fmt], axis=1)
+    else:
+        df_final_com_var = df_final
+
+    # Formatar valores para exibição
+    df_formatado = df_final_com_var.copy()
+    for col in meses:
+        df_formatado[col] = df_formatado[col].apply(lambda x: f"R$ {float(x):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") if pd.notnull(x) and isinstance(x, (int, float)) else "")
+
+    # Exibir tabela formatada
+    st.markdown("### 📋 Tabela de Fluxo de Caixa")
+    st.dataframe(df_formatado, use_container_width=True)
+
+    # ---------------------- GRÁFICOS EM ABAS ----------------------
+    st.markdown("### 📈 Visualização Gráfica")
+    abas = st.tabs([
+        "Resultado Mensal",
+        "Receitas vs Despesas"
+    ])
+
+    # 1. Resultado Mensal
+    with abas[0]:
+        import plotly.graph_objects as go
+        fig = go.Figure()
+        fig.add_trace(go.Bar(
+            x=meses,
+            y=resultado.values,
+            name="Resultado",
+            marker_color=['green' if x >= 0 else 'red' for x in resultado.values]
+        ))
+        fig.update_layout(
+            title="Resultado Mensal",
+            xaxis_title="Mês",
+            yaxis_title="Valor (R$)",
+            template="plotly_white",
+            height=500
+        )
+        fig.add_shape(
+            type="line",
+            x0=meses[0],
+            y0=0,
+            x1=meses[-1],
+            y1=0,
+            line=dict(color="black", width=1, dash="dash")
+        )
+        for i, valor in enumerate(resultado.values):
+            fig.add_annotation(
+                x=meses[i],
+                y=valor,
+                text=f"R$ {float(valor):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                showarrow=False,
+                yshift=10 if valor >= 0 else -20
+            )
+        st.plotly_chart(fig, use_container_width=True)
+
+    # 2. Receitas vs Despesas
+    with abas[1]:
+        fig = go.Figure()
+        fig.add_trace(go.Bar(
+            x=meses,
+            y=receitas.values,
+            name="Receitas",
+            marker_color="green"
+        ))
+        fig.add_trace(go.Bar(
+            x=meses,
+            y=despesas.values,
+            name="Despesas",
+            marker_color="red"
+        ))
+        fig.update_layout(
+            title="Receitas vs Despesas",
+            xaxis_title="Mês",
+            yaxis_title="Valor (R$)",
+            template="plotly_white",
+            height=500,
+            barmode='group'
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+    return df_final
+
+def coletar_faturamentos_vyco(df_transacoes, licenca_nome):
+    """
+    Coleta faturamentos com salvamento em JSON por licença
+    """
+    st.markdown("## 🧾 Cadastro de Faturamento por Mês")
+    st.markdown("#### 💵 Preencha o faturamento bruto mensal:")
+
+    # Garante que a data está em datetime
+    df_transacoes["Data"] = pd.to_datetime(df_transacoes["Data"], format="%d/%m/%Y", errors="coerce")
+    df_transacoes = df_transacoes.dropna(subset=["Data"])
+
+    meses = sorted(df_transacoes["Data"].dt.to_period("M").astype(str).unique())
+
+    # Carregar dados existentes do JSON
+    dados_salvos = carregar_faturamento_json(licenca_nome)
+
+    valores_input = {}
+    dados_atualizados = {}
+
+    for mes in meses:
+        valor_antigo = dados_salvos.get(mes, 0.0)
+        valor_formatado = formatar_valor_br(valor_antigo)
+
+        col1, col2 = st.columns([1.5, 3])
+        with col1:
+            st.markdown(f"**Faturamento para {mes}**")
+        with col2:
+            input_valor = st.text_input(
+                label=f"Valor do faturamento para {mes}",
+                value=valor_formatado,
+                key=f"faturamento_vyco_{mes}",
+                label_visibility="collapsed",
+                placeholder="Ex: 50.000,00"
+            )
+            
+            try:
+                valor_numerico = float(input_valor.replace(".", "").replace(",", ".").strip())
+                valores_input[mes] = valor_numerico
+                dados_atualizados[mes] = valor_numerico
+            except:
+                valores_input[mes] = 0.0
+                dados_atualizados[mes] = 0.0
+
+    # Botão para salvar
+    if st.button("💾 Salvar Faturamentos", key="salvar_faturamentos_vyco"):
+        if salvar_faturamento_json(licenca_nome, dados_atualizados):
+            st.success("✅ Faturamentos salvos com sucesso!")
+            st.rerun()
+
+    # Exibir tabela dos dados salvos se existirem
+    if dados_salvos:
+        st.markdown("### 📊 Faturamentos Salvos")
+        df_faturamentos = pd.DataFrame([
+            {"Mês": mes, "Valor": formatar_valor_br(valor)}
+            for mes, valor in dados_salvos.items()
+        ])
+        st.dataframe(df_faturamentos, use_container_width=True)
+
+def coletar_estoques_vyco(df_transacoes, licenca_nome):
+    """
+    Coleta estoques com salvamento em JSON por licença
+    """
+    st.markdown("## 📦 Cadastro de Estoque Final por Mês")
+    st.markdown("#### 🧾 Informe o valor do estoque no fim de cada mês:")
+
+    # Garante que datas estejam OK
+    df_transacoes["Data"] = pd.to_datetime(df_transacoes["Data"], format="%d/%m/%Y", errors="coerce")
+    df_transacoes = df_transacoes.dropna(subset=["Data"])
+    meses = sorted(df_transacoes["Data"].dt.to_period("M").astype(str).unique())
+
+    # Carregar dados existentes do JSON
+    dados_salvos = carregar_estoque_json(licenca_nome)
+
+    valores_input = {}
+    dados_atualizados = {}
+
+    for mes in meses:
+        valor_antigo = dados_salvos.get(mes, 0.0)
+        valor_formatado = formatar_valor_br(valor_antigo)
+
+        col1, col2 = st.columns([1.5, 3])
+        with col1:
+            st.markdown(f"**Estoque para {mes}**")
+        with col2:
+            input_valor = st.text_input(
+                label=f"Valor do estoque para {mes}",
+                value=valor_formatado,
+                key=f"estoque_vyco_{mes}",
+                label_visibility="collapsed",
+                placeholder="Ex: 50.000,00"
+            )
+            
+            try:
+                valor_numerico = float(input_valor.replace(".", "").replace(",", ".").strip())
+                valores_input[mes] = valor_numerico
+                dados_atualizados[mes] = valor_numerico
+            except:
+                valores_input[mes] = 0.0
+                dados_atualizados[mes] = 0.0
+
+    # Botão para salvar
+    if st.button("💾 Salvar Estoques", key="salvar_estoques_vyco"):
+        if salvar_estoque_json(licenca_nome, dados_atualizados):
+            st.success("✅ Estoques salvos com sucesso!")
+            st.rerun()
+
+    # Exibir tabela dos dados salvos se existirem
+    if dados_salvos:
+        st.markdown("### 📊 Estoques Salvos")
+        df_estoques = pd.DataFrame([
+            {"Mês": mes, "Valor": formatar_valor_br(valor)}
+            for mes, valor in dados_salvos.items()
+        ])
+        st.dataframe(df_estoques, use_container_width=True)
+
 # Título principal
 st.title("🔗 Integração Vyco - Análise de Dados Bancários")
 st.markdown("### Análise financeira integrada com dados do sistema Vyco")
@@ -1032,13 +1528,38 @@ if 'df_vyco_processado' in st.session_state:
     with tab2:
         st.header("💹 Faturamento e Estoque - Dados Vyco")
         
-        if 'df_transacoes_total_vyco' in st.session_state:
-            df_faturamento = coletar_faturamentos(st.session_state.df_transacoes_total_vyco)
-            if df_faturamento is not None and "Valor" in df_faturamento.columns:
-                df_faturamento["Valor"] = df_faturamento["Valor"].apply(formatar_valor_br)
-                st.dataframe(df_faturamento, use_container_width=True)
+        if 'df_transacoes_total_vyco' in st.session_state and 'licenca_atual' in st.session_state:
+            # Status dos arquivos JSON
+            st.info(f"📄 **Licença atual:** {st.session_state.licenca_atual}")
             
-            coletar_estoques(st.session_state.df_transacoes_total_vyco)
+            # Verificar se existem dados salvos
+            dados_faturamento = carregar_faturamento_json(st.session_state.licenca_atual)
+            dados_estoque = carregar_estoque_json(st.session_state.licenca_atual)
+            
+            col_status1, col_status2 = st.columns(2)
+            with col_status1:
+                if dados_faturamento:
+                    st.success(f"✅ Faturamento: {len(dados_faturamento)} meses salvos")
+                else:
+                    st.warning("⚠️ Nenhum faturamento salvo")
+            
+            with col_status2:
+                if dados_estoque:
+                    st.success(f"✅ Estoque: {len(dados_estoque)} meses salvos")
+                else:
+                    st.warning("⚠️ Nenhum estoque salvo")
+            
+            st.markdown("---")
+            
+            # Seção de Faturamento
+            coletar_faturamentos_vyco(st.session_state.df_transacoes_total_vyco, st.session_state.licenca_atual)
+            
+            st.markdown("---")
+            
+            # Seção de Estoque
+            coletar_estoques_vyco(st.session_state.df_transacoes_total_vyco, st.session_state.licenca_atual)
+        else:
+            st.warning("⚠️ Carregue os dados da licença primeiro na aba 'Dados Vyco'")
 
     with tab3:
         st.header("📅 Projeções Futuras - Vyco")
@@ -1046,13 +1567,13 @@ if 'df_vyco_processado' in st.session_state:
         if 'df_transacoes_total_vyco' in st.session_state:
             # Configuração dos cenários de projeção
             st.markdown("---")
-            st.subheader("“Š Configuração de Projeções Futuras")
+            st.subheader("⚙️ Configuração de Projeções Futuras")
             
             # Layout em colunas organizadas
             col1, col2, col3 = st.columns([2, 2, 3])
             
             with col1:
-                st.markdown("##### ⚙️ Parâmetros Gerais")
+                st.markdown("##### 🔧 Parâmetros Gerais")
                 inflacao_anual = st.number_input("Inflação anual (%):", min_value=0.0, max_value=100.0, value=5.0, step=0.1, key="vyco_inflacao")
                 meses_futuros = st.number_input("Meses a projetar:", min_value=1, max_value=36, value=6, step=1, key="vyco_meses")
             
@@ -1067,7 +1588,7 @@ if 'df_vyco_processado' in st.session_state:
                 otim_despesa = st.number_input("Despesas (%):", min_value=-100.0, max_value=100.0, value=-5.0, step=1.0, key="vyco_otim_desp")
             
             # Informações explicativas em um expander
-            with st.expander("ℹ️ Como funcionam os cenários"):
+            with st.expander("ℹ️ Como funcionam os cenários"):
                 st.markdown("""
                 **”µ Cenário Realista:** Aplica apenas a inflação configurada aos valores históricos.
                 
@@ -1117,84 +1638,96 @@ if 'df_vyco_processado' in st.session_state:
             # Processamento das projeções (fora da estrutura de colunas para usar largura total)
             if btn_projecoes_clicado:
                 with st.spinner("Gerando projeções dos dados Vyco... "):
-                    # Gerar dados históricos
-                    resultado_fluxo = exibir_fluxo_caixa(st.session_state.df_transacoes_total_vyco)
-                    resultado_dre = exibir_dre(df_fluxo=resultado_fluxo)
+                    # Gerar dados históricos usando função específica do Vyco
+                    resultado_fluxo = exibir_fluxo_caixa_vyco(st.session_state.df_transacoes_total_vyco, st.session_state.licenca_atual)
+                    resultado_dre = exibir_dre_vyco(resultado_fluxo, st.session_state.licenca_atual)
 
                 if resultado_dre is not None:
-                    st.success("… Projeções geradas com sucesso!")
+                    st.success("✅ Projeções geradas com sucesso!")
 
                     # Importar funções necessárias
                     from logic.Analises_DFC_DRE.exibir_dre import formatar_dre, highlight_rows
 
                     # Função para projetar valores (adaptada do sistema principal)
                     def projetar_valores_vyco(df, inflacao_anual, meses_futuros, percentual_receita=0, percentual_despesa=0):
-                            import pandas as pd
-                            import re
-                            df_projetado = df.copy()
-                            colunas_meses = [col for col in df.columns if re.match(r'\d{4}-\d{2}', col)]
-                            if not colunas_meses:
-                                return df_projetado, []
+                        df_projetado = df.copy()
+                        colunas_meses = [col for col in df.columns if re.match(r'\d{4}-\d{2}', col)]
+                        if not colunas_meses:
+                            return df_projetado, []
 
-                            ultimo_mes = pd.to_datetime(colunas_meses[-1], format="%Y-%m").to_period("M")
-                            meses_projetados = [ultimo_mes + i for i in range(1, meses_futuros + 1)]
-                            meses_projetados = [m.strftime("%Y-%m") for m in meses_projetados]
+                        ultimo_mes = pd.to_datetime(colunas_meses[-1], format="%Y-%m").to_period("M")
+                        meses_projetados = [ultimo_mes + i for i in range(1, meses_futuros + 1)]
+                        meses_projetados = [m.strftime("%Y-%m") for m in meses_projetados]
 
-                            for mes in meses_projetados:
-                                df_projetado[mes] = 0
-                                for idx in df_projetado.index:
-                                    tipo = df_projetado.loc[idx, "__tipo__"] if "__tipo__" in df_projetado.columns else ""
-                                    valor_base = df_projetado.loc[idx, colunas_meses[-1]] if colunas_meses[-1] in df_projetado.columns else 0
-                                    if isinstance(valor_base, str):
-                                        valor_base = converter_para_float(valor_base)
+                        for mes in meses_projetados:
+                            df_projetado[mes] = 0
+                            for idx in df_projetado.index:
+                                tipo = df_projetado.loc[idx, "__tipo__"] if "__tipo__" in df_projetado.columns else ""
+                                valor_base = df_projetado.loc[idx, colunas_meses[-1]] if colunas_meses[-1] in df_projetado.columns else 0
+                                if isinstance(valor_base, str):
+                                    valor_base = converter_para_float(valor_base)
 
-                                    inflacao_fator = (1 + inflacao_anual / 100) ** ((meses_projetados.index(mes) + 1) / 12)
+                                inflacao_fator = (1 + inflacao_anual / 100) ** ((meses_projetados.index(mes) + 1) / 12)
 
-                                    if "RECEITA" in str(idx).upper() or "FATURAMENTO" in str(idx).upper():
-                                        df_projetado.loc[idx, mes] = valor_base * inflacao_fator * (1 + percentual_receita / 100)
-                                    elif any(desp in str(idx).upper() for desp in ["DESPESA", "CUSTO", "GASTO"]):
-                                        df_projetado.loc[idx, mes] = valor_base * inflacao_fator * (1 + percentual_despesa / 100)
-                                    else:
-                                        df_projetado.loc[idx, mes] = valor_base * inflacao_fator
+                                if "RECEITA" in str(idx).upper() or "FATURAMENTO" in str(idx).upper():
+                                    df_projetado.loc[idx, mes] = valor_base * inflacao_fator * (1 + percentual_receita / 100)
+                                elif any(desp in str(idx).upper() for desp in ["DESPESA", "CUSTO", "GASTO"]):
+                                    df_projetado.loc[idx, mes] = valor_base * inflacao_fator * (1 + percentual_despesa / 100)
+                                else:
+                                    df_projetado.loc[idx, mes] = valor_base * inflacao_fator
 
-                            # Recalcular totais
-                            todas_colunas = [col for col in df_projetado.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
-                            df_projetado["TOTAL"] = df_projetado[todas_colunas].sum(axis=1)
+                        # Recalcular totais
+                        todas_colunas = [col for col in df_projetado.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
+                        df_projetado["TOTAL"] = df_projetado[todas_colunas].sum(axis=1)
+                        
+                        # Recalcular percentuais
+                        if "%" in df_projetado.columns:
+                            # Encontrar a linha de faturamento para calcular percentuais
+                            faturamento_rows = df_projetado.index[df_projetado.index.str.contains("FATURAMENTO", case=False, na=False)]
+                            if len(faturamento_rows) > 0:
+                                faturamento_total = df_projetado.loc[faturamento_rows[0], "TOTAL"]
+                                if faturamento_total != 0:
+                                    for idx in df_projetado.index:
+                                        df_projetado.loc[idx, "%"] = (df_projetado.loc[idx, "TOTAL"] / faturamento_total) * 100
+                                else:
+                                    df_projetado["%"] = 0.0
+                            else:
+                                df_projetado["%"] = 0.0
 
-                            return df_projetado, meses_projetados
+                        return df_projetado, meses_projetados
 
                     # Criar abas para cenários
                     abas_cenarios = st.tabs(["📊 Cenário Realista", "📉 Cenário Pessimista", "📈 Cenário Otimista"])
 
                     # Cenário Realista (apenas inflação)
                     with abas_cenarios[0]:
-                            st.subheader("Cenário Realista (apenas inflação)")
-                            dre_realista, meses_proj = projetar_valores_vyco(resultado_dre, inflacao_anual, meses_futuros)
+                        st.subheader("Cenário Realista (apenas inflação)")
+                        dre_realista, meses_proj = projetar_valores_vyco(resultado_dre, inflacao_anual, meses_futuros)
 
-                            meses_exibir = [col for col in dre_realista.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
-                            dre_formatado = formatar_dre(dre_realista, meses_exibir)
+                        meses_exibir = [col for col in dre_realista.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
+                        dre_formatado = formatar_dre(dre_realista, meses_exibir)
 
-                            st.dataframe(
-                                dre_formatado.style.apply(highlight_rows, axis=1).hide(axis="index"),
-                                use_container_width=True, 
-                                hide_index=True,
-                                height=650
-                            )
+                        st.dataframe(
+                            dre_formatado.style.apply(highlight_rows, axis=1).hide(axis="index"),
+                            use_container_width=True,
+                            hide_index=True,
+                            height=650
+                        )
 
                     # Cenário Pessimista
                     with abas_cenarios[1]:
-                            st.subheader(f"Cenário Pessimista ({pess_receita:+.0f}% receitas, {pess_despesa:+.0f}% despesas)")
-                            dre_pessimista, _ = projetar_valores_vyco(resultado_dre, inflacao_anual, meses_futuros, pess_receita, pess_despesa)
+                        st.subheader(f"Cenário Pessimista ({pess_receita:+.0f}% receitas, {pess_despesa:+.0f}% despesas)")
+                        dre_pessimista, _ = projetar_valores_vyco(resultado_dre, inflacao_anual, meses_futuros, pess_receita, pess_despesa)
 
-                            meses_exibir = [col for col in dre_pessimista.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
-                            dre_formatado = formatar_dre(dre_pessimista, meses_exibir)
+                        meses_exibir = [col for col in dre_pessimista.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
+                        dre_formatado = formatar_dre(dre_pessimista, meses_exibir)
 
-                            st.dataframe(
-                                dre_formatado.style.apply(highlight_rows, axis=1).hide(axis="index"),
-                                use_container_width=True, 
-                                hide_index=True,
-                                height=650
-                            )
+                        st.dataframe(
+                            dre_formatado.style.apply(highlight_rows, axis=1).hide(axis="index"),
+                            use_container_width=True, 
+                            hide_index=True,
+                            height=650
+                        )
 
                     # Cenário Otimista
                     with abas_cenarios[2]:
@@ -1224,12 +1757,23 @@ if 'df_vyco_processado' in st.session_state:
         if st.button("🧾 Gerar Parecer Diagnóstico Vyco", key="btn_parecer_vyco"):
             if 'df_transacoes_total_vyco' in st.session_state:
                 with st.spinner("Gerando parecer diagnóstico dos dados Vyco... ⏳"):
-                    resultado_fluxo = st.session_state.get("resultado_fluxo_vyco", exibir_fluxo_caixa(st.session_state.df_transacoes_total_vyco))
-                    resultado_dre = st.session_state.get("resultado_dre_vyco", exibir_dre(df_fluxo=resultado_fluxo))
+                    # Gerar fluxo de caixa com dados JSON específicos do Vyco
+                    resultado_fluxo = exibir_fluxo_caixa_vyco(st.session_state.df_transacoes_total_vyco, st.session_state.licenca_atual)
+                    resultado_dre = exibir_dre_vyco(resultado_fluxo, st.session_state.licenca_atual)
                     
+                    # Exibir DRE formatado
                     if resultado_dre is not None:
-                        st.dataframe(resultado_dre, use_container_width=True)
+                        st.markdown("### 📊 DRE - Demonstração do Resultado do Exercício")
+                        from logic.Analises_DFC_DRE.exibir_dre import formatar_dre, highlight_rows
+                        meses_dre = [col for col in resultado_dre.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
+                        dre_formatado = formatar_dre(resultado_dre, meses_dre)
+                        st.dataframe(
+                            dre_formatado.style.apply(highlight_rows, axis=1).hide(axis="index"),
+                            use_container_width=True,
+                            height=600
+                        )
                     
+                    # Gerar parecer automático com dados do fluxo de caixa
                     gerar_parecer_automatico(resultado_fluxo)
     
     with tab5:
@@ -1247,9 +1791,23 @@ if 'df_vyco_processado' in st.session_state:
                 st.warning("⚠️ Por favor, preencha a descrição da empresa antes de gerar o parecer.")
             elif 'df_transacoes_total_vyco' in st.session_state:
                 with st.spinner("Gerando parecer financeiro com inteligência artificial dos dados Vyco... ⏳"):
-                    resultado_fluxo = st.session_state.get("resultado_fluxo_vyco", exibir_fluxo_caixa(st.session_state.df_transacoes_total_vyco))
-                    resultado_dre = st.session_state.get("resultado_dre_vyco", exibir_dre(df_fluxo=resultado_fluxo))
+                    # Gerar fluxo de caixa com dados JSON específicos do Vyco
+                    resultado_fluxo = exibir_fluxo_caixa_vyco(st.session_state.df_transacoes_total_vyco, st.session_state.licenca_atual)
+                    resultado_dre = exibir_dre_vyco(resultado_fluxo, st.session_state.licenca_atual)
                     
+                    # Exibir DRE formatado
+                    if resultado_dre is not None:
+                        st.markdown("### 📊 DRE - Demonstração do Resultado do Exercício")
+                        from logic.Analises_DFC_DRE.exibir_dre import formatar_dre, highlight_rows
+                        meses_dre = [col for col in resultado_dre.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
+                        dre_formatado = formatar_dre(resultado_dre, meses_dre)
+                        st.dataframe(
+                            dre_formatado.style.apply(highlight_rows, axis=1).hide(axis="index"),
+                            use_container_width=True,
+                            height=600
+                        )
+                    
+                    # Gerar parecer inteligente com dados completos
                     parecer = analisar_dfs_com_gpt(resultado_dre, resultado_fluxo, descricao_empresa)
                 
                 st.success("✅ Parecer gerado com sucesso!")
