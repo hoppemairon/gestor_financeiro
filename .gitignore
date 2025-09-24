@@ -29,6 +29,10 @@ Thumbs.db
 *.log
 *.tmp
 *.bak
+temp/
+*_temp.*
+*_backup.*
+fix_*.py
 
 # Arquivos de exportação
 *.xlsx

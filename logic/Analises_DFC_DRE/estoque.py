@@ -42,7 +42,7 @@ def coletar_estoques(df_transacoes, path_csv="./logic/CSVs/estoques.csv"):
             st.markdown(f"**Estoque para {mes}**")
         with col2:
             input_valor = st.text_input(
-                label="",
+                label=f"Valor do estoque para {mes}",
                 value=valor_formatado,
                 key=f"estoque_{mes}",
                 label_visibility="collapsed",

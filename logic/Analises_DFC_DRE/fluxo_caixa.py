@@ -53,6 +53,7 @@ def exibir_fluxo_caixa(df_transacoes, path_faturamento="./logic/CSVs/faturamento
             df_filtrado["Valor (R$)"] = pd.to_numeric(
                 df_filtrado["Valor (R$)"].astype(str)
                 .replace("R$", "", regex=False)
+                .replace("R\\$", "", regex=False)
                 .replace(".", "", regex=False)
                 .replace(",", ".", regex=False)
                 .str.strip(),
@@ -186,7 +187,7 @@ def exibir_fluxo_caixa(df_transacoes, path_faturamento="./logic/CSVs/faturamento
             else:
                 variacao = calcular_variacao_percentual(df_final.loc[idx, meses[-1]], df_final.loc[idx, meses[-2]])
                 df_variacoes.loc[idx] = variacao
-        df_variacoes_fmt = df_variacoes.applymap(lambda x: f"{x:+.1f}%" if pd.notnull(x) else "")
+        df_variacoes_fmt = df_variacoes.map(lambda x: f"{x:+.1f}%" if pd.notnull(x) else "")
         df_final_com_var = pd.concat([df_final, df_variacoes_fmt], axis=1)
     else:
         df_final_com_var = df_final

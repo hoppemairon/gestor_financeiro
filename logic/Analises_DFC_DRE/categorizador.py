@@ -136,7 +136,7 @@ def categorizar_transacoes(
         valores_formatados = []
         for v in valores:
             if isinstance(v, (int, float)):
-                valores_formatados.append(f"R$ {abs(v):.2f}".replace(".", ","))
+                valores_formatados.append(f"R\\$ {abs(v):.2f}".replace(".", ","))
             else:
                 valores_formatados.append(str(v))
         
@@ -162,7 +162,7 @@ def categorizar_transacoes(
             valores_formatados = []
             for v in valores:
                 if isinstance(v, (int, float)):
-                    valores_formatados.append(f"R$ {abs(v):.2f}".replace(".", ","))
+                    valores_formatados.append(f"R\\$ {abs(v):.2f}".replace(".", ","))
                 else:
                     valores_formatados.append(str(v))
             

@@ -46,7 +46,7 @@ def coletar_faturamentos(df_transacoes, path_csv="./logic/CSVs/faturamentos.csv"
             st.markdown(f"**Faturamento para {mes}**")
         with col2:
             input_valor = st.text_input(
-                label="",
+                label=f"Valor do faturamento para {mes}",
                 value=valor_formatado,
                 key=f"faturamento_{mes}",
                 label_visibility="collapsed",

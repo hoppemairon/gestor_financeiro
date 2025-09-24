@@ -50,7 +50,7 @@ def formatar_valor_br(valor):
         return f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
     if isinstance(valor, str):
         try:
-            valor_num = float(valor.replace(".", "").replace(",", ".").replace("R$", "").strip())
+            valor_num = float(valor.replace(".", "").replace(",", ".").replace("R$", "").replace("R\\$", "").strip())
             return f"R$ {valor_num:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
         except:
             return valor
@@ -61,7 +61,8 @@ def converter_para_float(valor_str):
     if isinstance(valor_str, (int, float)):
         return float(valor_str)
     try:
-        return float(str(valor_str).replace("R$", "").replace(".", "").replace(",", ".").strip())
+        # Tratar tanto R$ quanto R\$ (escapado)
+        return float(str(valor_str).replace("R$", "").replace("R\\$", "").replace(".", "").replace(",", ".").strip())
     except:
         return 0.0
 
@@ -481,184 +482,153 @@ if st.session_state.df_transacoes_total is not None:
         coletar_estoques(df_transacoes_total)
 
     with tab3:
-            st.header("📅 Projeções Futuras")
+        st.header("📅 Projeções Futuras")
 
-            st.subheader("📊 Configurar Projeções")
-            inflacao_anual = st.number_input("Inflação anual esperada (%):", min_value=0.0, max_value=100.0, value=5.0, step=0.1)
+        st.subheader("📊 Configurar Projeções")
+        inflacao_anual = st.number_input("Inflação anual esperada (%):", min_value=0.0, max_value=100.0, value=5.0, step=0.1)
 
-            st.subheader("Cenário Pessimista")
-            pess_receita = st.number_input("Ajuste de Receitas (%):", min_value=-100.0, max_value=100.0, value=-10.0, step=0.1, key="pess_receita")
-            pess_despesa = st.number_input("Ajuste de Despesas (%):", min_value=-100.0, max_value=100.0, value=10.0, step=0.1, key="pess_despesa")
+        st.subheader("Cenário Pessimista")
+        pess_receita = st.number_input("Ajuste de Receitas (%):", min_value=-100.0, max_value=100.0, value=-10.0, step=0.1, key="pess_receita")
+        pess_despesa = st.number_input("Ajuste de Despesas (%):", min_value=-100.0, max_value=100.0, value=10.0, step=0.1, key="pess_despesa")
 
-            st.subheader("Cenário Otimista")
-            otim_receita = st.number_input("Ajuste de Receitas (%):", min_value=-100.0, max_value=100.0, value=10.0, step=0.1, key="otim_receita")
-            otim_despesa = st.number_input("Ajuste de Despesas (%):", min_value=-100.0, max_value=100.0, value=-10.0, step=0.1, key="otim_despesa")
+        st.subheader("Cenário Otimista")
+        otim_receita = st.number_input("Ajuste de Receitas (%):", min_value=-100.0, max_value=100.0, value=10.0, step=0.1, key="otim_receita")
+        otim_despesa = st.number_input("Ajuste de Despesas (%):", min_value=-100.0, max_value=100.0, value=-10.0, step=0.1, key="otim_despesa")
 
-            if st.button("📈 Gerar Projeções", key="btn_projecoes"):
-                with st.spinner("Gerando projeções... ⏳"):
-                    resultado_fluxo = st.session_state.get("resultado_fluxo", exibir_fluxo_caixa(df_transacoes_total))
-                    resultado_dre = st.session_state.get("resultado_dre", exibir_dre(df_fluxo=resultado_fluxo))
+        if st.button("📈 Gerar Projeções", key="btn_projecoes"):
+            with st.spinner("Gerando projeções... ⏳"):
+                resultado_fluxo = st.session_state.get("resultado_fluxo", exibir_fluxo_caixa(df_transacoes_total))
+                resultado_dre = st.session_state.get("resultado_dre", exibir_dre(df_fluxo=resultado_fluxo))
 
-                    if resultado_fluxo is None or resultado_dre is None:
-                        st.error("⚠️ Gere o Fluxo de Caixa e DRE antes de criar projeções.")
-                    else:
-                        meses_futuros = 60
-                        # Salva resultados no session_state para uso em outras abas
-                        st.session_state["resultado_fluxo"] = resultado_fluxo
-                        st.session_state["resultado_dre"] = resultado_dre
+                if resultado_fluxo is None or resultado_dre is None:
+                    st.error("⚠️ Gere o Fluxo de Caixa e DRE antes de criar projeções.")
+                else:
+                    meses_futuros = 60
+                    # Salva resultados no session_state para uso em outras abas
+                    st.session_state["resultado_fluxo"] = resultado_fluxo
+                    st.session_state["resultado_dre"] = resultado_dre
 
-                        abas_cenarios = st.tabs(["Cenário Atual", "Cenário Pessimista", "Cenário Otimista"])
+                    abas_cenarios = st.tabs(["Cenário Atual", "Cenário Pessimista", "Cenário Otimista"])
 
-                        # Cenário Atual
-                        with abas_cenarios[0]:
-                            st.subheader("Cenário Atual (apenas inflação)")
-                            fluxo_atual, meses_projetados = projetar_valores(resultado_fluxo, inflacao_anual, meses_futuros)
-                            dre_atual, _ = projetar_valores(resultado_dre, inflacao_anual, meses_futuros)
+                    # Cenário Atual
+                    with abas_cenarios[0]:
+                        st.subheader("Cenário Atual (apenas inflação)")
+                        fluxo_atual, meses_projetados = projetar_valores(resultado_fluxo, inflacao_anual, meses_futuros)
+                        dre_atual, _ = projetar_valores(resultado_dre, inflacao_anual, meses_futuros)
 
-                            with st.expander("Fluxo de Caixa Projetado (Mensal)"):
-                                st.dataframe(fluxo_atual.style.format({"Valor": formatar_valor_br}), use_container_width=True)
-                                st.markdown("#### DRE Projetado (Mensal)")
-                                dre_atual_formatado = dre_atual.reset_index()
-                                dre_atual_formatado.columns.values[0] = "Descrição"
-                                st.dataframe(
-                                    dre_atual_formatado.style.apply(highlight_rows, axis=1).format(
-                                        formatter={col: formatar_valor_br for col in dre_atual_formatado.columns if col not in ["Descrição", "__tipo__"]}
-                                    ),
-                                    use_container_width=True, hide_index=True, height=650
-                                )
+                        with st.expander("Fluxo de Caixa Projetado (Mensal)"):
+                            st.dataframe(fluxo_atual.style.format({"Valor": formatar_valor_br}), use_container_width=True)
+                            st.markdown("#### DRE Projetado (Mensal)")
+                            dre_atual_formatado = dre_atual.reset_index()
+                            dre_atual_formatado.columns.values[0] = "Descrição"
+                            st.dataframe(
+                                dre_atual_formatado.style.apply(highlight_rows, axis=1).format(
+                                    formatter={col: formatar_valor_br for col in dre_atual_formatado.columns if col not in ["Descrição", "__tipo__"]}
+                                ),
+                                use_container_width=True, hide_index=True, height=650
+                            )
 
-                            with st.expander("Fluxo de Caixa Projetado (Anual)"):
-                                fluxo_anual = resumir_por_ano(fluxo_atual, meses_projetados)
-                                st.dataframe(fluxo_anual.style.format({"Valor": formatar_valor_br}), use_container_width=True)
-                                st.markdown("#### DRE Projetado (Anual)")
-                                dre_anual = resumir_por_ano(dre_atual, meses_projetados)
-                                dre_anual_formatado = dre_anual.reset_index()
-                                dre_anual_formatado.columns.values[0] = "Descrição"
-                                st.dataframe(
-                                    dre_anual_formatado.style.apply(highlight_rows, axis=1).format(
-                                        formatter={col: formatar_valor_br for col in dre_anual_formatado.columns if col not in ["Descrição", "__tipo__"]}
-                                    ),
-                                    use_container_width=True, hide_index=True, height=650
-                                )
+                        with st.expander("Fluxo de Caixa Projetado (Anual)"):
+                            fluxo_anual = resumir_por_ano(fluxo_atual, meses_projetados)
+                            st.dataframe(fluxo_anual.style.format({"Valor": formatar_valor_br}), use_container_width=True)
+                            st.markdown("#### DRE Projetado (Anual)")
+                            dre_anual = resumir_por_ano(dre_atual, meses_projetados)
+                            dre_anual_formatado = dre_anual.reset_index()
+                            dre_anual_formatado.columns.values[0] = "Descrição"
+                            st.dataframe(
+                                dre_anual_formatado.style.apply(highlight_rows, axis=1).format(
+                                    formatter={col: formatar_valor_br for col in dre_anual_formatado.columns if col not in ["Descrição", "__tipo__"]}
+                                ),
+                                use_container_width=True, hide_index=True, height=650
+                            )
 
-                        # Cenário Pessimista
-                        with abas_cenarios[1]:
-                            st.subheader("Cenário Pessimista")
-                            fluxo_pess, _ = projetar_valores(resultado_fluxo, inflacao_anual, meses_futuros, pess_receita, pess_despesa)
-                            dre_pess, _ = projetar_valores(resultado_dre, inflacao_anual, meses_futuros, pess_receita, pess_despesa)
+                    # Cenário Pessimista
+                    with abas_cenarios[1]:
+                        st.subheader("Cenário Pessimista")
+                        fluxo_pess, _ = projetar_valores(resultado_fluxo, inflacao_anual, meses_futuros, pess_receita, pess_despesa)
+                        dre_pess, _ = projetar_valores(resultado_dre, inflacao_anual, meses_futuros, pess_receita, pess_despesa)
 
-                            with st.expander("Fluxo de Caixa Projetado (Mensal)"):
-                                st.dataframe(fluxo_pess.style.format({"Valor": formatar_valor_br}), use_container_width=True)
-                                st.markdown("#### DRE Projetado (Mensal)")
-                                dre_pess_formatado = dre_pess.reset_index()
-                                dre_pess_formatado.columns.values[0] = "Descrição"
-                                st.dataframe(
-                                    dre_pess_formatado.style.apply(highlight_rows, axis=1).format(
-                                        formatter={col: formatar_valor_br for col in dre_pess_formatado.columns if col not in ["Descrição", "__tipo__"]}
-                                    ),
-                                    use_container_width=True, hide_index=True, height=650
-                                )
+                        with st.expander("Fluxo de Caixa Projetado (Mensal)"):
+                            st.dataframe(fluxo_pess.style.format({"Valor": formatar_valor_br}), use_container_width=True)
+                            st.markdown("#### DRE Projetado (Mensal)")
+                            dre_pess_formatado = dre_pess.reset_index()
+                            dre_pess_formatado.columns.values[0] = "Descrição"
+                            st.dataframe(
+                                dre_pess_formatado.style.apply(highlight_rows, axis=1).format(
+                                    formatter={col: formatar_valor_br for col in dre_pess_formatado.columns if col not in ["Descrição", "__tipo__"]}
+                                ),
+                                use_container_width=True, hide_index=True, height=650
+                            )
 
-                            with st.expander("Fluxo de Caixa Projetado (Anual)"):
-                                fluxo_anual = resumir_por_ano(fluxo_pess, meses_projetados)
-                                st.dataframe(fluxo_anual.style.format({"Valor": formatar_valor_br}), use_container_width=True)
-                                st.markdown("#### DRE Projetado (Anual)")
-                                dre_anual = resumir_por_ano(dre_pess, meses_projetados)
-                                dre_anual_formatado = dre_anual.reset_index()
-                                dre_anual_formatado.columns.values[0] = "Descrição"
-                                st.dataframe(
-                                    dre_anual_formatado.style.apply(highlight_rows, axis=1).format(
-                                        formatter={col: formatar_valor_br for col in dre_anual_formatado.columns if col not in ["Descrição", "__tipo__"]}
-                                    ),
-                                    use_container_width=True, hide_index=True, height=650
-                                )
+                        with st.expander("Fluxo de Caixa Projetado (Anual)"):
+                            fluxo_anual = resumir_por_ano(fluxo_pess, meses_projetados)
+                            st.dataframe(fluxo_anual.style.format({"Valor": formatar_valor_br}), use_container_width=True)
+                            st.markdown("#### DRE Projetado (Anual)")
+                            dre_anual = resumir_por_ano(dre_pess, meses_projetados)
+                            dre_anual_formatado = dre_anual.reset_index()
+                            dre_anual_formatado.columns.values[0] = "Descrição"
+                            st.dataframe(
+                                dre_anual_formatado.style.apply(highlight_rows, axis=1).format(
+                                    formatter={col: formatar_valor_br for col in dre_anual_formatado.columns if col not in ["Descrição", "__tipo__"]}
+                                ),
+                                use_container_width=True, hide_index=True, height=650
+                            )
 
-                        # Cenário Otimista
-                        with abas_cenarios[2]:
-                            st.subheader("Cenário Otimista")
-                            fluxo_otim, _ = projetar_valores(resultado_fluxo, inflacao_anual, meses_futuros, otim_receita, otim_despesa)
-                            dre_otim, _ = projetar_valores(resultado_dre, inflacao_anual, meses_futuros, otim_receita, otim_despesa)
+                    # Cenário Otimista
+                    with abas_cenarios[2]:
+                        st.subheader("Cenário Otimista")
+                        fluxo_otim, _ = projetar_valores(resultado_fluxo, inflacao_anual, meses_futuros, otim_receita, otim_despesa)
+                        dre_otim, _ = projetar_valores(resultado_dre, inflacao_anual, meses_futuros, otim_receita, otim_despesa)
 
-                            with st.expander("Fluxo de Caixa Projetado (Mensal)"):
-                                st.dataframe(fluxo_otim.style.format({"Valor": formatar_valor_br}), use_container_width=True)
-                                st.markdown("#### DRE Projetado (Mensal)")
-                                dre_otim_formatado = dre_otim.reset_index()
-                                dre_otim_formatado.columns.values[0] = "Descrição"
-                                st.dataframe(
-                                    dre_otim_formatado.style.apply(highlight_rows, axis=1).format(
-                                        formatter={col: formatar_valor_br for col in dre_otim_formatado.columns if col not in ["Descrição", "__tipo__"]}
-                                    ),
-                                    use_container_width=True, hide_index=True, height=650
-                                )
+                        with st.expander("Fluxo de Caixa Projetado (Mensal)"):
+                            st.dataframe(fluxo_otim.style.format({"Valor": formatar_valor_br}), use_container_width=True)
+                            st.markdown("#### DRE Projetado (Mensal)")
+                            dre_otim_formatado = dre_otim.reset_index()
+                            dre_otim_formatado.columns.values[0] = "Descrição"
+                            st.dataframe(
+                                dre_otim_formatado.style.apply(highlight_rows, axis=1).format(
+                                    formatter={col: formatar_valor_br for col in dre_otim_formatado.columns if col not in ["Descrição", "__tipo__"]}
+                                ),
+                                use_container_width=True, hide_index=True, height=650
+                            )
 
-                            with st.expander("Fluxo de Caixa Projetado (Anual)"):
-                                fluxo_anual = resumir_por_ano(fluxo_otim, meses_projetados)
-                                st.dataframe(fluxo_anual.style.format({"Valor": formatar_valor_br}), use_container_width=True)
-                                st.markdown("#### DRE Projetado (Anual)")
-                                dre_anual = resumir_por_ano(dre_otim, meses_projetados)
-                                dre_anual_formatado = dre_anual.reset_index()
-                                dre_anual_formatado.columns.values[0] = "Descrição"
-                                st.dataframe(
-                                    dre_anual_formatado.style.apply(highlight_rows, axis=1).format(
-                                        formatter={col: formatar_valor_br for col in dre_anual_formatado.columns if col not in ["Descrição", "__tipo__"]}
-                                    ),
-                                    use_container_width=True, hide_index=True, height=650
-                                )
+                        with st.expander("Fluxo de Caixa Projetado (Anual)"):
+                            fluxo_anual = resumir_por_ano(fluxo_otim, meses_projetados)
+                            st.dataframe(fluxo_anual.style.format({"Valor": formatar_valor_br}), use_container_width=True)
+                            st.markdown("#### DRE Projetado (Anual)")
+                            dre_anual = resumir_por_ano(dre_otim, meses_projetados)
+                            dre_anual_formatado = dre_anual.reset_index()
+                            dre_anual_formatado.columns.values[0] = "Descrição"
+                            st.dataframe(
+                                dre_anual_formatado.style.apply(highlight_rows, axis=1).format(
+                                    formatter={col: formatar_valor_br for col in dre_anual_formatado.columns if col not in ["Descrição", "__tipo__"]}
+                                ),
+                                use_container_width=True, hide_index=True, height=650
+                            )
 
-                        # Exportar tudo
-                        output = io.BytesIO()
-                        with pd.ExcelWriter(output, engine="openpyxl") as writer:
-                            fluxo_atual.to_excel(writer, sheet_name="Fluxo_Atual")
-                            dre_atual.to_excel(writer, sheet_name="DRE_Atual")
-                            fluxo_pess.to_excel(writer, sheet_name="Fluxo_Pessimista")
-                            dre_pess.to_excel(writer, sheet_name="DRE_Pessimista")
-                            fluxo_otim.to_excel(writer, sheet_name="Fluxo_Otimista")
-                            dre_otim.to_excel(writer, sheet_name="DRE_Otimista")
-                            resumir_por_ano(fluxo_atual, meses_projetados).to_excel(writer, sheet_name="Fluxo_Atual_Anual")
-                            resumir_por_ano(dre_atual, meses_projetados).to_excel(writer, sheet_name="DRE_Atual_Anual")
-                            resumir_por_ano(fluxo_pess, meses_projetados).to_excel(writer, sheet_name="Fluxo_Pessimista_Anual")
-                            resumir_por_ano(dre_pess, meses_projetados).to_excel(writer, sheet_name="DRE_Pessimista_Anual")
-                            resumir_por_ano(fluxo_otim, meses_projetados).to_excel(writer, sheet_name="Fluxo_Otimista_Anual")
-                            resumir_por_ano(dre_otim, meses_projetados).to_excel(writer, sheet_name="DRE_Otimista_Anual")
-                        output.seek(0)
+                    # Exportar tudo
+                    output = io.BytesIO()
+                    with pd.ExcelWriter(output, engine="openpyxl") as writer:
+                        fluxo_atual.to_excel(writer, sheet_name="Fluxo_Atual")
+                        dre_atual.to_excel(writer, sheet_name="DRE_Atual")
+                        fluxo_pess.to_excel(writer, sheet_name="Fluxo_Pessimista")
+                        dre_pess.to_excel(writer, sheet_name="DRE_Pessimista")
+                        fluxo_otim.to_excel(writer, sheet_name="Fluxo_Otimista")
+                        dre_otim.to_excel(writer, sheet_name="DRE_Otimista")
+                        resumir_por_ano(fluxo_atual, meses_projetados).to_excel(writer, sheet_name="Fluxo_Atual_Anual")
+                        resumir_por_ano(dre_atual, meses_projetados).to_excel(writer, sheet_name="DRE_Atual_Anual")
+                        resumir_por_ano(fluxo_pess, meses_projetados).to_excel(writer, sheet_name="Fluxo_Pessimista_Anual")
+                        resumir_por_ano(dre_pess, meses_projetados).to_excel(writer, sheet_name="DRE_Pessimista_Anual")
+                        resumir_por_ano(fluxo_otim, meses_projetados).to_excel(writer, sheet_name="Fluxo_Otimista_Anual")
+                        resumir_por_ano(dre_otim, meses_projetados).to_excel(writer, sheet_name="DRE_Otimista_Anual")
+                    output.seek(0)
 
-                        st.download_button(
-                            label="📥 Baixar Projeções (.xlsx)",
-                            data=output,
-                            file_name=f"projecoes_financeiras_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx",
-                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                        )
-    
-#    with tab3:
-#        st.header("💰 Fluxo de Caixa")
-#        
-#        if st.button("📊 Gerar Fluxo de Caixa", key="btn_fluxo"):
-#            with st.spinner("Gerando fluxo de caixa... ⏳"):
-#                resultado_fluxo = exibir_fluxo_caixa(df_transacoes_total)
-#                if resultado_fluxo is not None and "Valor" in resultado_fluxo.columns:
-#                    resultado_fluxo_visual = resultado_fluxo.copy()
-#                    resultado_fluxo_visual["Valor"] = resultado_fluxo_visual["Valor"].apply(formatar_valor_br)
-#                    st.dataframe(resultado_fluxo_visual.style.format({"Valor": formatar_valor_br}), use_container_width=True)
-#                st.session_state["fluxo_caixa"] = resultado_fluxo
-#    
-    #with tab4:
-#        st.header("📈 Demonstrativo de Resultados (DRE)")
-#        
-#        if st.button("📊 Gerar DRE", key="btn_dre"):
-#            with st.spinner("Gerando DRE... ⏳"):
-#                resultado_fluxo = exibir_fluxo_caixa(df_transacoes_total)
-#                resultado_dre = exibir_dre(df_fluxo=resultado_fluxo)
-#                if resultado_dre is not None and any(col in resultado_dre.columns for col in ["Receita", "Despesas", "Lucro"]):
-#                    for col in ["Receita", "Despesas", "Lucro"]:
-#                        if col in resultado_dre.columns:
-#                            resultado_dre[col] = resultado_dre[col].apply(formatar_valor_br)
-#                    st.dataframe(resultado_dre.style.format({
-#                        "Receita": formatar_valor_br,
-#                        "Despesas": formatar_valor_br,
-#                        "Lucro": formatar_valor_br
-#                    }), use_container_width=True)
-#                st.session_state.resultado_fluxo = resultado_fluxo
-#                st.session_state.resultado_dre = resultado_dre
+                    st.download_button(
+                        label="📥 Baixar Projeções (.xlsx)",
+                        data=output,
+                        file_name=f"projecoes_financeiras_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    )
     
     with tab4:
         st.header("💼 Análise Sistema")
