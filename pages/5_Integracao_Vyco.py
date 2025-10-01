@@ -1316,8 +1316,9 @@ st.sidebar.header("🏢 Configuração da Empresa")
 
 # Lista de licenças conhecidas (você pode expandir isso)
 licencas_conhecidas = {
-    "Amor Saude Caxias Centro": "ec48a041-3554-41e9-8ea7-afcc60f0a868",  # Substitua pelo ID real
-    "Amor Saude Bento": "5f1c3fc7-5a15-4cb6-b0f8-335e2317a3e1"   # Exemplo
+    "Amor Saude Caxias Centro": "ec48a041-3554-41e9-8ea7-afcc60f0a868",
+    "Amor Saude Bento": "5f1c3fc7-5a15-4cb6-b0f8-335e2317a3e1",
+    "Arani": "2fab261a-42ff-4ac1-8ee3-3088395e4b7c"
 }
 
 opcao_licenca = st.sidebar.selectbox(
