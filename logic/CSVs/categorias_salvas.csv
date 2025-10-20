@@ -45,3 +45,60 @@ TARIFA SPB-CHEQUE COMPE,Débito,Tarifas Bancárias
 TARIFA SUSTACAO DE CHEQUE,Débito,Tarifas Bancárias
 TARIFA VISUALIZACAO DE CHEQUES,Débito,Tarifas Bancárias
 TRANSF. ENCARGOS CTA UNICA,Débito,Tarifas Bancárias
+ADIANTAMENTO ,Débito,Sem Identificação
+ALUGUEL LOJA 2 ,Débito,Aluguel
+ALUGUEL LOJA 3 ,Débito,Aluguel
+AQUISIÇÃO DE ,Débito,Despesas com Fornecedores
+ATENDENTE,Débito,Folha de Pagamento
+AUXÍLIO ,Débito,Folha de Pagamento
+CARTÃO DE ,Débito,Outras Desp. Adm
+CELULAR,Débito,Telefone / Internet
+COMPRAS,Débito,Despesas com Fornecedores
+COMPRAS DE ,Débito,Despesas com Fornecedores
+CONDOMINIO LOJA 2 ,Débito,Aluguel
+CONDOMINIO LOJA 3 ,Débito,Aluguel
+CONSERTOS GERAIS,Débito,Manutenção Predial / Equipamentos
+CONTADOR,Débito,Contabilidade
+CORSAN,Débito,Energia Elétrica / Agua
+DAS - SIMPLES ,Débito,Impostos e Encargos
+DEDETIZAÇÃO,Débito,Outras Desp. Operacionais
+DETETIZAÇÃO,Débito,Outras Desp. Operacionais
+DIVERSOS,Débito,Outras Desp. Adm
+DONA ANA,Débito,Telefone / Internet
+EMBALAGENS,Débito,Despesas com Fornecedores
+EMPRESTIMO ,Débito,Empréstimos
+ENERGIA ELÉTRICA,Débito,Energia Elétrica / Agua
+EQIUETAS E ,Débito,Despesas com Fornecedores
+FAXINA,Débito,Outras Desp. Adm
+FERRAGEM,Débito,Manutenção Predial / Equipamentos
+FGTS,Débito,FGTS
+FGTS GFIP,Débito,FGTS
+GAS,Débito,Energia Elétrica / Agua
+INSS,Débito,INSS
+INSS GPS,Débito,INSS
+IPTU DAS 2 LOJAS,Débito,Impostos e Encargos
+IPVA,Débito,Impostos e Encargos
+JUROS BANRISUL,Débito,Juros e Encargos Bancários
+JUROS CAIXA ,Débito,Juros e Encargos Bancários
+LIMPEZA E FAXINA,Débito,Outras Desp. Adm
+MANUTENÇAO DE ,Débito,Manutenção Predial / Equipamentos
+MANUTENÇÃO DOS ,Débito,Manutenção Predial / Equipamentos
+MATERIAL DE ,Débito,Outras Desp. Adm
+MATERIAL DE USO E ,Débito,Outras Desp. Adm
+PAGAMENTO DE ,Débito,Outras Desp. Operacionais
+PARCELA SIMPLES ,Débito,Impostos e Encargos
+PARCELAMENTO ,Débito,Empréstimos
+PATROCINIO ,Débito,Outras Desp. Operacionais
+PLANO DE SAUDE,Débito,Plano de Saude
+PROCESSO ,Débito,Multas / Encargos
+RGE,Débito,Energia Elétrica / Agua
+SEGURO,Débito,Seguro
+SEGURO CASA,Débito,Seguro
+SEGURO DOS ,Débito,Seguro
+SERVIÇOS DE ,Débito,Manutenção Predial / Equipamentos
+SIMPLES NACIONAL,Débito,Impostos e Encargos
+TELE NOZES,Débito,Telefone / Internet
+"TELEFONE FIXO, ",Débito,Telefone / Internet
+TELEFONIA - ,Débito,Telefone / Internet
+VENDA BRUTA,Crédito,Receita de Vendas
+VENDAS NO CAIXA,Crédito,Receita de Vendas

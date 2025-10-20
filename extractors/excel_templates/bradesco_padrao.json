@@ -1,0 +1,14 @@
+{
+  "nome": "Bradesco Padrão",
+  "mapeamento": {
+    "data": 0,
+    "descricao": 1,
+    "valor": 2
+  },
+  "configuracoes": {
+    "formato_data": "dd/mm/yyyy",
+    "separador_decimal": ",",
+    "linha_cabecalho": 1
+  },
+  "criado_em": "2025-10-20T10:00:00"
+}

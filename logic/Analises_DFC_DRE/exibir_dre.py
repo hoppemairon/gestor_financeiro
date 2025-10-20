@@ -129,7 +129,17 @@ def formatar_dre(dre: pd.DataFrame, meses: List[str]) -> pd.DataFrame:
 
 def highlight_rows(row):
     """Aplica estilos às linhas do DRE."""
-    bg_color, text_color = ESTILO_LINHAS.get(row["Descrição"], ("", "black"))
+    # Verificar se a coluna "Descrição" existe
+    if "Descrição" in row.index:
+        descricao = row["Descrição"]
+    elif hasattr(row, 'name') and row.name:
+        # Se não tem coluna "Descrição", usar o nome do índice
+        descricao = row.name
+    else:
+        # Se não conseguir identificar a descrição, usar estilo padrão
+        return ["" for _ in row]
+    
+    bg_color, text_color = ESTILO_LINHAS.get(descricao, ("", "black"))
     return [f"background-color: {bg_color}; color: {text_color}; font-weight: bold;" if bg_color else "" for _ in row]
 
 def criar_grafico_dre(dre: pd.DataFrame) -> go.Figure:

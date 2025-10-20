@@ -1,0 +1,47 @@
+{
+  "formatos_conhecidos": {
+    "bradesco": {
+      "identificadores": ["bradesco", "banco bradesco"],
+      "colunas_comuns": {
+        "data": ["Data", "DATA", "Dt Mvto"],
+        "descricao": ["Descrição", "Histórico", "Desc"],
+        "valor": ["Valor", "VALOR", "Vlr"]
+      }
+    },
+    "itau": {
+      "identificadores": ["itau", "banco itau", "itaú"],
+      "colunas_comuns": {
+        "data": ["Data", "DATA"],
+        "descricao": ["Lançamento", "Descrição"],
+        "valor": ["Valor", "VALOR"]
+      }
+    },
+    "bb": {
+      "identificadores": ["banco do brasil", "bb"],
+      "colunas_comuns": {
+        "data": ["Data", "DATA"],
+        "descricao": ["Histórico", "Descrição"],
+        "valor": ["Valor", "VALOR"]
+      }
+    },
+    "santander": {
+      "identificadores": ["santander"],
+      "colunas_comuns": {
+        "data": ["Data", "DATA"],
+        "descricao": ["Descrição", "Histórico"],
+        "valor": ["Valor", "VALOR"]
+      }
+    }
+  },
+  "padroes_detectacao": {
+    "formatos_data": {
+      "dd/mm/yyyy": ["\\d{1,2}/\\d{1,2}/\\d{4}"],
+      "yyyy-mm-dd": ["\\d{4}-\\d{2}-\\d{2}"],
+      "mm/dd/yyyy": ["\\d{1,2}/\\d{1,2}/\\d{4}"]
+    },
+    "formatos_valor": {
+      "brasileiro": ["\\d+\\.\\d{3},\\d{2}", "\\d+,\\d{2}"],
+      "americano": ["\\d+,\\d{3}\\.\\d{2}", "\\d+\\.\\d{2}"]
+    }
+  }
+}

@@ -326,6 +326,8 @@ if st.session_state.df_resumo_total is not None:
 if st.session_state.df_transacoes_total is not None:
     df_transacoes_total = st.session_state.df_transacoes_total
     
+
+    
     # Separar em abas
     tab1, tab2, tab3, tab4, tab5 = st.tabs(
         ["📊 Categorização",
@@ -338,138 +340,148 @@ if st.session_state.df_transacoes_total is not None:
     with tab1:
         st.header("📊 Categorização de Transações")
         
-        df_valores_num = df_transacoes_total.copy()
-        if "Valor (R$)" in df_valores_num.columns:
-            df_valores_num["Valor_Num"] = df_valores_num["Valor (R$)"].apply(converter_para_float)
-            df_creditos = df_valores_num[df_valores_num["Valor_Num"] > 0].copy()
-            df_debitos = df_valores_num[df_valores_num["Valor_Num"] <= 0].copy()
-            
-            if "Valor_Num" in df_creditos.columns:
-                df_creditos = df_creditos.drop(columns=["Valor_Num"])
-            if "Valor_Num" in df_debitos.columns:
-                df_debitos = df_debitos.drop(columns=["Valor_Num"])
-            
-            st.subheader("💰 Categorizar Créditos")
-            df_creditos, df_desc_creditos = categorizar_transacoes(df_creditos, prefixo_key="credito", tipo_lancamento="Crédito")
-            if "Valor (R$)" in df_creditos.columns:
-                df_creditos["Valor (R$)"] = df_creditos["Valor (R$)"].apply(formatar_valor_br)
-            
-            if not df_creditos.empty and "Categoria" in df_creditos.columns:
-                with st.expander("✅ Resumo da Categorização de Créditos", expanded=True):
-                    resumo_creditos = df_creditos.groupby("Categoria").agg(
-                        Total=("Valor (R$)", lambda x: sum(converter_para_float(v) for v in x)),
-                        Quantidade=("Valor (R$)", "count")
-                    ).reset_index()
-                    resumo_creditos["Total"] = resumo_creditos["Total"].apply(formatar_valor_br)
-                    st.dataframe(resumo_creditos.style.format({"Total": formatar_valor_br}), use_container_width=True)
-                    
-                    st.markdown("##### 🤖 Itens Categorizados Automaticamente")
-                    if not df_desc_creditos.empty and "Total" in df_desc_creditos.columns:
-                        df_desc_creditos["Total"] = df_desc_creditos["Total"].apply(formatar_valor_br)
-                    df_auto_cat = df_desc_creditos[df_desc_creditos["Categoria"].notna() & (df_desc_creditos["Categoria"] != "")]
-                    if not df_auto_cat.empty:
-                        for _, row in df_auto_cat.iterrows():
-                            desc = row["Descrição"]
-                            cat = row["Categoria"]
-                            qtd = row["Quantidade"]
-                            total = row["Total"]
-                            st.markdown(f"**📌 {desc}** — {qtd}x — Total: {total} → ✅ **{cat}**")
-                    else:
-                        st.info("Nenhum item foi categorizado automaticamente.")
-            
-            st.subheader("💸 Categorizar Débitos")
-            df_debitos, df_desc_debitos = categorizar_transacoes(df_debitos, prefixo_key="debito", tipo_lancamento="Débito")
-            if "Valor (R$)" in df_debitos.columns:
-                df_debitos["Valor (R$)"] = df_debitos["Valor (R$)"].apply(formatar_valor_br)
-            
-            if not df_debitos.empty and "Categoria" in df_debitos.columns:
-                with st.expander("✅ Resumo da Categorização de Débitos", expanded=True):
-                    resumo_debitos = df_debitos.groupby("Categoria").agg(
-                        Total=("Valor (R$)", lambda x: sum(abs(converter_para_float(v)) for v in x)),
-                        Quantidade=("Valor (R$)", "count")
-                    ).reset_index()
-                    resumo_debitos["Total"] = resumo_debitos["Total"].apply(formatar_valor_br)
-                    st.dataframe(resumo_debitos.style.format({"Total": formatar_valor_br}), use_container_width=True)
-                    
-                    st.markdown("##### 🤖 Itens Categorizados Automaticamente")
-                    if not df_desc_debitos.empty and "Total" in df_desc_debitos.columns:
-                        df_desc_debitos["Total"] = df_desc_debitos["Total"].apply(formatar_valor_br)
-                    df_auto_cat = df_desc_debitos[df_desc_debitos["Categoria"].notna() & (df_desc_debitos["Categoria"] != "")]
-                    if not df_auto_cat.empty:
-                        for _, row in df_auto_cat.iterrows():
-                            desc = row["Descrição"]
-                            cat = row["Categoria"]
-                            qtd = row["Quantidade"]
-                            total = row["Total"]
-                            st.markdown(f"**📌 {desc}** — {qtd}x — Total: {total} → ✅ **{cat}**")
-                    else:
-                        st.info("Nenhum item foi categorizado automaticamente.")
-            
-            df_transacoes_total = pd.concat([df_creditos, df_debitos], ignore_index=True)
-            if "Valor (R$)" in df_transacoes_total.columns:
-                df_transacoes_total["Valor (R$)"] = df_transacoes_total["Valor (R$)"].apply(formatar_valor_br)
-            
-            if "Considerar" not in df_transacoes_total.columns:
-                df_transacoes_total["Considerar"] = "Sim"
-            
-            st.session_state.df_transacoes_total = df_transacoes_total
-            
-            st.subheader("📋 Todas as Transações Categorizadas")
-            
-            col1, col2, col3 = st.columns(3)
-            with col1:
-                filtro_tipo = st.multiselect(
-                    "Filtrar por Tipo:",
-                    options=["Crédito", "Débito"],
-                    default=["Crédito", "Débito"]
-                )
-            with col2:
-                categorias_disponiveis = sorted(df_transacoes_total["Categoria"].dropna().unique().tolist())
-                filtro_categoria = st.multiselect(
-                    "Filtrar por Categoria:",
-                    options=categorias_disponiveis,
-                    default=[]
-                )
-            with col3:
-                filtro_texto = st.text_input("Buscar na descrição:", "")
-            
-            df_filtrado = df_transacoes_total.copy()
-            if "Valor (R$)" in df_filtrado.columns:
-                df_filtrado["Valor (R$)"] = df_filtrado["Valor (R$)"].apply(formatar_valor_br)
-            
-            if filtro_tipo and len(filtro_tipo) < 2:
-                if "Crédito" in filtro_tipo:
-                    df_filtrado = df_filtrado[df_filtrado["Valor (R$)"].apply(
-                        lambda x: converter_para_float(x) > 0 if pd.notna(x) else False
-                    )]
-                elif "Débito" in filtro_tipo:
-                    df_filtrado = df_filtrado[df_filtrado["Valor (R$)"].apply(
-                        lambda x: converter_para_float(x) <= 0 if pd.notna(x) else False
-                    )]
-            
-            if filtro_categoria:
-                df_filtrado = df_filtrado[df_filtrado["Categoria"].isin(filtro_categoria)]
-            
-            if filtro_texto:
-                df_filtrado = df_filtrado[df_filtrado["Descrição"].str.contains(filtro_texto, case=False, na=False)]
-            
-            st.dataframe(df_filtrado.style.format({"Valor (R$)": formatar_valor_br}), use_container_width=True)
-            
-            st.info(f"Exibindo {len(df_filtrado)} de {len(df_transacoes_total)} transações.")
-            
-            output = io.BytesIO()
-            df_download = df_transacoes_total.copy()
-            if "Valor (R$)" in df_download.columns:
-                df_download["Valor (R$)"] = df_download["Valor (R$)"].apply(converter_para_float)
-            df_download.to_excel(output, index=False)
-            output.seek(0)
-            
-            st.download_button(
-                label="📥 Baixar transações categorizadas (.xlsx)",
-                data=output,
-                file_name=f"transacoes_categorizadas_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        # Separar Créditos e Débitos usando a coluna "Tipo Transação" se disponível
+        if "Tipo Transação" in df_transacoes_total.columns:
+            # Usar a coluna de tipo de transação (melhor para Excel)
+            df_creditos = df_transacoes_total[df_transacoes_total["Tipo Transação"].str.lower().str.contains("crédito|credito", na=False)].copy()
+            df_debitos = df_transacoes_total[df_transacoes_total["Tipo Transação"].str.lower().str.contains("débito|debito", na=False)].copy()
+        else:
+            # Fallback: usar valor numérico (para outros tipos de arquivo)
+            df_valores_num = df_transacoes_total.copy()
+            if "Valor (R$)" in df_valores_num.columns:
+                df_valores_num["Valor_Num"] = df_valores_num["Valor (R$)"].apply(converter_para_float)
+                df_creditos = df_valores_num[df_valores_num["Valor_Num"] > 0].copy()
+                df_debitos = df_valores_num[df_valores_num["Valor_Num"] <= 0].copy()
+                
+                if "Valor_Num" in df_creditos.columns:
+                    df_creditos = df_creditos.drop(columns=["Valor_Num"])
+                if "Valor_Num" in df_debitos.columns:
+                    df_debitos = df_debitos.drop(columns=["Valor_Num"])
+        
+        # Interface de Categorização (para ambos os casos)
+        st.subheader("💰 Categorizar Créditos")
+        df_creditos, df_desc_creditos = categorizar_transacoes(df_creditos, prefixo_key="credito", tipo_lancamento="Crédito")
+        if "Valor (R$)" in df_creditos.columns:
+            df_creditos["Valor (R$)"] = df_creditos["Valor (R$)"].apply(formatar_valor_br)
+        
+        if not df_creditos.empty and "Categoria" in df_creditos.columns:
+            with st.expander("✅ Resumo da Categorização de Créditos", expanded=True):
+                resumo_creditos = df_creditos.groupby("Categoria").agg(
+                    Total=("Valor (R$)", lambda x: sum(converter_para_float(v) for v in x)),
+                    Quantidade=("Valor (R$)", "count")
+                ).reset_index()
+                resumo_creditos["Total"] = resumo_creditos["Total"].apply(formatar_valor_br)
+                st.dataframe(resumo_creditos.style.format({"Total": formatar_valor_br}), use_container_width=True)
+                
+                st.markdown("##### 🤖 Itens Categorizados Automaticamente")
+                if not df_desc_creditos.empty and "Total" in df_desc_creditos.columns:
+                    df_desc_creditos["Total"] = df_desc_creditos["Total"].apply(formatar_valor_br)
+                df_auto_cat = df_desc_creditos[df_desc_creditos["Categoria"].notna() & (df_desc_creditos["Categoria"] != "")]
+                if not df_auto_cat.empty:
+                    for _, row in df_auto_cat.iterrows():
+                        desc = row["Descrição"]
+                        cat = row["Categoria"]
+                        qtd = row["Quantidade"]
+                        total = row["Total"].replace("R$", "R\\$")
+                        st.markdown(f"**📌 {desc}** — {qtd}x — Total: {total} → ✅ **{cat}**")
+                else:
+                    st.info("Nenhum item foi categorizado automaticamente.")
+        
+        st.subheader("💸 Categorizar Débitos")
+        df_debitos, df_desc_debitos = categorizar_transacoes(df_debitos, prefixo_key="debito", tipo_lancamento="Débito")
+        if "Valor (R$)" in df_debitos.columns:
+            df_debitos["Valor (R$)"] = df_debitos["Valor (R$)"].apply(formatar_valor_br)
+        
+        if not df_debitos.empty and "Categoria" in df_debitos.columns:
+            with st.expander("✅ Resumo da Categorização de Débitos", expanded=True):
+                resumo_debitos = df_debitos.groupby("Categoria").agg(
+                    Total=("Valor (R$)", lambda x: sum(abs(converter_para_float(v)) for v in x)),
+                    Quantidade=("Valor (R$)", "count")
+                ).reset_index()
+                resumo_debitos["Total"] = resumo_debitos["Total"].apply(formatar_valor_br)
+                st.dataframe(resumo_debitos.style.format({"Total": formatar_valor_br}), use_container_width=True)
+                
+                st.markdown("##### 🤖 Itens Categorizados Automaticamente")
+                if not df_desc_debitos.empty and "Total" in df_desc_debitos.columns:
+                    df_desc_debitos["Total"] = df_desc_debitos["Total"].apply(formatar_valor_br)
+                df_auto_cat = df_desc_debitos[df_desc_debitos["Categoria"].notna() & (df_desc_debitos["Categoria"] != "")]
+                if not df_auto_cat.empty:
+                    for _, row in df_auto_cat.iterrows():
+                        desc = row["Descrição"]
+                        cat = row["Categoria"]
+                        qtd = row["Quantidade"]
+                        total = row["Total"].replace("R$", "R\\$")
+                        st.markdown(f"**📌 {desc}** — {qtd}x — Total: {total} → ✅ **{cat}**")
+                else:
+                    st.info("Nenhum item foi categorizado automaticamente.")
+        
+        df_transacoes_total = pd.concat([df_creditos, df_debitos], ignore_index=True)
+        if "Valor (R$)" in df_transacoes_total.columns:
+            df_transacoes_total["Valor (R$)"] = df_transacoes_total["Valor (R$)"].apply(formatar_valor_br)
+        
+        if "Considerar" not in df_transacoes_total.columns:
+            df_transacoes_total["Considerar"] = "Sim"
+        
+        st.session_state.df_transacoes_total = df_transacoes_total
+        
+        st.subheader("📋 Todas as Transações Categorizadas")
+        
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            filtro_tipo = st.multiselect(
+                "Filtrar por Tipo:",
+                options=["Crédito", "Débito"],
+                default=["Crédito", "Débito"]
             )
+        with col2:
+            categorias_disponiveis = sorted(df_transacoes_total["Categoria"].dropna().unique().tolist())
+            filtro_categoria = st.multiselect(
+                "Filtrar por Categoria:",
+                options=categorias_disponiveis,
+                default=[]
+            )
+        with col3:
+            filtro_texto = st.text_input("Buscar na descrição:", "")
+        
+        df_filtrado = df_transacoes_total.copy()
+        if "Valor (R$)" in df_filtrado.columns:
+            df_filtrado["Valor (R$)"] = df_filtrado["Valor (R$)"].apply(formatar_valor_br)
+        
+        if filtro_tipo and len(filtro_tipo) < 2:
+            if "Crédito" in filtro_tipo:
+                df_filtrado = df_filtrado[df_filtrado["Valor (R$)"].apply(
+                    lambda x: converter_para_float(x) > 0 if pd.notna(x) else False
+                )]
+            elif "Débito" in filtro_tipo:
+                df_filtrado = df_filtrado[df_filtrado["Valor (R$)"].apply(
+                    lambda x: converter_para_float(x) <= 0 if pd.notna(x) else False
+                )]
+        
+        if filtro_categoria:
+            df_filtrado = df_filtrado[df_filtrado["Categoria"].isin(filtro_categoria)]
+        
+        if filtro_texto:
+            df_filtrado = df_filtrado[df_filtrado["Descrição"].str.contains(filtro_texto, case=False, na=False)]
+        
+        # Mostrar o DataFrame sempre, independente dos filtros
+        st.dataframe(df_filtrado.style.format({"Valor (R$)": formatar_valor_br}), use_container_width=True)
+        
+        st.info(f"Exibindo {len(df_filtrado)} de {len(df_transacoes_total)} transações.")
+        
+        # Botão de download sempre disponível
+        output = io.BytesIO()
+        df_download = df_transacoes_total.copy()
+        if "Valor (R$)" in df_download.columns:
+            df_download["Valor (R$)"] = df_download["Valor (R$)"].apply(converter_para_float)
+        df_download.to_excel(output, index=False)
+        output.seek(0)
+        
+        st.download_button(
+            label="📥 Baixar transações categorizadas (.xlsx)",
+            data=output,
+            file_name=f"transacoes_categorizadas_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
     
     with tab2:
         st.header("💹 Faturamento e Estoque")

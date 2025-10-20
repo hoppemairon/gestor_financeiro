@@ -135,13 +135,23 @@ def categorizar_transacoes(
         # Formatar valores para exibição
         valores_formatados = []
         for v in valores:
-            if isinstance(v, (int, float)):
-                valores_formatados.append(f"R\\$ {abs(v):.2f}".replace(".", ","))
-            else:
+            try:
+                # Converter para float primeiro, independente do formato atual
+                if isinstance(v, str):
+                    # Remover formatação existente e converter
+                    v_clean = float(str(v).replace("R$", "").replace("R\\$", "").replace(".", "").replace(",", ".").strip())
+                elif isinstance(v, (int, float)):
+                    v_clean = float(v)
+                else:
+                    v_clean = 0.0
+                valores_formatados.append(f"R\\$ {abs(v_clean):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+            except:
                 valores_formatados.append(str(v))
         
         valores_texto = " - ".join(valores_formatados)
-        label = f"📌 {desc} — {row['Quantidade']}x — Total: {valores_texto}"
+        # Escapar asteriscos para evitar formatação markdown não desejada
+        desc_escaped = desc.replace("*", "\\*")
+        label = f"📌 {desc_escaped} — {row['Quantidade']}x — Total: {valores_texto}"
 
         categoria_escolhida = st.selectbox(
             label,
@@ -161,13 +171,23 @@ def categorizar_transacoes(
             # Formatar valores para exibição
             valores_formatados = []
             for v in valores:
-                if isinstance(v, (int, float)):
-                    valores_formatados.append(f"R\\$ {abs(v):.2f}".replace(".", ","))
-                else:
+                try:
+                    # Converter para float primeiro, independente do formato atual
+                    if isinstance(v, str):
+                        # Remover formatação existente e converter
+                        v_clean = float(str(v).replace("R$", "").replace("R\\$", "").replace(".", "").replace(",", ".").strip())
+                    elif isinstance(v, (int, float)):
+                        v_clean = float(v)
+                    else:
+                        v_clean = 0.0
+                    valores_formatados.append(f"R\\$ {abs(v_clean):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                except:
                     valores_formatados.append(str(v))
             
             valores_texto = " - ".join(valores_formatados)
-            st.markdown(f"**📌 {desc}** — {row['Quantidade']}x — Total: {valores_texto}")
+            # Escapar asteriscos para evitar formatação markdown não desejada
+            desc_escaped = desc.replace("*", "\\*")
+            st.markdown(f"**📌 {desc_escaped}** — {row['Quantidade']}x — Total: {valores_texto}")
             st.markdown(f"✔️ Categoria aplicada: {categoria}")
             df_desc.loc[df_desc["Descrição"] == desc, "Categoria"] = categoria
 

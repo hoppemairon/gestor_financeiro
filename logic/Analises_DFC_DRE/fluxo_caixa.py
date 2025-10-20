@@ -27,6 +27,8 @@ def exibir_fluxo_caixa(df_transacoes, path_faturamento="./logic/CSVs/faturamento
     """
     st.markdown("## 📊 Fluxo de Caixa (por Categoria e Mês)")
 
+
+
     # Verificar se o DataFrame está vazio
     if df_transacoes.empty:
         st.warning("⚠️ Não há transações para gerar o fluxo de caixa.")
@@ -45,20 +47,33 @@ def exibir_fluxo_caixa(df_transacoes, path_faturamento="./logic/CSVs/faturamento
 
     # Filtrar apenas transações a considerar
     if "Considerar" in df_filtrado.columns:
+        antes_filtro = len(df_filtrado)
         df_filtrado = df_filtrado[df_filtrado["Considerar"].astype(str).str.lower() == "sim"].copy()
 
-    # Converter valores para numérico
+    else:
+        st.warning("⚠️ Coluna 'Considerar' não encontrada!")
+
+
+
+    # Converter valores para numérico usando a mesma função da categorização
+    def converter_para_float_local(valor_str):
+        """Converte uma string de valor BR para float"""
+        if isinstance(valor_str, (int, float)):
+            return float(valor_str)
+        try:
+            return float(str(valor_str).replace("R$", "").replace("R\\$", "").replace(".", "").replace(",", ".").strip())
+        except (ValueError, AttributeError, TypeError):
+            return 0.0
+
     with st.spinner("Processando valores..."):
         try:
-            df_filtrado["Valor (R$)"] = pd.to_numeric(
-                df_filtrado["Valor (R$)"].astype(str)
-                .replace("R$", "", regex=False)
-                .replace("R\\$", "", regex=False)
-                .replace(".", "", regex=False)
-                .replace(",", ".", regex=False)
-                .str.strip(),
-                errors="coerce"
-            )
+            # Usar a função local de conversão
+            df_filtrado["Valor (R$)"] = df_filtrado["Valor (R$)"].apply(converter_para_float_local)
+            
+            # DEBUG: Verificar valores após conversão
+            valores_convertidos = df_filtrado["Valor (R$)"].head(5).tolist()
+            #st.write(f"🔍 Debug: Valores convertidos: {valores_convertidos}")
+            
         except Exception as e:
             st.error(f"❌ Erro ao converter valores: {e}")
             st.dataframe(df_filtrado.head())
