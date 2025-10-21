@@ -4,6 +4,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from typing import Dict, List, Optional, Tuple
+from .utils import formatar_valor_br, formatar_valor_simples_br
 
 def calcular_receita_por_cultura(dados_plantio: Dict, df_transacoes: pd.DataFrame) -> Dict:
     """
@@ -36,9 +37,9 @@ def calcular_receita_por_cultura(dados_plantio: Dict, df_transacoes: pd.DataFram
     # Receita realizada das transações (se disponível)
     if not df_transacoes.empty and 'centro_custo' in df_transacoes.columns:
         receitas_realizadas = df_transacoes[
-            (df_transacoes['valor'] > 0) & 
+            (df_transacoes['Valor (R$)'] > 0) & 
             (df_transacoes['centro_custo'].notna())
-        ].groupby('centro_custo')['valor'].sum()
+        ].groupby('centro_custo')['Valor (R$)'].sum()
         
         for cultura, valor in receitas_realizadas.items():
             if cultura in receitas_cultura:
@@ -71,10 +72,10 @@ def calcular_custo_por_cultura(dados_plantio: Dict, df_transacoes: pd.DataFrame)
     
     # Calcular custos diretos por centro de custo
     custos_diretos = df_transacoes[
-        (df_transacoes['valor'] < 0) & 
+        (df_transacoes['Valor (R$)'] < 0) & 
         (df_transacoes['centro_custo'].notna()) &
         (df_transacoes['centro_custo'] != 'Administrativo')
-    ].groupby('centro_custo')['valor'].sum()
+    ].groupby('centro_custo')['Valor (R$)'].sum()
     
     for cultura, valor in custos_diretos.items():
         if cultura in custos_cultura:
@@ -82,10 +83,10 @@ def calcular_custo_por_cultura(dados_plantio: Dict, df_transacoes: pd.DataFrame)
     
     # Calcular rateio administrativo
     custos_admin = abs(df_transacoes[
-        (df_transacoes['valor'] < 0) & 
+        (df_transacoes['Valor (R$)'] < 0) & 
         ((df_transacoes['centro_custo'] == 'Administrativo') | 
          (df_transacoes['centro_custo'].isna()))
-    ]['valor'].sum())
+    ]['Valor (R$)'].sum())
     
     if custos_admin > 0:
         total_hectares = sum(c['hectares'] for c in custos_cultura.values())
@@ -195,22 +196,22 @@ def exibir_resumo_geral(indicadores: Dict):
     with col1:
         st.metric(
             "Receita Total", 
-            f"R$ {total_receita:,.2f}",
+            formatar_valor_br(total_receita),
             help="Receita total estimada de todas as culturas"
         )
     
     with col2:
         st.metric(
             "Custo Total", 
-            f"R$ {total_custo:,.2f}",
+            formatar_valor_br(total_custo),
             help="Custo total incluindo rateio administrativo"
         )
     
     with col3:
         st.metric(
             "Margem Bruta", 
-            f"R$ {total_margem:,.2f}",
-            delta=f"{(total_margem/total_receita*100):.1f}%" if total_receita > 0 else None,
+            formatar_valor_br(total_margem),
+            delta=f"{(total_margem/total_receita*100):.1f}%".replace(".", ",") if total_receita > 0 else None,
             help="Margem bruta total e percentual"
         )
     
@@ -228,11 +229,11 @@ def exibir_resumo_geral(indicadores: Dict):
     for cultura, ind in indicadores.items():
         ranking_data.append({
             'Cultura': cultura,
-            'Margem Bruta': f"R$ {ind['margem_bruta']:,.2f}",
-            'Margem %': f"{ind['margem_percentual']:.1f}%",
-            'Receita/ha': f"R$ {ind['receita_por_hectare']:,.2f}",
-            'Custo/ha': f"R$ {ind['custo_por_hectare']:,.2f}",
-            'Hectares': f"{ind['hectares']:,.1f}",
+            'Margem Bruta': formatar_valor_br(ind['margem_bruta']),
+            'Margem %': f"{ind['margem_percentual']:.1f}%".replace(".", ","),
+            'Receita/ha': formatar_valor_br(ind['receita_por_hectare']),
+            'Custo/ha': formatar_valor_br(ind['custo_por_hectare']),
+            'Hectares': f"{ind['hectares']:,.1f}".replace(",", ".").replace(".", ",", 1),
             'Status': get_status_cultura(ind['margem_percentual'])
         })
     
@@ -256,21 +257,21 @@ def exibir_receitas_custos(receitas_cultura: Dict, custos_cultura: Dict):
             
             with col1:
                 st.markdown("**📈 Receitas**")
-                st.metric("Receita Estimada", f"R$ {receita_data.get('receita_estimada', 0):,.2f}")
-                st.metric("Receita Realizada", f"R$ {receita_data.get('receita_realizada', 0):,.2f}")
-                st.metric("Hectares", f"{receita_data.get('hectares', 0):,.1f} ha")
-                st.metric("Sacas Estimadas", f"{receita_data.get('sacas_estimadas', 0):,.0f}")
+                st.metric("Receita Estimada", formatar_valor_br(receita_data.get('receita_estimada', 0)))
+                st.metric("Receita Realizada", formatar_valor_br(receita_data.get('receita_realizada', 0)))
+                st.metric("Hectares", f"{receita_data.get('hectares', 0):,.1f} ha".replace(",", ".").replace(".", ",", 1))
+                st.metric("Sacas Estimadas", f"{receita_data.get('sacas_estimadas', 0):,.0f}".replace(",", "."))
             
             with col2:
                 st.markdown("**📉 Custos**")
-                st.metric("Custo Direto", f"R$ {custo_data.get('custo_direto', 0):,.2f}")
-                st.metric("Custo Administrativo", f"R$ {custo_data.get('custo_administrativo', 0):,.2f}")
-                st.metric("Custo Total", f"R$ {custo_data.get('custo_total', 0):,.2f}")
+                st.metric("Custo Direto", formatar_valor_br(custo_data.get('custo_direto', 0)))
+                st.metric("Custo Administrativo", formatar_valor_br(custo_data.get('custo_administrativo', 0)))
+                st.metric("Custo Total", formatar_valor_br(custo_data.get('custo_total', 0)))
                 
                 # Percentual de rateio
                 total_admin = sum(c.get('custo_administrativo', 0) for c in custos_cultura.values())
                 perc_rateio = (custo_data.get('custo_administrativo', 0) / total_admin * 100) if total_admin > 0 else 0
-                st.metric("% Rateio Administrativo", f"{perc_rateio:.1f}%")
+                st.metric("% Rateio Administrativo", f"{perc_rateio:.1f}%".replace(".", ","))
 
 def exibir_indicadores_detalhados(indicadores: Dict):
     """
@@ -307,11 +308,15 @@ def exibir_indicadores_detalhados(indicadores: Dict):
         
         df_formatado = df_indicadores.copy()
         for col in colunas_monetarias:
-            df_formatado[col] = df_formatado[col].apply(lambda x: f"R$ {x:,.2f}")
+            if col in df_formatado.columns:
+                df_formatado[col] = df_formatado[col].apply(lambda x: formatar_valor_br(x))
         
-        df_formatado['Margem %'] = df_formatado['Margem %'].apply(lambda x: f"{x:.1f}%")
-        df_formatado['Hectares'] = df_formatado['Hectares'].apply(lambda x: f"{x:,.1f}")
-        df_formatado['Sacas'] = df_formatado['Sacas'].apply(lambda x: f"{x:,.0f}")
+        if 'Margem %' in df_formatado.columns:
+            df_formatado['Margem %'] = df_formatado['Margem %'].apply(lambda x: f"{x:.1f}%".replace(".", ","))
+        if 'Hectares' in df_formatado.columns:
+            df_formatado['Hectares'] = df_formatado['Hectares'].apply(lambda x: f"{x:,.1f}".replace(",", ".").replace(".", ",", 1))
+        if 'Sacas' in df_formatado.columns:
+            df_formatado['Sacas'] = df_formatado['Sacas'].apply(lambda x: f"{x:,.0f}".replace(",", "."))
         
         st.dataframe(df_formatado, use_container_width=True)
 

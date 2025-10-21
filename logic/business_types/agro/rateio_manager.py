@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 from typing import Dict, List, Optional, Tuple
+from datetime import datetime
+from .utils import formatar_valor_br, formatar_valor_simples_br
 
 def interface_rateio_manual_agro(df_transacoes: pd.DataFrame, dados_plantio: Dict) -> pd.DataFrame:
     """
@@ -52,9 +54,9 @@ def interface_rateio_manual_agro(df_transacoes: pd.DataFrame, dados_plantio: Dic
                 st.write(f"**{transacao.get('Descrição', 'Sem descrição')}**")
                 valor = transacao.get('Valor (R$)', 0)
                 if valor > 0:
-                    st.write(f"💰 Receita: {valor:,.2f}")
+                    st.write(f"💰 Receita: {formatar_valor_simples_br(valor)}")
                 else:
-                    st.write(f"💸 Despesa: {abs(valor):,.2f}")
+                    st.write(f"💸 Despesa: {formatar_valor_simples_br(abs(valor))}")
                 
                 # Mostrar data se disponível
                 if 'Data' in transacao:
@@ -77,7 +79,7 @@ def interface_rateio_manual_agro(df_transacoes: pd.DataFrame, dados_plantio: Dic
                     with st.expander("Ver rateio"):
                         for cultura, perc in percentuais_rateio.items():
                             valor_cultura = valor * perc
-                            st.write(f"• {cultura}: {perc*100:.1f}% = R$ {valor_cultura:,.2f}")
+                            st.write(f"• {cultura}: {perc*100:.1f}% = {formatar_valor_br(valor_cultura)}".replace(".", ","))
                 else:
                     st.success(f"✅ Direto para {centro_custo}")
             

@@ -154,7 +154,7 @@ def calcular_rateio_administrativo_agro(df_transacoes: pd.DataFrame, dados_plant
         
         for cultura, percentual in percentuais_rateio.items():
             nova_transacao = transacao.copy()
-            nova_transacao['valor'] = valor_original * percentual
+            nova_transacao['Valor (R$)'] = valor_original * percentual
             nova_transacao['centro_custo'] = cultura
             nova_transacao['descricao'] = f"{transacao.get('descricao', '')} (Rateio {cultura})"
             nova_transacao['rateio_original'] = True
@@ -196,8 +196,8 @@ def calcular_indicadores_agro(df_transacoes: pd.DataFrame, dados_plantio: Dict) 
         for p in dados_plantio.values()
     )
     
-    receita_total = df_transacoes[df_transacoes['valor'] > 0]['valor'].sum()
-    custo_total = abs(df_transacoes[df_transacoes['valor'] < 0]['valor'].sum())
+    receita_total = df_transacoes[df_transacoes['Valor (R$)'] > 0]['Valor (R$)'].sum()
+    custo_total = abs(df_transacoes[df_transacoes['Valor (R$)'] < 0]['Valor (R$)'].sum())
     
     indicadores = {}
     

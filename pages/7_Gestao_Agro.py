@@ -12,6 +12,7 @@ from logic.business_types.business_manager import (
     carregar_template_negocio,
     obter_centros_custo
 )
+from logic.business_types.agro.utils import formatar_valor_br, formatar_valor_simples_br
 from logic.business_types.agro.plantio_manager import (
     interface_cadastro_plantio,
     interface_lista_plantios,
@@ -129,7 +130,7 @@ def interface_dashboard_agro():
     with col3:
         st.metric(
             "💰 Receita Estimada", 
-            f"R$ {totais['receita_total_estimada']:,.2f}",
+            formatar_valor_br(totais['receita_total_estimada']),
             help="Receita bruta estimada"
         )
     
@@ -336,21 +337,21 @@ def calcular_e_exibir_indicadores_agro():
     
     with col1:
         receita_ha = total_receita / total_hectares if total_hectares > 0 else 0
-        st.metric("💰 Receita por Hectare", f"R$ {receita_ha:,.2f}/ha")
+        st.metric("💰 Receita por Hectare", f"{formatar_valor_br(receita_ha)}/ha")
         
         custo_ha = total_custo / total_hectares if total_hectares > 0 else 0
-        st.metric("💸 Custo por Hectare", f"R$ {custo_ha:,.2f}/ha")
+        st.metric("💸 Custo por Hectare", f"{formatar_valor_br(custo_ha)}/ha")
     
     with col2:
         margem_ha = (total_receita - total_custo) / total_hectares if total_hectares > 0 else 0
-        st.metric("📊 Margem por Hectare", f"R$ {margem_ha:,.2f}/ha")
+        st.metric("📊 Margem por Hectare", f"{formatar_valor_br(margem_ha)}/ha")
         
         custo_saca = total_custo / total_sacas if total_sacas > 0 else 0
-        st.metric("🌾 Custo por Saca", f"R$ {custo_saca:.2f}/saca")
+        st.metric("🌾 Custo por Saca", f"{formatar_valor_br(custo_saca)}/saca")
     
     with col3:
         margem_percent = ((total_receita - total_custo) / total_receita * 100) if total_receita > 0 else 0
-        st.metric("📈 Margem Percentual", f"{margem_percent:.1f}%")
+        st.metric("📈 Margem Percentual", f"{margem_percent:.1f}%".replace(".", ","))
         
         # Break-even simplificado
         if total_receita > 0 and total_hectares > 0:

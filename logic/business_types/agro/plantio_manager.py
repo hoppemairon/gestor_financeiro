@@ -4,6 +4,7 @@ import uuid
 import json
 import os
 from datetime import datetime
+from .utils import formatar_valor_br, formatar_valor_simples_br
 from typing import Dict, List, Optional, Tuple
 
 def inicializar_dados_plantio():
@@ -213,7 +214,7 @@ def interface_cadastro_plantio():
             receita_estimada = hectares * sacas_por_hectare * preco_saca
             st.metric(
                 "Receita Estimada", 
-                f"R$ {receita_estimada:,.2f}",
+                formatar_valor_br(receita_estimada),
                 help="Receita bruta estimada para este plantio"
             )
         
@@ -248,7 +249,7 @@ def interface_lista_plantios():
     with col2:
         st.metric("Total Sacas", f"{totais['total_sacas']:,.0f}")
     with col3:
-        st.metric("Receita Estimada", f"R$ {totais['receita_total_estimada']:,.2f}")
+        st.metric("Receita Estimada", formatar_valor_br(totais['receita_total_estimada']))
     with col4:
         st.metric("Nº Plantios", totais['numero_plantios'])
     
@@ -333,8 +334,8 @@ def interface_resumo_por_cultura():
             'Cultura': cultura,
             'Hectares': hectares,
             '% Área': f"{percentual_area:.1f}%",
-            'Receita Estimada': f"R$ {receita:,.2f}",
-            'Receita/ha': f"R$ {receita_por_ha:,.2f}"
+            'Receita Estimada': formatar_valor_br(receita),
+            'Receita/ha': formatar_valor_br(receita_por_ha)
         })
     
     if dados_cultura:
