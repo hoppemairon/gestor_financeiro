@@ -8,11 +8,17 @@ from .utils import formatar_valor_br, formatar_valor_simples_br
 
 def calcular_receita_por_cultura(dados_plantio: Dict, df_transacoes: pd.DataFrame) -> Dict:
     """
-    Calcula receita por cultura baseada nos dados de plantio e transações
+    Calcula receita por cultura baseada nos dados de plantio e transações do Vyco
+    
+    Metodologia:
+    1. Receita Estimada: Soma dos valores planejados por cultura nos plantios
+    2. Receita Realizada: Transações operacionais positivas do Vyco
+       - Se tem centro de custo: agrupa por centro de custo
+       - Se não tem: rateia proporcionalmente por hectares da cultura
     """
     receitas_cultura = {}
     
-    # Receita estimada baseada nos plantios
+    # 1. Receita estimada e dados base dos plantios
     for plantio in dados_plantio.values():
         if not plantio.get('ativo', True):
             continue
@@ -25,7 +31,8 @@ def calcular_receita_por_cultura(dados_plantio: Dict, df_transacoes: pd.DataFram
                 'receita_estimada': 0,
                 'receita_realizada': 0,
                 'hectares': 0,
-                'sacas_estimadas': 0
+                'sacas_estimadas': 0,
+                'metodo_calculo_receita': 'Estimativa de plantio'
             }
         
         receitas_cultura[cultura]['receita_estimada'] += receita_estimada
@@ -34,26 +41,79 @@ def calcular_receita_por_cultura(dados_plantio: Dict, df_transacoes: pd.DataFram
             plantio.get('hectares', 0) * plantio.get('sacas_por_hectare', 0)
         )
     
-    # Receita realizada das transações (se disponível)
-    if not df_transacoes.empty and 'centro_custo' in df_transacoes.columns:
-        receitas_realizadas = df_transacoes[
-            (df_transacoes['Valor (R$)'] > 0) & 
-            (df_transacoes['centro_custo'].notna())
-        ].groupby('centro_custo')['Valor (R$)'].sum()
+    # 2. Receita realizada das transações operacionais do Vyco
+    if not df_transacoes.empty:
+        # Filtrar apenas receitas operacionais (valores positivos)
+        receitas_operacionais = df_transacoes[df_transacoes['Valor (R$)'] > 0].copy()
         
-        for cultura, valor in receitas_realizadas.items():
-            if cultura in receitas_cultura:
-                receitas_cultura[cultura]['receita_realizada'] = valor
+        if not receitas_operacionais.empty:
+            # Método 1: Por centro de custo definido
+            if 'centro_custo' in receitas_operacionais.columns:
+                receitas_com_centro = receitas_operacionais[
+                    receitas_operacionais['centro_custo'].notna() & 
+                    (receitas_operacionais['centro_custo'] != '') &
+                    (receitas_operacionais['centro_custo'].str.strip() != '')
+                ]
+                
+                if not receitas_com_centro.empty:
+                    receitas_por_centro = receitas_com_centro.groupby('centro_custo')['Valor (R$)'].sum()
+                    
+                    for centro_custo, valor in receitas_por_centro.items():
+                        if centro_custo in receitas_cultura:
+                            receitas_cultura[centro_custo]['receita_realizada'] += valor
+                            receitas_cultura[centro_custo]['metodo_calculo_receita'] = 'Vyco - Por centro de custo'
+                
+                # Método 2: Rateio proporcional por hectares para receitas sem centro de custo
+                receitas_sem_centro = receitas_operacionais[
+                    receitas_operacionais['centro_custo'].isna() | 
+                    (receitas_operacionais['centro_custo'] == '') |
+                    (receitas_operacionais['centro_custo'].str.strip() == '')
+                ]
+                
+                if not receitas_sem_centro.empty and receitas_cultura:
+                    valor_total_sem_centro = receitas_sem_centro['Valor (R$)'].sum()
+                    total_hectares = sum(r['hectares'] for r in receitas_cultura.values())
+                    
+                    if total_hectares > 0:
+                        for cultura in receitas_cultura:
+                            proporcao = receitas_cultura[cultura]['hectares'] / total_hectares
+                            valor_rateado = valor_total_sem_centro * proporcao
+                            receitas_cultura[cultura]['receita_realizada'] += valor_rateado
+                            
+                            # Atualizar método se houve rateio
+                            if valor_rateado > 0:
+                                metodo_atual = receitas_cultura[cultura]['metodo_calculo_receita']
+                                if 'Vyco' not in metodo_atual:
+                                    receitas_cultura[cultura]['metodo_calculo_receita'] = 'Vyco - Rateio por hectares'
+                                else:
+                                    receitas_cultura[cultura]['metodo_calculo_receita'] += ' + Rateio por hectares'
+            
+            else:
+                # Se não há coluna centro_custo, ratear tudo por hectares
+                valor_total_receitas = receitas_operacionais['Valor (R$)'].sum()
+                total_hectares = sum(r['hectares'] for r in receitas_cultura.values())
+                
+                if total_hectares > 0:
+                    for cultura in receitas_cultura:
+                        proporcao = receitas_cultura[cultura]['hectares'] / total_hectares
+                        receitas_cultura[cultura]['receita_realizada'] = valor_total_receitas * proporcao
+                        receitas_cultura[cultura]['metodo_calculo_receita'] = 'Vyco - Rateio por hectares'
     
     return receitas_cultura
 
 def calcular_custo_por_cultura(dados_plantio: Dict, df_transacoes: pd.DataFrame) -> Dict:
     """
-    Calcula custos por cultura com rateio administrativo
+    Calcula custos por cultura baseado nas transações do Vyco
+    
+    Metodologia:
+    1. Custos Diretos: Despesas com centro de custo específico da cultura
+    2. Custos Administrativos: Despesas sem centro de custo ou marcadas como "Administrativo"
+       - Rateados proporcionalmente por hectares de cada cultura
+    3. Custo Total: Soma dos custos diretos + administrativos
     """
     custos_cultura = {}
     
-    # Inicializar custos por cultura
+    # Inicializar custos por cultura baseado nos plantios
     for plantio in dados_plantio.values():
         if not plantio.get('ativo', True):
             continue
@@ -64,41 +124,64 @@ def calcular_custo_por_cultura(dados_plantio: Dict, df_transacoes: pd.DataFrame)
                 'custo_direto': 0,
                 'custo_administrativo': 0,
                 'custo_total': 0,
-                'hectares': plantio.get('hectares', 0)
+                'hectares': plantio.get('hectares', 0),
+                'metodo_calculo_custo_direto': 'Nenhum custo identificado',
+                'metodo_calculo_custo_admin': 'Rateio por hectares',
+                'percentual_rateio_admin': 0
             }
     
     if df_transacoes.empty:
         return custos_cultura
     
-    # Calcular custos diretos por centro de custo
-    custos_diretos = df_transacoes[
+    # 1. Calcular custos diretos por centro de custo específico
+    despesas_com_centro = df_transacoes[
         (df_transacoes['Valor (R$)'] < 0) & 
         (df_transacoes['centro_custo'].notna()) &
-        (df_transacoes['centro_custo'] != 'Administrativo')
-    ].groupby('centro_custo')['Valor (R$)'].sum()
+        (df_transacoes['centro_custo'] != '') &
+        (df_transacoes['centro_custo'].str.strip() != '') &
+        (df_transacoes['centro_custo'].str.upper() != 'ADMINISTRATIVO')
+    ]
     
-    for cultura, valor in custos_diretos.items():
-        if cultura in custos_cultura:
-            custos_cultura[cultura]['custo_direto'] = abs(valor)
+    if not despesas_com_centro.empty:
+        custos_diretos = despesas_com_centro.groupby('centro_custo')['Valor (R$)'].sum()
+        
+        for centro_custo, valor in custos_diretos.items():
+            if centro_custo in custos_cultura:
+                custos_cultura[centro_custo]['custo_direto'] = abs(valor)
+                custos_cultura[centro_custo]['metodo_calculo_custo_direto'] = 'Vyco - Por centro de custo'
     
-    # Calcular rateio administrativo
-    custos_admin = abs(df_transacoes[
-        (df_transacoes['Valor (R$)'] < 0) & 
-        ((df_transacoes['centro_custo'] == 'Administrativo') | 
-         (df_transacoes['centro_custo'].isna()))
-    ]['Valor (R$)'].sum())
+    # 2. Calcular custos administrativos (sem centro de custo ou marcados como administrativo)
+    despesas_administrativas = df_transacoes[
+        (df_transacoes['Valor (R$)'] < 0) & (
+            (df_transacoes['centro_custo'].isna()) |
+            (df_transacoes['centro_custo'] == '') |
+            (df_transacoes['centro_custo'].str.strip() == '') |
+            (df_transacoes['centro_custo'].str.upper() == 'ADMINISTRATIVO')
+        )
+    ]
     
-    if custos_admin > 0:
+    custos_admin_total = 0
+    if not despesas_administrativas.empty:
+        custos_admin_total = abs(despesas_administrativas['Valor (R$)'].sum())
+    
+    # 3. Ratear custos administrativos proporcionalmente por hectares
+    if custos_admin_total > 0 and custos_cultura:
         total_hectares = sum(c['hectares'] for c in custos_cultura.values())
         
         if total_hectares > 0:
             for cultura, dados in custos_cultura.items():
                 percentual_rateio = dados['hectares'] / total_hectares
-                dados['custo_administrativo'] = custos_admin * percentual_rateio
+                dados['custo_administrativo'] = custos_admin_total * percentual_rateio
+                dados['percentual_rateio_admin'] = percentual_rateio * 100
+                dados['metodo_calculo_custo_admin'] = f'Rateio por hectares ({percentual_rateio*100:.1f}%)'
     
-    # Calcular custo total
+    # 4. Calcular custo total e finalizar
     for cultura, dados in custos_cultura.items():
         dados['custo_total'] = dados['custo_direto'] + dados['custo_administrativo']
+        
+        # Se não teve custo direto, ajustar a descrição
+        if dados['custo_direto'] == 0:
+            dados['metodo_calculo_custo_direto'] = 'Nenhum custo direto identificado no Vyco'
     
     return custos_cultura
 
@@ -133,11 +216,68 @@ def calcular_indicadores_por_cultura(receitas_cultura: Dict, custos_cultura: Dic
     
     return indicadores
 
+def exibir_metodologia_calculos():
+    """
+    Exibe a metodologia de cálculo para o usuário
+    """
+    with st.expander("📚 Metodologia de Cálculos", expanded=False):
+        st.markdown("""
+        ### 💰 **Receita Realizada**
+        
+        **Fonte:** Transações operacionais (valores positivos) da integração Vyco
+        
+        **Métodos de cálculo:**
+        1. **Por Centro de Custo:** Quando a transação tem centro de custo definido, é atribuída diretamente à cultura correspondente
+        2. **Rateio por Hectares:** Quando não há centro de custo, o valor é distribuído proporcionalmente pelos hectares de cada cultura
+        
+        **Fórmula do Rateio:**
+        ```
+        Valor da Cultura = Valor Total × (Hectares da Cultura / Total de Hectares)
+        ```
+        
+        ---
+        
+        ### 💸 **Custos por Cultura**
+        
+        **Fonte:** Transações de despesas (valores negativos) da integração Vyco
+        
+        #### **1. Custos Diretos:**
+        - Despesas com centro de custo específico da cultura
+        - Atribuídos diretamente à cultura correspondente
+        
+        #### **2. Custos Administrativos:**
+        - Despesas sem centro de custo ou marcadas como "Administrativo"
+        - Rateados proporcionalmente pelos hectares de cada cultura
+        
+        **Fórmula do Rateio Administrativo:**
+        ```
+        Custo Admin da Cultura = Custo Admin Total × (Hectares da Cultura / Total de Hectares)
+        ```
+        
+        #### **3. Custo Total:**
+        ```
+        Custo Total = Custos Diretos + Custos Administrativos
+        ```
+        
+        ---
+        
+        ### 📊 **Indicadores Calculados**
+        
+        - **Margem Bruta:** Receita Total - Custo Total
+        - **Margem %:** (Margem Bruta / Receita Total) × 100
+        - **Receita/ha:** Receita Total / Hectares
+        - **Custo/ha:** Custo Total / Hectares  
+        - **Custo/saca:** Custo Total / Sacas Estimadas
+        """)
+
 def interface_analise_por_cultura():
     """
     Interface principal para análise financeira por cultura
     """
     st.subheader("📊 Análise Financeira por Cultura")
+    
+    # Exibir metodologia de cálculo
+    exibir_metodologia_calculos()
     
     # Verificar se há dados necessários
     if 'plantios_agro' not in st.session_state or not st.session_state['plantios_agro']:
@@ -145,7 +285,7 @@ def interface_analise_por_cultura():
         return
     
     if 'df_transacoes_total_vyco' not in st.session_state:
-        st.warning("💰 Importe dados financeiros primeiro para análise completa.")
+        st.warning("� Integre dados do Vyco primeiro para análise completa.")
         df_transacoes = pd.DataFrame()
     else:
         df_transacoes = st.session_state['df_transacoes_total_vyco']
@@ -255,23 +395,35 @@ def exibir_receitas_custos(receitas_cultura: Dict, custos_cultura: Dict):
             
             col1, col2 = st.columns(2)
             
+            col1, col2 = st.columns(2)
+            
             with col1:
                 st.markdown("**📈 Receitas**")
                 st.metric("Receita Estimada", formatar_valor_br(receita_data.get('receita_estimada', 0)))
                 st.metric("Receita Realizada", formatar_valor_br(receita_data.get('receita_realizada', 0)))
+                
+                # Mostrar método de cálculo da receita
+                metodo_receita = receita_data.get('metodo_calculo_receita', 'Estimativa de plantio')
+                st.info(f"**Método:** {metodo_receita}")
+                
                 st.metric("Hectares", f"{receita_data.get('hectares', 0):,.1f} ha".replace(",", ".").replace(".", ",", 1))
                 st.metric("Sacas Estimadas", f"{receita_data.get('sacas_estimadas', 0):,.0f}".replace(",", "."))
             
             with col2:
                 st.markdown("**📉 Custos**")
                 st.metric("Custo Direto", formatar_valor_br(custo_data.get('custo_direto', 0)))
-                st.metric("Custo Administrativo", formatar_valor_br(custo_data.get('custo_administrativo', 0)))
-                st.metric("Custo Total", formatar_valor_br(custo_data.get('custo_total', 0)))
                 
-                # Percentual de rateio
-                total_admin = sum(c.get('custo_administrativo', 0) for c in custos_cultura.values())
-                perc_rateio = (custo_data.get('custo_administrativo', 0) / total_admin * 100) if total_admin > 0 else 0
-                st.metric("% Rateio Administrativo", f"{perc_rateio:.1f}%".replace(".", ","))
+                # Mostrar método de cálculo do custo direto
+                metodo_direto = custo_data.get('metodo_calculo_custo_direto', 'Nenhum custo identificado')
+                st.info(f"**Método Direto:** {metodo_direto}")
+                
+                st.metric("Custo Administrativo", formatar_valor_br(custo_data.get('custo_administrativo', 0)))
+                
+                # Mostrar método de cálculo administrativo
+                metodo_admin = custo_data.get('metodo_calculo_custo_admin', 'Rateio por hectares')
+                st.info(f"**Método Admin:** {metodo_admin}")
+                
+                st.metric("Custo Total", formatar_valor_br(custo_data.get('custo_total', 0)))
 
 def exibir_indicadores_detalhados(indicadores: Dict):
     """
