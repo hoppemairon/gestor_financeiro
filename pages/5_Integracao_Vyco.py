@@ -46,6 +46,16 @@ from logic.Analises_DFC_DRE.exibir_dre import exibir_dre
 from logic.Analises_DFC_DRE.analise_gpt import analisar_dfs_com_gpt
 from logic.Analises_DFC_DRE.exibir_dre import highlight_rows
 
+# Novos módulos para tipos de negócio
+from logic.business_types.business_manager import (
+    carregar_tipos_negocio,
+    carregar_template_negocio,
+    aplicar_template_agro,
+    ativar_modo_agro,
+    obter_centros_custo,
+    obter_palavras_chave_especificas
+)
+
 # Configuração da página removida daqui (movida para o topo)
 
 # Configuração do logging
@@ -218,7 +228,20 @@ def categorizar_transacoes_vyco(
     Versão customizada da categorização especificamente para dados do Vyco
     Usa 'Categoria_Vyco' como parâmetro principal de categorização quando disponível
     Suporte para arquivos específicos por licença
+    Inclui aplicação de templates específicos por tipo de negócio
     """
+    
+    # Aplicar template específico do tipo de negócio
+    tipo_negocio = st.session_state.get('tipo_negocio_selecionado', None)
+    
+    if tipo_negocio == "agro" and not df_transacoes.empty:
+        # Aplicar template específico do agronegócio
+        try:
+            df_transacoes = aplicar_template_agro(df_transacoes, licenca_nome)
+            st.info("🌾 Template de agronegócio aplicado às transações")
+        except Exception as e:
+            st.warning(f"⚠️ Erro ao aplicar template agro: {e}")
+    
     # Se uma licença foi informada, usar arquivo específico
     if licenca_nome and licenca_nome.strip():
         arquivo_licenca = obter_arquivo_categorias_licenca(licenca_nome, tipo_lancamento)
@@ -1277,6 +1300,57 @@ def coletar_estoques_vyco(df_transacoes, licenca_nome):
 # Título principal
 st.title("🔗 Integração Vyco - Análise de Dados Bancários")
 st.markdown("### Análise financeira integrada com dados do sistema Vyco")
+
+# Configuração de Tipo de Negócio
+st.markdown("---")
+st.subheader("🏢 Configuração do Tipo de Negócio")
+
+col_tipo1, col_tipo2 = st.columns([2, 3])
+
+with col_tipo1:
+    # Carregar tipos disponíveis
+    tipos_negocio = carregar_tipos_negocio()
+    opcoes_tipo = [(key, valor["nome"]) for key, valor in tipos_negocio.items()]
+    
+    tipo_selecionado = st.selectbox(
+        "Selecione o tipo de negócio:",
+        options=[key for key, _ in opcoes_tipo],
+        format_func=lambda x: next((nome for key, nome in opcoes_tipo if key == x), x),
+        help="Selecione o tipo de negócio para ativar funcionalidades específicas"
+    )
+    
+    # Salvar no session_state
+    if tipo_selecionado:
+        st.session_state['tipo_negocio_selecionado'] = tipo_selecionado
+        
+        # Ativar modo agro se necessário
+        if tipo_selecionado == "agro":
+            ativar_modo_agro()
+            st.success("🌾 Modo Agronegócio ativado!")
+        else:
+            # Desativar modo agro para outros tipos
+            st.session_state['modo_agro'] = False
+
+with col_tipo2:
+    if tipo_selecionado and tipo_selecionado in tipos_negocio:
+        tipo_info = tipos_negocio[tipo_selecionado]
+        st.info(f"**{tipo_info['nome']}**")
+        st.write(tipo_info['descricao'])
+        
+        # Mostrar funcionalidades específicas se for agro
+        if tipo_selecionado == "agro":
+            template = carregar_template_negocio("agro")
+            if template and "funcionalidades_especiais" in template:
+                funcionalidades = template["funcionalidades_especiais"]
+                st.markdown("**🚀 Funcionalidades Especiais:**")
+                for func, ativo in funcionalidades.items():
+                    if ativo:
+                        st.write(f"✅ {func.replace('_', ' ').title()}")
+                
+                # Link para página específica
+                st.markdown("👉 **Acesse a página [Gestão Agro](/7_Gestao_Agro) para funcionalidades específicas**")
+
+st.markdown("---")
 
 # Sidebar para configurações
 st.sidebar.header("⚙️ Configurações de Conexão")

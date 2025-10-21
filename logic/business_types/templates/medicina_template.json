@@ -1,0 +1,119 @@
+{
+  "tipo_negocio": "clinica_medicina",
+  "nome": "Clínica Médica",
+  "descricao": "Clínicas médicas, consultórios e centros de saúde",
+  "funcionalidades_especiais": {
+    "gestao_pacientes": false,
+    "controle_consultas": false,
+    "estoque_medicamentos": false,
+    "agenda_medica": false
+  },
+  "plano_contas_medicina": {
+    "receitas": [
+      {
+        "grupo": "Receita Consultas",
+        "ordem": "3.1",
+        "contas": [
+          {"codigo": "3.1.01", "nome": "Consultas Clínica Geral", "tipo": "Crédito"},
+          {"codigo": "3.1.02", "nome": "Consultas Especialidades", "tipo": "Crédito"},
+          {"codigo": "3.1.03", "nome": "Exames Complementares", "tipo": "Crédito"},
+          {"codigo": "3.1.04", "nome": "Procedimentos Médicos", "tipo": "Crédito"}
+        ]
+      },
+      {
+        "grupo": "Receita Convênios",
+        "ordem": "3.2",
+        "contas": [
+          {"codigo": "3.2.01", "nome": "Convênios Médicos", "tipo": "Crédito"},
+          {"codigo": "3.2.02", "nome": "SUS", "tipo": "Crédito"},
+          {"codigo": "3.2.03", "nome": "Particulares", "tipo": "Crédito"}
+        ]
+      }
+    ],
+    "custos": [
+      {
+        "grupo": "Despesas Médicas",
+        "ordem": "4.1",
+        "contas": [
+          {"codigo": "4.1.01", "nome": "Material Médico", "tipo": "Débito"},
+          {"codigo": "4.1.02", "nome": "Medicamentos", "tipo": "Débito"},
+          {"codigo": "4.1.03", "nome": "Equipamentos Médicos", "tipo": "Débito"},
+          {"codigo": "4.1.04", "nome": "Exames Terceirizados", "tipo": "Débito"}
+        ]
+      },
+      {
+        "grupo": "Despesas Operacionais Médicas",
+        "ordem": "4.2",
+        "contas": [
+          {"codigo": "4.2.01", "nome": "Honorários Médicos", "tipo": "Débito"},
+          {"codigo": "4.2.02", "nome": "Limpeza Hospitalar", "tipo": "Débito"},
+          {"codigo": "4.2.03", "nome": "Segurança", "tipo": "Débito"},
+          {"codigo": "4.2.04", "nome": "Manutenção Equipamentos", "tipo": "Débito"}
+        ]
+      }
+    ]
+  },
+  "centros_custo_padrao": ["Administrativo", "Consultas", "Exames", "Procedimentos", "Internação"],
+  "palavras_chave_medicina": {
+    "consulta": "Receita Consultas",
+    "exame": "Exames Complementares",
+    "procedimento": "Procedimentos Médicos",
+    "convenio": "Convênios Médicos",
+    "sus": "SUS",
+    "particular": "Particulares",
+    "material medico": "Material Médico",
+    "medicamento": "Medicamentos",
+    "equipamento": "Equipamentos Médicos",
+    "honorario": "Honorários Médicos",
+    "limpeza": "Limpeza Hospitalar",
+    "manutencao": "Manutenção Equipamentos"
+  },
+  "indicadores_especificos": [
+    {
+      "nome": "Receita por Consulta",
+      "formula": "receita_total / numero_consultas",
+      "unidade": "R$/consulta",
+      "interpretacao": "Receita média por consulta realizada"
+    },
+    {
+      "nome": "Taxa de Ocupação",
+      "formula": "consultas_realizadas / consultas_agendadas * 100",
+      "unidade": "%",
+      "interpretacao": "Percentual de ocupação da agenda médica"
+    },
+    {
+      "nome": "Custo por Paciente",
+      "formula": "custo_total / numero_pacientes",
+      "unidade": "R$/paciente",
+      "interpretacao": "Custo médio por paciente atendido"
+    },
+    {
+      "nome": "Margem por Especialidade",
+      "formula": "(receita_especialidade - custo_especialidade) / receita_especialidade * 100",
+      "unidade": "%",
+      "interpretacao": "Margem percentual por especialidade médica"
+    }
+  ],
+  "dre_layout_medicina": {
+    "sections": [
+      "Receita Bruta",
+      "(-) Impostos sobre Venda",
+      "= Receita Líquida",
+      "(-) Despesas Médicas",
+      "= Margem Médica",
+      "(-) Despesas Operacionais Médicas",
+      "= Margem Operacional",
+      "(-) Despesas Administrativas",
+      "(-) Despesas RH",
+      "= Resultado Operacional",
+      "(-) Despesas Extra Operacional",
+      "(-) Impostos sobre Resultado",
+      "= Resultado Líquido"
+    ],
+    "grupos_especiais": {
+      "Margem Médica": "Resultado após deduzir custos diretos médicos",
+      "Margem Operacional": "Resultado após custos operacionais médicos",
+      "Resultado Operacional": "Resultado principal da atividade médica"
+    }
+  }
+}

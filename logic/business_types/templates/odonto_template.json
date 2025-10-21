@@ -1,0 +1,155 @@
+{
+  "tipo_negocio": "clinica_odonto",
+  "nome": "Clínica Odontológica",
+  "descricao": "Clínicas odontológicas, consultórios dentários e centros de odontologia",
+  "funcionalidades_especiais": {
+    "gestao_pacientes": false,
+    "controle_tratamentos": false,
+    "estoque_dental": false,
+    "agenda_dentista": false
+  },
+  "plano_contas_odonto": {
+    "receitas": [
+      {
+        "grupo": "Receita Procedimentos Odontológicos",
+        "ordem": "3.1",
+        "contas": [
+          {"codigo": "3.1.01", "nome": "Restaurações", "tipo": "Crédito"},
+          {"codigo": "3.1.02", "nome": "Limpeza e Prevenção", "tipo": "Crédito"},
+          {"codigo": "3.1.03", "nome": "Ortodontia", "tipo": "Crédito"},
+          {"codigo": "3.1.04", "nome": "Implantes", "tipo": "Crédito"},
+          {"codigo": "3.1.05", "nome": "Próteses", "tipo": "Crédito"},
+          {"codigo": "3.1.06", "nome": "Cirurgias Orais", "tipo": "Crédito"}
+        ]
+      },
+      {
+        "grupo": "Receita Convênios Odontológicos",
+        "ordem": "3.2",
+        "contas": [
+          {"codigo": "3.2.01", "nome": "Convênios Odontológicos", "tipo": "Crédito"},
+          {"codigo": "3.2.02", "nome": "Particulares Odonto", "tipo": "Crédito"},
+          {"codigo": "3.2.03", "nome": "Planos Odontológicos", "tipo": "Crédito"}
+        ]
+      }
+    ],
+    "custos": [
+      {
+        "grupo": "Material Odontológico",
+        "ordem": "4.1",
+        "contas": [
+          {"codigo": "4.1.01", "nome": "Materiais Restauradores", "tipo": "Débito"},
+          {"codigo": "4.1.02", "nome": "Anestésicos", "tipo": "Débito"},
+          {"codigo": "4.1.03", "nome": "Instrumentais", "tipo": "Débito"},
+          {"codigo": "4.1.04", "nome": "Próteses Terceirizadas", "tipo": "Débito"},
+          {"codigo": "4.1.05", "nome": "Implantes e Componentes", "tipo": "Débito"}
+        ]
+      },
+      {
+        "grupo": "Despesas Operacionais Odonto",
+        "ordem": "4.2",
+        "contas": [
+          {"codigo": "4.2.01", "nome": "Honorários Dentistas", "tipo": "Débito"},
+          {"codigo": "4.2.02", "nome": "Laboratório Prótese", "tipo": "Débito"},
+          {"codigo": "4.2.03", "nome": "Esterilização", "tipo": "Débito"},
+          {"codigo": "4.2.04", "nome": "Equipamentos Odontológicos", "tipo": "Débito"}
+        ]
+      }
+    ]
+  },
+  "centros_custo_padrao": ["Administrativo", "Clínica Geral", "Ortodontia", "Implantodontia", "Prótese", "Cirurgia"],
+  "palavras_chave_odonto": {
+    "restauracao": "Restaurações",
+    "limpeza": "Limpeza e Prevenção",
+    "ortodontia": "Ortodontia",
+    "aparelho": "Ortodontia",
+    "implante": "Implantes",
+    "protese": "Próteses",
+    "cirurgia": "Cirurgias Orais",
+    "extraçao": "Cirurgias Orais",
+    "convenio odonto": "Convênios Odontológicos",
+    "plano odonto": "Planos Odontológicos",
+    "particular": "Particulares Odonto",
+    "material dental": "Materiais Restauradores",
+    "anestesico": "Anestésicos",
+    "instrumental": "Instrumentais",
+    "laboratorio": "Laboratório Prótese",
+    "honorario dentista": "Honorários Dentistas",
+    "esterilizacao": "Esterilização"
+  },
+  "indicadores_especificos": [
+    {
+      "nome": "Receita por Procedimento",
+      "formula": "receita_total / numero_procedimentos",
+      "unidade": "R$/procedimento",
+      "interpretacao": "Receita média por procedimento realizado"
+    },
+    {
+      "nome": "Ticket Médio Paciente",
+      "formula": "receita_total / numero_pacientes",
+      "unidade": "R$/paciente",
+      "interpretacao": "Valor médio gasto por paciente"
+    },
+    {
+      "nome": "Taxa de Ocupação Consultório",
+      "formula": "horas_utilizadas / horas_disponiveis * 100",
+      "unidade": "%",
+      "interpretação": "Percentual de ocupação dos consultórios"
+    },
+    {
+      "nome": "Margem por Especialidade",
+      "formula": "(receita_especialidade - custo_especialidade) / receita_especialidade * 100",
+      "unidade": "%",
+      "interpretacao": "Margem percentual por especialidade odontológica"
+    },
+    {
+      "nome": "Custo Material por Procedimento",
+      "formula": "custo_material / numero_procedimentos",
+      "unidade": "R$/procedimento",
+      "interpretacao": "Custo médio de material por procedimento"
+    }
+  ],
+  "especialidades_odonto": {
+    "clinica_geral": {
+      "nome": "Clínica Geral",
+      "procedimentos": ["Restaurações", "Limpeza", "Extrações simples"]
+    },
+    "ortodontia": {
+      "nome": "Ortodontia",
+      "procedimentos": ["Aparelhos", "Manutenções", "Contenções"]
+    },
+    "implantodontia": {
+      "nome": "Implantodontia", 
+      "procedimentos": ["Implantes", "Enxertos", "Próteses sobre implante"]
+    },
+    "protese": {
+      "nome": "Prótese",
+      "procedimentos": ["Próteses totais", "Próteses parciais", "Coroas"]
+    },
+    "cirurgia": {
+      "nome": "Cirurgia Oral",
+      "procedimentos": ["Extrações complexas", "Cirurgias periodontais", "Biopsias"]
+    }
+  },
+  "dre_layout_odonto": {
+    "sections": [
+      "Receita Bruta",
+      "(-) Impostos sobre Venda",
+      "= Receita Líquida",
+      "(-) Material Odontológico",
+      "= Margem Bruta",
+      "(-) Despesas Operacionais Odonto",
+      "= Margem Operacional",
+      "(-) Despesas Administrativas",
+      "(-) Despesas RH",
+      "= Resultado Operacional",
+      "(-) Despesas Extra Operacional",
+      "(-) Impostos sobre Resultado",
+      "= Resultado Líquido"
+    ],
+    "grupos_especiais": {
+      "Margem Bruta": "Resultado após deduzir custos de material odontológico",
+      "Margem Operacional": "Resultado após custos operacionais odontológicos",
+      "Resultado Operacional": "Resultado principal da atividade odontológica"
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "tipo_negocio": "agro",
+  "nome": "Agronegócio",
+  "descricao": "Empresas do setor agrícola com gestão de culturas e plantios",
+  "funcionalidades_especiais": {
+    "gestao_plantio": true,
+    "rateio_por_cultura": true,
+    "cenarios_climaticos": true,
+    "indicadores_agro": true,
+    "analise_por_hectare": true
+  },
+  "plano_contas_agro": {
+    "receitas": [
+      {
+        "grupo": "Receita Venda Grãos",
+        "ordem": "3.1",
+        "contas": [
+          {"codigo": "3.1.01", "nome": "Venda Soja", "tipo": "Crédito"},
+          {"codigo": "3.1.02", "nome": "Venda Milho", "tipo": "Crédito"},
+          {"codigo": "3.1.03", "nome": "Venda Arroz", "tipo": "Crédito"},
+          {"codigo": "3.1.04", "nome": "Venda Outros Grãos", "tipo": "Crédito"}
+        ]
+      },
+      {
+        "grupo": "Receita Operacional Agro",
+        "ordem": "3.2",
+        "contas": [
+          {"codigo": "3.2.01", "nome": "Arrendamento Terceiros", "tipo": "Crédito"},
+          {"codigo": "3.2.02", "nome": "Prestação Serviços Agrícolas", "tipo": "Crédito"}
+        ]
+      }
+    ],
+    "custos": [
+      {
+        "grupo": "Custo Produção",
+        "ordem": "4.1",
+        "contas": [
+          {"codigo": "4.1.01", "nome": "Sementes", "tipo": "Débito"},
+          {"codigo": "4.1.02", "nome": "Fertilizantes", "tipo": "Débito"},
+          {"codigo": "4.1.03", "nome": "Defensivos", "tipo": "Débito"},
+          {"codigo": "4.1.04", "nome": "Corretivos", "tipo": "Débito"}
+        ]
+      },
+      {
+        "grupo": "Custo Operacional Agro",
+        "ordem": "4.2",
+        "contas": [
+          {"codigo": "4.2.01", "nome": "Combustível Agrícola", "tipo": "Débito"},
+          {"codigo": "4.2.02", "nome": "Mão de Obra Rural", "tipo": "Débito"},
+          {"codigo": "4.2.03", "nome": "Manutenção Equipamentos", "tipo": "Débito"},
+          {"codigo": "4.2.04", "nome": "Arrendamento Pago", "tipo": "Débito"}
+        ]
+      }
+    ]
+  },
+  "centros_custo_padrao": ["Administrativo", "Soja", "Milho", "Arroz", "Outros"],
+  "palavras_chave_agro": {
+    "sementes": "Custo Produção",
+    "fertilizante": "Custo Produção",
+    "adubo": "Custo Produção",
+    "defensivo": "Custo Produção",
+    "herbicida": "Custo Produção",
+    "inseticida": "Custo Produção",
+    "fungicida": "Custo Produção",
+    "calcario": "Custo Produção",
+    "gesso": "Custo Produção",
+    "venda grao": "Receita Venda Grãos",
+    "venda soja": "Venda Soja",
+    "venda milho": "Venda Milho",
+    "venda arroz": "Venda Arroz",
+    "combustivel": "Custo Operacional Agro",
+    "diesel": "Combustível Agrícola",
+    "arrendamento": "Arrendamento",
+    "mao de obra": "Mão de Obra Rural",
+    "funcionario": "Mão de Obra Rural"
+  },
+  "indicadores_especificos": [
+    {
+      "nome": "Receita por Hectare",
+      "formula": "receita_total / hectares_total",
+      "unidade": "R$/ha",
+      "interpretacao": "Receita gerada por hectare plantado"
+    },
+    {
+      "nome": "Custo por Hectare",
+      "formula": "custo_total / hectares_total",
+      "unidade": "R$/ha",
+      "interpretacao": "Custo total por hectare plantado"
+    },
+    {
+      "nome": "Margem por Hectare",
+      "formula": "(receita_total - custo_total) / hectares_total",
+      "unidade": "R$/ha",
+      "interpretacao": "Margem líquida por hectare"
+    },
+    {
+      "nome": "Custo por Saca",
+      "formula": "custo_total / sacas_total",
+      "unidade": "R$/saca",
+      "interpretacao": "Custo para produzir uma saca"
+    },
+    {
+      "nome": "Break-Even Yield",
+      "formula": "custo_total / (sacas_total * preco_medio_saca)",
+      "unidade": "sacas/ha",
+      "interpretacao": "Produtividade mínima para cobrir custos"
+    },
+    {
+      "nome": "Margem por Cultura",
+      "formula": "(receita_cultura - custo_cultura) / receita_cultura * 100",
+      "unidade": "%",
+      "interpretacao": "Margem percentual por tipo de cultura"
+    }
+  ],
+  "metricas_producao": {
+    "produtividade_media": {
+      "soja": {"min": 35, "media": 50, "max": 70},
+      "milho": {"min": 80, "media": 120, "max": 180},
+      "arroz": {"min": 100, "media": 150, "max": 200}
+    },
+    "preco_referencia": {
+      "soja": {"min": 100, "medio": 130, "max": 160},
+      "milho": {"min": 40, "medio": 60, "max": 80},
+      "arroz": {"min": 80, "medio": 120, "max": 150}
+    }
+  },
+  "cenarios_padrao": {
+    "pessimista": {
+      "descricao": "Cenário com condições climáticas adversas e preços baixos",
+      "ajuste_produtividade": -20,
+      "ajuste_preco": -15,
+      "ajuste_custo": 10
+    },
+    "realista": {
+      "descricao": "Cenário baseado em médias históricas",
+      "ajuste_produtividade": 0,
+      "ajuste_preco": 0,
+      "ajuste_custo": 0
+    },
+    "otimista": {
+      "descricao": "Cenário com boas condições e preços favoráveis",
+      "ajuste_produtividade": 15,
+      "ajuste_preco": 10,
+      "ajuste_custo": -5
+    }
+  },
+  "dre_layout_agro": {
+    "sections": [
+      "Receita Bruta",
+      "(-) Impostos sobre Venda",
+      "= Receita Líquida",
+      "(-) Custo Produção",
+      "= Margem Bruta",
+      "(-) Custo Operacional Agro",
+      "= Margem Operacional",
+      "(-) Despesas Administrativas",
+      "(-) Despesas RH",
+      "= Resultado Operacional",
+      "(-) Despesas Extra Operacional",
+      "(-) Impostos sobre Resultado",
+      "= Resultado Líquido"
+    ],
+    "grupos_especiais": {
+      "Margem Bruta": "Resultado após deduzir custos diretos de produção",
+      "Margem Operacional": "Resultado após custos operacionais agrícolas",
+      "Resultado Operacional": "Resultado principal da atividade agrícola"
+    }
+  }
+}
