@@ -28,9 +28,23 @@ def coletar_estoques(df_transacoes, path_csv="./logic/CSVs/estoques.csv"):
     df_transacoes = df_transacoes.dropna(subset=["Data"])
     meses = sorted(df_transacoes["Data"].dt.to_period("M").astype(str).unique())
 
-    df_estoques = pd.DataFrame(columns=["Mes", "Estoque"])
+    # Carregar dados existentes do CSV se existir
+    try:
+        if os.path.exists(path_csv):
+            df_estoques = pd.read_csv(path_csv)
+        else:
+            df_estoques = pd.DataFrame(columns=["Mes", "Estoque"])
+    except Exception as e:
+        st.warning(f"Erro ao carregar estoques existentes: {e}")
+        df_estoques = pd.DataFrame(columns=["Mes", "Estoque"])
 
     valores_input = {}
+
+    # Exibir dados existentes se houver
+    if not df_estoques.empty:
+        st.markdown("##### 📊 Dados Salvos Anteriormente:")
+        with st.expander("Ver estoques salvos", expanded=False):
+            st.dataframe(df_estoques, use_container_width=True)
 
     for mes in meses:
         valor_antigo = df_estoques[df_estoques["Mes"] == mes]["Estoque"]
@@ -57,6 +71,10 @@ def coletar_estoques(df_transacoes, path_csv="./logic/CSVs/estoques.csv"):
             novos.append({"Mes": mes, "Estoque": valor_float})
 
         df_salvo = pd.DataFrame(novos)
+        
+        # Garantir que o diretório existe antes de salvar
+        os.makedirs(os.path.dirname(path_csv), exist_ok=True)
+        
         df_salvo.to_csv(path_csv, index=False)
 
         st.success("✅ Valores de estoque salvos com sucesso!")

@@ -46,7 +46,49 @@ def soma_por_grupo(df_fluxo: pd.DataFrame, plano: pd.DataFrame, grupo: str) -> p
 
 def soma_por_categoria(df_fluxo: pd.DataFrame, *categorias) -> pd.Series:
     """Soma valores por categorias específicas."""
-    return df_fluxo.loc[df_fluxo.index.isin(categorias)].sum()
+    # Debug: verificar quais categorias existem no fluxo
+    categorias_encontradas = [cat for cat in categorias if cat in df_fluxo.index]
+    if not categorias_encontradas:
+        # Se não encontrou nenhuma categoria exata, tentar busca parcial
+        for categoria in categorias:
+            linhas_parciais = df_fluxo.index[df_fluxo.index.str.contains(categoria, case=False, na=False)]
+            if len(linhas_parciais) > 0:
+                categorias_encontradas.extend(linhas_parciais.tolist())
+    
+    if categorias_encontradas:
+        return df_fluxo.loc[df_fluxo.index.isin(categorias_encontradas)].sum()
+    else:
+        # Retornar série zerada com as colunas do df_fluxo
+        return pd.Series(0, index=df_fluxo.columns)
+
+def debug_linhas_fluxo_caixa(df_fluxo: pd.DataFrame):
+    """Debug: mostra as linhas disponíveis no fluxo de caixa"""
+    import streamlit as st
+    
+    if st.checkbox("🔍 Debug - Linhas do Fluxo de Caixa"):
+        st.subheader("Debug: Análise do Fluxo de Caixa")
+        
+        # Mostrar todas as linhas do fluxo
+        st.markdown("**📋 Todas as linhas disponíveis no fluxo:**")
+        linhas_disponiveis = list(df_fluxo.index)
+        for i, linha in enumerate(linhas_disponiveis):
+            if i < 20:  # Mostrar primeiras 20 linhas
+                # Verificar se tem valores
+                valores_linha = df_fluxo.loc[linha]
+                soma_linha = valores_linha.sum()
+                st.write(f"- {linha} (Soma: {soma_linha:,.2f})")
+        
+        if len(linhas_disponiveis) > 20:
+            st.write(f"... e mais {len(linhas_disponiveis) - 20} linhas")
+        
+        # Buscar especificamente por receitas extra
+        st.markdown("**💰 Linhas relacionadas a Receitas Extra:**")
+        termos_busca = ['receita', 'extra', 'operacional', 'outros', 'recebimentos', 'juros']
+        for termo in termos_busca:
+            linhas_encontradas = [linha for linha in linhas_disponiveis 
+                                if termo.lower() in linha.lower()]
+            if linhas_encontradas:
+                st.write(f"**{termo.title()}:** {linhas_encontradas}")
 
 def criar_dre(df_fluxo: pd.DataFrame, plano: pd.DataFrame) -> pd.DataFrame:
     """Cria o DataFrame do DRE com todos os cálculos."""
@@ -91,7 +133,7 @@ def criar_dre(df_fluxo: pd.DataFrame, plano: pd.DataFrame) -> pd.DataFrame:
     dre = pd.concat([
         dre,
         linha("RETIRADAS SÓCIOS", soma_por_grupo(df_fluxo, plano, "Retiradas")),
-        linha("RECEITA EXTRA OPERACIONAL", soma_por_categoria(df_fluxo, "Juros Recebidos", "Outros Recebimentos")),
+        linha("RECEITA EXTRA OPERACIONAL", soma_por_categoria(df_fluxo, "Receita Extra Operacional", "Juros Recebidos", "Outros Recebimentos")),
     ])
     
     dre.loc["RESULTADO"] = dre.loc["LUCRO LIQUIDO"] - dre.loc["RETIRADAS SÓCIOS"] + dre.loc["RECEITA EXTRA OPERACIONAL"]
@@ -200,6 +242,9 @@ def exibir_dre(df_fluxo=None, path_fluxo="./logic/CSVs/transacoes_numericas.xlsx
     tab1, tab2 = st.tabs(["Tabela DRE", "Visualização Gráfica"])
     
     with tab1:
+        # Debug do fluxo de caixa
+        debug_linhas_fluxo_caixa(df_fluxo)
+        
         # Criar e formatar o DRE
         dre = criar_dre(df_fluxo, plano)
         dre_formatado = formatar_dre(dre, meses)

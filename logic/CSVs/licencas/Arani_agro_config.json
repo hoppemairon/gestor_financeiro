@@ -1,0 +1,39 @@
+{
+  "licenca": "Arani",
+  "tipo_negocio": "agro",
+  "dados_plantio": {
+    "7ab2103b": {
+      "id": "7ab2103b",
+      "ano": 2025,
+      "cultura": "Soja",
+      "hectares": 3000.0,
+      "sacas_por_hectare": 50.0,
+      "preco_saca": 130.0,
+      "receita_estimada": 19500000.0,
+      "data_cadastro": "2025-10-21T16:45:17.587310",
+      "ativo": true
+    },
+    "7cae0409": {
+      "id": "7cae0409",
+      "ano": 2025,
+      "cultura": "Arroz",
+      "hectares": 1400.0,
+      "sacas_por_hectare": 150.0,
+      "preco_saca": 120.0,
+      "receita_estimada": 25200000.0,
+      "data_cadastro": "2025-10-21T16:45:40.784247",
+      "ativo": true
+    }
+  },
+  "configuracoes_especificas": {
+    "usa_rateio_automatico": true,
+    "mostra_indicadores_agro": true,
+    "cenarios_habilitados": [
+      "realista",
+      "pessimista",
+      "otimista"
+    ]
+  },
+  "ultima_atualizacao": "2025-10-21T16:45:40.784910",
+  "total_plantios": 2
+}

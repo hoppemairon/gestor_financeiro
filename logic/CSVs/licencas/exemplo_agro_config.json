@@ -1,0 +1,39 @@
+{
+  "licenca": "exemplo",
+  "tipo_negocio": "agro",
+  "dados_plantio": {
+    "12345678": {
+      "id": "12345678",
+      "ano": 2024,
+      "cultura": "Milho",
+      "hectares": 50.5,
+      "sacas_por_hectare": 180,
+      "preco_saca": 65.0,
+      "receita_estimada": 590925.0,
+      "data_cadastro": "2024-10-21T16:30:00",
+      "ativo": true
+    },
+    "87654321": {
+      "id": "87654321",
+      "ano": 2024,
+      "cultura": "Soja",
+      "hectares": 75.2,
+      "sacas_por_hectare": 55,
+      "preco_saca": 120.0,
+      "receita_estimada": 496320.0,
+      "data_cadastro": "2024-10-21T16:31:00",
+      "ativo": true
+    }
+  },
+  "configuracoes_especificas": {
+    "usa_rateio_automatico": true,
+    "mostra_indicadores_agro": true,
+    "cenarios_habilitados": [
+      "realista",
+      "pessimista", 
+      "otimista"
+    ]
+  },
+  "total_plantios": 2,
+  "ultima_atualizacao": "2024-10-21T16:31:15.123456"
+}

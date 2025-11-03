@@ -5,6 +5,23 @@ import json
 import os
 from datetime import datetime
 from .utils import formatar_valor_br, formatar_valor_simples_br
+
+# Funções auxiliares para formatação
+def formatar_hectares_br(valor):
+    """Formatar hectares no padrão brasileiro"""
+    try:
+        valor_num = float(valor) if not isinstance(valor, (int, float)) else valor
+        return f"{valor_num:,.2f} ha".replace(",", "X").replace(".", ",").replace("X", ".")
+    except (ValueError, TypeError):
+        return "0,00 ha"
+
+def formatar_produtividade_br(valor):
+    """Formatar produtividade no padrão brasileiro"""
+    try:
+        valor_num = float(valor) if not isinstance(valor, (int, float)) else valor
+        return f"{valor_num:,.2f} sacas/ha".replace(",", "X").replace(".", ",").replace("X", ".")
+    except (ValueError, TypeError):
+        return "0,00 sacas/ha"
 from typing import Dict, List, Optional, Tuple
 
 def inicializar_dados_plantio():
@@ -20,7 +37,7 @@ def inicializar_dados_plantio():
 def adicionar_plantio(ano: int, cultura: str, hectares: float, 
                      sacas_por_hectare: float, preco_saca: float) -> str:
     """
-    Adiciona um novo plantio ao sistema
+    Adiciona um novo plantio ao sistema e salva automaticamente
     """
     plantio_id = str(uuid.uuid4())[:8]
     
@@ -36,12 +53,15 @@ def adicionar_plantio(ano: int, cultura: str, hectares: float,
         'ativo': True
     }
     
+    # Auto-salvar os dados
+    auto_salvar_dados_plantio()
+    
     return plantio_id
 
 def atualizar_plantio(plantio_id: str, hectares: float, cultura: str, 
                      sacas_por_hectare: float, preco_saca: float) -> bool:
     """
-    Atualiza dados de um plantio existente
+    Atualiza dados de um plantio existente e salva automaticamente
     """
     if plantio_id not in st.session_state['plantios_agro']:
         return False
@@ -56,16 +76,23 @@ def atualizar_plantio(plantio_id: str, hectares: float, cultura: str,
         'data_atualizacao': datetime.now().isoformat()
     })
     
+    # Auto-salvar os dados
+    auto_salvar_dados_plantio()
+    
     return True
 
 def excluir_plantio(plantio_id: str) -> bool:
     """
-    Exclui um plantio (marca como inativo)
+    Exclui um plantio (marca como inativo) e salva automaticamente
     """
     if plantio_id not in st.session_state['plantios_agro']:
         return False
     
     st.session_state['plantios_agro'][plantio_id]['ativo'] = False
+    
+    # Auto-salvar os dados
+    auto_salvar_dados_plantio()
+    
     return True
 
 def obter_plantios_ativos() -> Dict:
@@ -181,7 +208,7 @@ def interface_cadastro_plantio():
                 min_value=0.1, 
                 step=0.1, 
                 value=100.0,
-                help="Área total plantada desta cultura"
+                help="Área total plantada desta cultura. Use ponto como separador decimal (ex: 123.45)"
             )
         
         with col2:
@@ -245,9 +272,9 @@ def interface_lista_plantios():
     
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("Total Hectares", f"{totais['total_hectares']:,.1f} ha")
+        st.metric("Total Hectares", formatar_hectares_br(totais['total_hectares']))
     with col2:
-        st.metric("Total Sacas", f"{totais['total_sacas']:,.0f}")
+        st.metric("Total Sacas", f"{totais['total_sacas']:,.0f}".replace(",", "."))
     with col3:
         st.metric("Receita Estimada", formatar_valor_br(totais['receita_total_estimada']))
     with col4:
@@ -255,7 +282,7 @@ def interface_lista_plantios():
     
     # Lista de plantios
     for pid, plantio in plantios.items():
-        with st.expander(f"🌾 {plantio['cultura']} - {plantio['ano']} ({plantio['hectares']:.1f} ha)"):
+        with st.expander(f"🌾 {plantio['cultura']} - {plantio['ano']} ({formatar_hectares_br(plantio['hectares'])}):"):
             col1, col2 = st.columns(2)
             
             with col1:
@@ -264,7 +291,8 @@ def interface_lista_plantios():
                     value=plantio['hectares'], 
                     key=f"ha_{pid}",
                     min_value=0.1,
-                    step=0.1
+                    step=0.1,
+                    help="Use ponto como separador decimal (ex: 123.45)"
                 )
                 
                 nova_cultura = st.selectbox(
@@ -332,7 +360,7 @@ def interface_resumo_por_cultura():
         
         dados_cultura.append({
             'Cultura': cultura,
-            'Hectares': hectares,
+            'Hectares': formatar_hectares_br(hectares),
             '% Área': f"{percentual_area:.1f}%",
             'Receita Estimada': formatar_valor_br(receita),
             'Receita/ha': formatar_valor_br(receita_por_ha)
@@ -341,6 +369,15 @@ def interface_resumo_por_cultura():
     if dados_cultura:
         df_cultura = pd.DataFrame(dados_cultura)
         st.dataframe(df_cultura, use_container_width=True)
+
+def auto_salvar_dados_plantio():
+    """
+    Salva automaticamente os dados quando há uma licença ativa
+    """
+    licenca_atual = st.session_state.get('licenca_atual')
+    if licenca_atual and licenca_atual != 'Não definida':
+        return salvar_dados_plantio(licenca_atual)
+    return False
 
 def salvar_dados_plantio(licenca_nome: str) -> bool:
     """
@@ -352,12 +389,36 @@ def salvar_dados_plantio(licenca_nome: str) -> bool:
         config = obter_configuracao_licenca_agro(licenca_nome)
         config['dados_plantio'] = st.session_state.get('plantios_agro', {})
         config['ultima_atualizacao'] = datetime.now().isoformat()
+        config['total_plantios'] = len([p for p in st.session_state.get('plantios_agro', {}).values() if p.get('ativo', True)])
         
-        return salvar_configuracao_licenca_agro(licenca_nome, config)
+        sucesso = salvar_configuracao_licenca_agro(licenca_nome, config)
+        
+        if sucesso:
+            st.session_state['dados_salvos_automaticamente'] = True
+            
+        return sucesso
     
     except Exception as e:
         st.error(f"Erro ao salvar dados de plantio: {e}")
         return False
+
+def auto_carregar_dados_plantio(licenca_nome: str):
+    """
+    Carrega automaticamente os dados quando uma licença é selecionada
+    """
+    if licenca_nome and licenca_nome != 'Não definida':
+        # Verificar se já carregou dados desta licença
+        licenca_carregada = st.session_state.get('licenca_plantio_carregada')
+        if licenca_carregada != licenca_nome:
+            sucesso = carregar_dados_plantio(licenca_nome)
+            if sucesso:
+                st.session_state['licenca_plantio_carregada'] = licenca_nome
+                st.success(f"✅ Dados de plantio carregados para: {licenca_nome}")
+            else:
+                # Inicializar dados vazios se não há arquivo salvo
+                st.session_state['plantios_agro'] = {}
+                st.session_state['licenca_plantio_carregada'] = licenca_nome
+                st.info(f"📋 Iniciando cadastro de plantios para: {licenca_nome}")
 
 def carregar_dados_plantio(licenca_nome: str) -> bool:
     """
@@ -371,6 +432,17 @@ def carregar_dados_plantio(licenca_nome: str) -> bool:
         
         if dados_plantio:
             st.session_state['plantios_agro'] = dados_plantio
+            
+            # Calcular estatísticas
+            plantios_ativos = len([p for p in dados_plantio.values() if p.get('ativo', True)])
+            total_hectares = sum(p.get('hectares', 0) for p in dados_plantio.values() if p.get('ativo', True))
+            
+            st.session_state['estatisticas_plantio'] = {
+                'total_plantios': plantios_ativos,
+                'total_hectares': total_hectares,
+                'ultima_atualizacao': config.get('ultima_atualizacao', 'Nunca')
+            }
+            
             return True
         
         return False
@@ -378,3 +450,62 @@ def carregar_dados_plantio(licenca_nome: str) -> bool:
     except Exception as e:
         st.error(f"Erro ao carregar dados de plantio: {e}")
         return False
+
+def obter_estatisticas_licenca(licenca_nome: str) -> Dict:
+    """
+    Obtém estatísticas dos dados salvos para uma licença
+    """
+    try:
+        from ..business_manager import obter_configuracao_licenca_agro
+        
+        config = obter_configuracao_licenca_agro(licenca_nome)
+        dados_plantio = config.get('dados_plantio', {})
+        
+        if not dados_plantio:
+            return {"total_plantios": 0, "total_hectares": 0, "ultima_atualizacao": "Nunca"}
+        
+        plantios_ativos = [p for p in dados_plantio.values() if p.get('ativo', True)]
+        
+        return {
+            "total_plantios": len(plantios_ativos),
+            "total_hectares": sum(p.get('hectares', 0) for p in plantios_ativos),
+            "receita_estimada": sum(p.get('receita_estimada', 0) for p in plantios_ativos),
+            "culturas": list(set(p.get('cultura', '') for p in plantios_ativos if p.get('cultura', '').strip())),
+            "ultima_atualizacao": config.get('ultima_atualizacao', 'Nunca')
+        }
+        
+    except Exception as e:
+        return {"total_plantios": 0, "total_hectares": 0, "ultima_atualizacao": "Erro ao carregar"}
+
+def listar_licencas_com_dados() -> List[Dict]:
+    """
+    Lista todas as licenças que possuem dados de plantio salvos
+    """
+    licencas = []
+    
+    try:
+        licencas_dir = "./logic/CSVs/licencas/"
+        
+        if os.path.exists(licencas_dir):
+            for arquivo in os.listdir(licencas_dir):
+                if arquivo.endswith("_agro_config.json"):
+                    licenca_nome = arquivo.replace("_agro_config.json", "")
+                    stats = obter_estatisticas_licenca(licenca_nome)
+                    
+                    if stats['total_plantios'] > 0:
+                        licencas.append({
+                            "nome": licenca_nome,
+                            "plantios": stats['total_plantios'],
+                            "hectares": stats['total_hectares'],
+                            "receita_estimada": stats.get('receita_estimada', 0),
+                            "culturas": len(stats.get('culturas', [])),
+                            "ultima_atualizacao": stats['ultima_atualizacao']
+                        })
+        
+        # Ordenar por última atualização (mais recente primeiro)
+        licencas.sort(key=lambda x: x['ultima_atualizacao'], reverse=True)
+        
+    except Exception as e:
+        pass
+    
+    return licencas

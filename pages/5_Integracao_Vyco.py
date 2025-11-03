@@ -56,6 +56,9 @@ from logic.business_types.business_manager import (
     obter_palavras_chave_especificas
 )
 
+# Importar gerenciador de cache
+from logic.data_cache_manager import cache_manager
+
 # Configuração da página removida daqui (movida para o topo)
 
 # Configuração do logging
@@ -908,7 +911,22 @@ def criar_dre_vyco(df_fluxo, plano, licenca_nome):
     
     # Função para somar por categoria
     def soma_por_categoria_local(df_fluxo, *categorias):
-        return df_fluxo.loc[df_fluxo.index.isin(categorias)].sum()
+        """Soma valores por categorias específicas com busca robusta"""
+        # Busca exata primeiro
+        categorias_encontradas = [cat for cat in categorias if cat in df_fluxo.index]
+        
+        # Se não encontrou nenhuma categoria exata, tentar busca parcial
+        if not categorias_encontradas:
+            for categoria in categorias:
+                linhas_parciais = df_fluxo.index[df_fluxo.index.str.contains(categoria, case=False, na=False)]
+                if len(linhas_parciais) > 0:
+                    categorias_encontradas.extend(linhas_parciais.tolist())
+        
+        if categorias_encontradas:
+            return df_fluxo.loc[df_fluxo.index.isin(categorias_encontradas)].sum()
+        else:
+            # Retornar série zerada com as colunas do df_fluxo
+            return pd.Series(0, index=df_fluxo.columns)
     
     # Construção do DRE por etapas
     dre = pd.DataFrame()
@@ -950,7 +968,7 @@ def criar_dre_vyco(df_fluxo, plano, licenca_nome):
     dre = pd.concat([
         dre,
         linha("RETIRADAS SÓCIOS", soma_por_grupo_local(df_fluxo, plano, "Retiradas")),
-        linha("RECEITA EXTRA OPERACIONAL", soma_por_categoria_local(df_fluxo, "Outros Recebimentos")),
+        linha("RECEITA EXTRA OPERACIONAL", soma_por_categoria_local(df_fluxo, "Receita Extra Operacional", "Outros Recebimentos")),
     ])
     
     dre.loc["RESULTADO"] = dre.loc["LUCRO LIQUIDO"] - dre.loc["RETIRADAS SÓCIOS"] + dre.loc["RECEITA EXTRA OPERACIONAL"]
@@ -1716,9 +1734,31 @@ if 'df_vyco_processado' in st.session_state:
                     # Gerar dados históricos usando função específica do Vyco
                     resultado_fluxo = exibir_fluxo_caixa_vyco(st.session_state.df_transacoes_total_vyco, st.session_state.licenca_atual)
                     resultado_dre = exibir_dre_vyco(resultado_fluxo, st.session_state.licenca_atual)
+                    
+                    # 💾 SALVAR DADOS EM CACHE PARA GESTÃO AGRO
+                    empresa_nome = st.session_state.get('licenca_atual', 'Empresa_Desconhecida')
+                    metadata = {
+                        'licenca': st.session_state.get('licenca_atual'),
+                        'total_transacoes': len(st.session_state.df_transacoes_total_vyco),
+                        'gerado_em': datetime.now().isoformat(),
+                        'origem': 'vyco_integração'
+                    }
+                    
+                    # Salvar fluxo de caixa
+                    if not resultado_fluxo.empty:
+                        arquivo_fluxo = cache_manager.salvar_fluxo_caixa(resultado_fluxo, empresa_nome, metadata)
+                        if arquivo_fluxo:
+                            st.info(f"💾 Fluxo de caixa atualizado: {empresa_nome}_fluxo.json")
+                    
+                    # Salvar DRE
+                    if resultado_dre is not None:
+                        arquivo_dre = cache_manager.salvar_dre(resultado_dre, empresa_nome, metadata)
+                        if arquivo_dre:
+                            st.info(f"💾 DRE atualizado: {empresa_nome}_dre.json")
 
                 if resultado_dre is not None:
                     st.success("✅ Projeções geradas com sucesso!")
+                    st.success("💾 Dados salvos automaticamente para uso no módulo Gestão Agro!")
 
                     # Importar funções necessárias
                     from logic.Analises_DFC_DRE.exibir_dre import formatar_dre, highlight_rows
@@ -1836,8 +1876,30 @@ if 'df_vyco_processado' in st.session_state:
                     resultado_fluxo = exibir_fluxo_caixa_vyco(st.session_state.df_transacoes_total_vyco, st.session_state.licenca_atual)
                     resultado_dre = exibir_dre_vyco(resultado_fluxo, st.session_state.licenca_atual)
                     
+                    # 💾 SALVAR DADOS EM CACHE PARA GESTÃO AGRO
+                    empresa_nome = st.session_state.get('licenca_atual', 'Empresa_Desconhecida')
+                    metadata = {
+                        'licenca': st.session_state.get('licenca_atual'),
+                        'total_transacoes': len(st.session_state.df_transacoes_total_vyco),
+                        'gerado_em': datetime.now().isoformat(),
+                        'origem': 'vyco_parecer_diagnostico'
+                    }
+                    
+                    # Salvar fluxo de caixa
+                    if not resultado_fluxo.empty:
+                        arquivo_fluxo = cache_manager.salvar_fluxo_caixa(resultado_fluxo, empresa_nome, metadata)
+                        if arquivo_fluxo:
+                            st.info(f"💾 Fluxo de caixa atualizado: {empresa_nome}_fluxo.json")
+                    
+                    # Salvar DRE
+                    if resultado_dre is not None:
+                        arquivo_dre = cache_manager.salvar_dre(resultado_dre, empresa_nome, metadata)
+                        if arquivo_dre:
+                            st.info(f"💾 DRE atualizado: {empresa_nome}_dre.json")
+                    
                     # Exibir DRE formatado
                     if resultado_dre is not None:
+                        st.success("💾 Dados salvos automaticamente para uso no módulo Gestão Agro!")
                         st.markdown("### 📊 DRE - Demonstração do Resultado do Exercício")
                         from logic.Analises_DFC_DRE.exibir_dre import formatar_dre, highlight_rows
                         meses_dre = [col for col in resultado_dre.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
@@ -1870,8 +1932,31 @@ if 'df_vyco_processado' in st.session_state:
                     resultado_fluxo = exibir_fluxo_caixa_vyco(st.session_state.df_transacoes_total_vyco, st.session_state.licenca_atual)
                     resultado_dre = exibir_dre_vyco(resultado_fluxo, st.session_state.licenca_atual)
                     
+                    # 💾 SALVAR DADOS EM CACHE PARA GESTÃO AGRO
+                    empresa_nome = st.session_state.get('licenca_atual', 'Empresa_Desconhecida')
+                    metadata = {
+                        'licenca': st.session_state.get('licenca_atual'),
+                        'total_transacoes': len(st.session_state.df_transacoes_total_vyco),
+                        'gerado_em': datetime.now().isoformat(),
+                        'origem': 'vyco_parecer_gpt',
+                        'descricao_empresa': descricao_empresa
+                    }
+                    
+                    # Salvar fluxo de caixa
+                    if not resultado_fluxo.empty:
+                        arquivo_fluxo = cache_manager.salvar_fluxo_caixa(resultado_fluxo, empresa_nome, metadata)
+                        if arquivo_fluxo:
+                            st.info(f"💾 Fluxo de caixa atualizado: {empresa_nome}_fluxo.json")
+                    
+                    # Salvar DRE
+                    if resultado_dre is not None:
+                        arquivo_dre = cache_manager.salvar_dre(resultado_dre, empresa_nome, metadata)
+                        if arquivo_dre:
+                            st.info(f"💾 DRE atualizado: {empresa_nome}_dre.json")
+                    
                     # Exibir DRE formatado
                     if resultado_dre is not None:
+                        st.success("💾 Dados salvos automaticamente para uso no módulo Gestão Agro!")
                         st.markdown("### 📊 DRE - Demonstração do Resultado do Exercício")
                         from logic.Analises_DFC_DRE.exibir_dre import formatar_dre, highlight_rows
                         meses_dre = [col for col in resultado_dre.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]

@@ -31,10 +31,23 @@ def coletar_faturamentos(df_transacoes, path_csv="./logic/CSVs/faturamentos.csv"
 
     meses = sorted(df_transacoes["Data"].dt.to_period("M").astype(str).unique())
 
-    # Sempre começa com um DataFrame vazio
-    df_faturamentos = pd.DataFrame(columns=["Mes", "Faturamento"])
+    # Carregar dados existentes do CSV se existir
+    try:
+        if os.path.exists(path_csv):
+            df_faturamentos = pd.read_csv(path_csv)
+        else:
+            df_faturamentos = pd.DataFrame(columns=["Mes", "Faturamento"])
+    except Exception as e:
+        st.warning(f"Erro ao carregar faturamentos existentes: {e}")
+        df_faturamentos = pd.DataFrame(columns=["Mes", "Faturamento"])
 
     valores_input = {}
+
+    # Exibir dados existentes se houver
+    if not df_faturamentos.empty:
+        st.markdown("##### 📊 Dados Salvos Anteriormente:")
+        with st.expander("Ver faturamentos salvos", expanded=False):
+            st.dataframe(df_faturamentos, use_container_width=True)
 
     for mes in meses:
         valor_antigo = df_faturamentos[df_faturamentos["Mes"] == mes]["Faturamento"]
@@ -62,6 +75,9 @@ def coletar_faturamentos(df_transacoes, path_csv="./logic/CSVs/faturamentos.csv"
 
         df_salvo = pd.DataFrame(novos)
 
+        # Garantir que o diretório existe antes de salvar
+        os.makedirs(os.path.dirname(path_csv), exist_ok=True)
+        
         # 🔄 Substitui completamente o conteúdo do CSV
         df_salvo.to_csv(path_csv, index=False)
 
