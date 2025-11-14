@@ -59,6 +59,9 @@ from logic.business_types.business_manager import (
 # Importar gerenciador de cache
 from logic.data_cache_manager import cache_manager
 
+# Importar gerenciador de licenças
+from logic.licenca_manager import licenca_manager
+
 # Configuração da página removida daqui (movida para o topo)
 
 # Configuração do logging
@@ -237,7 +240,7 @@ def categorizar_transacoes_vyco(
     # Aplicar template específico do tipo de negócio
     tipo_negocio = st.session_state.get('tipo_negocio_selecionado', None)
     
-    if tipo_negocio == "agro" and not df_transacoes.empty:
+    if tipo_negocio == "agronegocio" and not df_transacoes.empty:
         # Aplicar template específico do agronegócio
         try:
             df_transacoes = aplicar_template_agro(df_transacoes, licenca_nome)
@@ -985,7 +988,8 @@ def criar_dre_vyco(df_fluxo, plano, licenca_nome):
         linha("SALDO", pd.Series([0.0] * len(meses), index=meses)),  # Placeholder para saldo
     ])
     
-    dre.loc["RESULTADO GERENCIAL"] = dre.loc["RESULTADO"]
+    # RESULTADO GERENCIAL = RESULTADO + SALDO + ESTOQUE (fórmula correta)
+    dre.loc["RESULTADO GERENCIAL"] = dre.loc["RESULTADO"] + dre.loc["SALDO"] + dre.loc["ESTOQUE"]
     
     # Adicionar coluna TOTAL (soma de todos os meses)
     dre["TOTAL"] = dre[meses].sum(axis=1)
@@ -1342,7 +1346,7 @@ with col_tipo1:
         st.session_state['tipo_negocio_selecionado'] = tipo_selecionado
         
         # Ativar modo agro se necessário
-        if tipo_selecionado == "agro":
+        if tipo_selecionado == "agronegocio":
             ativar_modo_agro()
             st.success("🌾 Modo Agronegócio ativado!")
         else:
@@ -1355,8 +1359,8 @@ with col_tipo2:
         st.info(f"**{tipo_info['nome']}**")
         st.write(tipo_info['descricao'])
         
-        # Mostrar funcionalidades específicas se for agro
-        if tipo_selecionado == "agro":
+        # Mostrar funcionalidades específicas se for agronegócio
+        if tipo_selecionado == "agronegocio":
             template = carregar_template_negocio("agro")
             if template and "funcionalidades_especiais" in template:
                 funcionalidades = template["funcionalidades_especiais"]
@@ -1407,25 +1411,65 @@ else:
 st.sidebar.header("🏢 Configuração da Empresa")
 
 # Lista de licenças conhecidas (você pode expandir isso)
-licencas_conhecidas = {
-    "Amor Saude Caxias Centro": "ec48a041-3554-41e9-8ea7-afcc60f0a868",
-    "Amor Saude Bento": "5f1c3fc7-5a15-4cb6-b0f8-335e2317a3e1",
-    "Arani": "2fab261a-42ff-4ac1-8ee3-3088395e4b7c"
-}
+# Carregar licenças do CSV
+licencas_conhecidas = licenca_manager.obter_licencas_dict()
+licencas_ativas = licenca_manager.obter_licencas_ativas()
+
+# Status do CSV de licenças
+st.sidebar.markdown("### 📋 Licenças Disponíveis")
+valido, erros = licenca_manager.validar_csv()
+if valido:
+    st.sidebar.success(f"✅ {len(licencas_ativas)} licenças ativas")
+else:
+    st.sidebar.error("❌ Erro no CSV de licenças")
+    for erro in erros:
+        st.sidebar.error(f"• {erro}")
 
 opcao_licenca = st.sidebar.selectbox(
     "Selecione a Licença:",
-    [""] + list(licencas_conhecidas.keys()) + ["Inserir manualmente"]
+    [""] + licencas_ativas + ["Inserir manualmente", "🔧 Gerenciar Licenças"]
 )
 
-if opcao_licenca == "Inserir manualmente":
+if opcao_licenca == "🔧 Gerenciar Licenças":
+    # Interface de gerenciamento de licenças
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("#### 🔧 Gerenciar Licenças")
+    
+    with st.sidebar.expander("➕ Adicionar Nova Licença", expanded=False):
+        novo_nome = st.text_input("Nome da Licença:", key="novo_nome")
+        novo_id = st.text_input("ID da Licença (UUID):", key="novo_id")
+        novas_obs = st.text_area("Observações:", key="novas_obs")
+        
+        if st.button("➕ Adicionar", key="btn_add"):
+            if novo_nome and novo_id:
+                if licenca_manager.adicionar_licenca(novo_nome, novo_id, True, novas_obs):
+                    st.success(f"✅ Licença '{novo_nome}' adicionada!")
+                    st.rerun()
+            else:
+                st.error("Nome e ID são obrigatórios")
+    
+    with st.sidebar.expander("🗑️ Desativar Licença", expanded=False):
+        licenca_desativar = st.selectbox("Licença para desativar:", [""] + licencas_ativas, key="desativar")
+        if st.button("🗑️ Desativar", key="btn_desativar"):
+            if licenca_desativar:
+                if licenca_manager.desativar_licenca(licenca_desativar):
+                    st.success(f"✅ Licença '{licenca_desativar}' desativada!")
+                    st.rerun()
+    
+    licenca_id = ""
+    
+elif opcao_licenca == "Inserir manualmente":
     licenca_id = st.sidebar.text_input(
         "ID da Licença (UUID):",
         placeholder="00000000-0000-0000-0000-000000000000"
     )
 elif opcao_licenca and opcao_licenca != "":
-    licenca_id = licencas_conhecidas[opcao_licenca]
-    # ID ocultado para o usuário
+    licenca_id = licenca_manager.obter_id_licenca(opcao_licenca)
+    if licenca_id:
+        st.sidebar.info(f"🔑 ID: {licenca_id[:8]}...{licenca_id[-8:]}")
+    else:
+        st.sidebar.error("❌ ID não encontrado para esta licença")
+        licenca_id = ""
 else:
     licenca_id = ""
 
@@ -1907,7 +1951,7 @@ if 'df_vyco_processado' in st.session_state:
                         st.dataframe(
                             dre_formatado.style.apply(highlight_rows, axis=1).hide(axis="index"),
                             use_container_width=True,
-                            height=600
+                            height=650
                         )
                     
                     # Gerar parecer automático com dados do fluxo de caixa

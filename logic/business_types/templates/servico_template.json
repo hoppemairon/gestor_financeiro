@@ -1,0 +1,40 @@
+{
+  "nome": "Serviço",
+  "descricao": "Template para empresas prestadoras de serviços",
+  "centros_custo_padrao": [
+    "Administrativo",
+    "Operacional",
+    "Comercial",
+    "Recursos Humanos"
+  ],
+  "palavras_chave_especificas": {
+    "consultoria": "Serviços Profissionais",
+    "manutencao": "Serviços Técnicos",
+    "assessoria": "Serviços Profissionais",
+    "treinamento": "Serviços Educacionais",
+    "auditoria": "Serviços Profissionais"
+  },
+  "categorias_padrao": {
+    "RECEITAS": [
+      "Prestação de Serviços",
+      "Consultoria",
+      "Treinamento"
+    ],
+    "CUSTOS_DIRETOS": [
+      "Material de Consumo",
+      "Terceirização"
+    ],
+    "DESPESAS_OPERACIONAIS": [
+      "Salários",
+      "Encargos",
+      "Aluguel",
+      "Telefone",
+      "Internet"
+    ]
+  },
+  "funcionalidades_especiais": {
+    "controle_projetos": false,
+    "gestao_contratos": false,
+    "analise_margem_servico": true
+  }
+}

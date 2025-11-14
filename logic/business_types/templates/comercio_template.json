@@ -1,0 +1,40 @@
+{
+  "nome": "Comércio",
+  "descricao": "Template para empresas do setor comercial",
+  "centros_custo_padrao": [
+    "Administrativo",
+    "Vendas",
+    "Estoque",
+    "Logística"
+  ],
+  "palavras_chave_especificas": {
+    "mercadoria": "Estoque",
+    "produto": "Estoque",
+    "venda": "Receitas",
+    "compra": "Custo Mercadorias",
+    "fornecedor": "Custo Mercadorias",
+    "cliente": "Receitas"
+  },
+  "categorias_padrao": {
+    "RECEITAS": [
+      "Vendas de Mercadorias",
+      "Vendas de Produtos"
+    ],
+    "CUSTOS_DIRETOS": [
+      "Custo das Mercadorias Vendidas",
+      "Fretes sobre Compras"
+    ],
+    "DESPESAS_OPERACIONAIS": [
+      "Salários Vendedores",
+      "Comissões",
+      "Aluguel Loja",
+      "Marketing",
+      "Embalagens"
+    ]
+  },
+  "funcionalidades_especiais": {
+    "controle_estoque": true,
+    "analise_margem_produto": true,
+    "gestao_fornecedores": false
+  }
+}

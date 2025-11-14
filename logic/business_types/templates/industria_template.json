@@ -1,0 +1,44 @@
+{
+  "nome": "Indústria",
+  "descricao": "Template para empresas do setor industrial",
+  "centros_custo_padrao": [
+    "Administrativo",
+    "Produção",
+    "Qualidade",
+    "Manutenção",
+    "Vendas"
+  ],
+  "palavras_chave_especificas": {
+    "materia_prima": "Matéria Prima",
+    "producao": "Custos Produção",
+    "fabrica": "Custos Produção",
+    "maquina": "Manutenção",
+    "equipamento": "Manutenção",
+    "energia": "Custos Produção",
+    "manutencao": "Manutenção"
+  },
+  "categorias_padrao": {
+    "RECEITAS": [
+      "Vendas de Produtos Acabados",
+      "Vendas Industriais"
+    ],
+    "CUSTOS_DIRETOS": [
+      "Matéria Prima",
+      "Mão de Obra Direta",
+      "Energia Elétrica Produção",
+      "Depreciação Máquinas"
+    ],
+    "DESPESAS_OPERACIONAIS": [
+      "Salários Administrativos",
+      "Manutenção",
+      "Controle Qualidade",
+      "Segurança do Trabalho"
+    ]
+  },
+  "funcionalidades_especiais": {
+    "controle_producao": false,
+    "gestao_qualidade": false,
+    "analise_custos_industriais": true,
+    "controle_estoque_mp": false
+  }
+}

@@ -9,20 +9,25 @@ def carregar_tipos_negocio() -> Dict:
     Carrega os tipos de negócio disponíveis
     """
     tipos = {
-        "clinica_medicina": {
-            "nome": "Clínica Médica",
-            "template": "medicina_template.json",
-            "descricao": "Clínicas médicas e consultórios"
+        "servico": {
+            "nome": "Serviço",
+            "template": "servico_template.json",
+            "descricao": "Empresas prestadoras de serviços (consultoria, manutenção, etc.)"
         },
-        "clinica_odonto": {
-            "nome": "Clínica Odontológica", 
-            "template": "odonto_template.json",
-            "descricao": "Clínicas odontológicas"
+        "comercio": {
+            "nome": "Comércio",
+            "template": "comercio_template.json",
+            "descricao": "Empresas do setor comercial (varejo, atacado)"
         },
-        "agro": {
+        "industria": {
+            "nome": "Indústria",
+            "template": "industria_template.json",
+            "descricao": "Empresas do setor industrial (manufatura, produção)"
+        },
+        "agronegocio": {
             "nome": "Agronegócio",
             "template": "agro_template.json",
-            "descricao": "Empresas do setor agrícola"
+            "descricao": "Empresas do setor agrícola (agricultura, pecuária)"
         }
     }
     return tipos
@@ -32,6 +37,10 @@ def carregar_template_negocio(tipo_negocio: str) -> Optional[Dict]:
     Carrega o template específico de um tipo de negócio
     """
     tipos = carregar_tipos_negocio()
+    
+    # Manter compatibilidade com código antigo que usa "agro"
+    if tipo_negocio == "agro":
+        tipo_negocio = "agronegocio"
     
     if tipo_negocio not in tipos:
         return None
@@ -86,7 +95,7 @@ def aplicar_template_agro(df_transacoes: pd.DataFrame, licenca_nome: str) -> pd.
     if df_transacoes.empty:
         return df_transacoes
     
-    # Carregar template do agro
+    # Carregar template do agronegócio (mantém "agro" para compatibilidade)
     template = carregar_template_negocio("agro")
     if not template:
         return df_transacoes
