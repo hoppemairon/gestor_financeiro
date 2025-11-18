@@ -1274,9 +1274,14 @@ def exibir_dre_vyco(df_fluxo, licenca_nome, path_plano="./logic/CSVs/plano_de_co
         st.error(f"Erro ao criar DRE: {e}")
         return None
 
-def exibir_fluxo_caixa_vyco(df_transacoes, licenca_nome):
+def exibir_fluxo_caixa_vyco(df_transacoes, licenca_nome, meses_historicos=None):
     """
     Gera e exibe o fluxo de caixa específico para Vyco usando dados JSON
+    
+    Parâmetros:
+    - df_transacoes: DataFrame com as transações
+    - licenca_nome: Nome da licença
+    - meses_historicos: Número de meses históricos a exibir (None = todos)
     """
     st.markdown("## 📊 Fluxo de Caixa (por Categoria e Mês) - Vyco")
 
@@ -1385,6 +1390,21 @@ def exibir_fluxo_caixa_vyco(df_transacoes, licenca_nome):
         df_final_com_var = pd.concat([df_final, df_variacoes_fmt], axis=1)
     else:
         df_final_com_var = df_final
+
+    # Aplicar filtro de meses históricos se especificado
+    if meses_historicos is not None and len(meses) > meses_historicos:
+        meses_filtrados = meses[-meses_historicos:]
+        # Manter apenas as colunas dos meses filtrados
+        colunas_manter = meses_filtrados
+        # Adicionar colunas de variação se existirem
+        colunas_variacoes = [col for col in df_final_com_var.columns if col.startswith("Var.")]
+        df_final_com_var = df_final_com_var[colunas_manter + colunas_variacoes]
+        meses = meses_filtrados  # Atualizar lista de meses para os gráficos
+        
+        # Recalcular totais baseados nos meses filtrados
+        receitas = df_pivot[df_pivot["__tipo__"] == "Crédito"][meses].sum()
+        despesas = df_pivot[df_pivot["__tipo__"] == "Débito"][meses].sum()
+        resultado = receitas + despesas
 
     # Formatar valores para exibição
     df_formatado = df_final_com_var.copy()
@@ -1974,6 +1994,7 @@ if 'df_vyco_processado' in st.session_state:
                 st.markdown("##### 🔧 Parâmetros Gerais")
                 inflacao_anual = st.number_input("Inflação anual (%):", min_value=0.0, max_value=100.0, value=5.0, step=0.1, key="vyco_inflacao")
                 meses_futuros = st.number_input("Meses a projetar:", min_value=1, max_value=36, value=6, step=1, key="vyco_meses")
+                meses_historicos = st.number_input("Meses históricos a exibir:", min_value=1, max_value=36, value=12, step=1, key="vyco_meses_hist")
             
             with col2:
                 st.markdown("##### 📉 Cenário Pessimista")
@@ -2009,7 +2030,8 @@ if 'df_vyco_processado' in st.session_state:
                 st.info(f"""
                 **📊 Realista**
                 - Inflação: {inflacao_anual}%
-                - Período: {meses_futuros} meses
+                - Projetar: {meses_futuros} meses
+                - Histórico: {meses_historicos} meses
                 """)
             
             with col_res2:
@@ -2036,8 +2058,8 @@ if 'df_vyco_processado' in st.session_state:
             # Processamento das projeções (fora da estrutura de colunas para usar largura total)
             if btn_projecoes_clicado:
                 with st.spinner("Gerando projeções dos dados Vyco... "):
-                    # Gerar dados históricos usando função específica do Vyco
-                    resultado_fluxo = exibir_fluxo_caixa_vyco(st.session_state.df_transacoes_total_vyco, st.session_state.licenca_atual)
+                    # Gerar dados históricos usando função específica do Vyco com filtro de meses
+                    resultado_fluxo = exibir_fluxo_caixa_vyco(st.session_state.df_transacoes_total_vyco, st.session_state.licenca_atual, meses_historicos)
                     resultado_dre = exibir_dre_vyco(resultado_fluxo, st.session_state.licenca_atual)
                     
                     # 💾 SALVAR DADOS EM CACHE PARA GESTÃO AGRO
@@ -2083,33 +2105,145 @@ if 'df_vyco_processado' in st.session_state:
                     # Importar funções necessárias
                     from logic.Analises_DFC_DRE.exibir_dre import formatar_dre, highlight_rows
 
+                    # Filtrar apenas os últimos N meses históricos para DRE e Fluxo
+                    colunas_meses = [col for col in resultado_dre.columns if re.match(r'\d{4}-\d{2}', col)]
+                    if len(colunas_meses) > meses_historicos:
+                        colunas_manter = colunas_meses[-meses_historicos:]
+                        colunas_fixas_dre = [col for col in resultado_dre.columns if not re.match(r'\d{4}-\d{2}', col)]
+                        resultado_dre_filtrado = resultado_dre[colunas_manter + colunas_fixas_dre].copy()
+                        
+                        # Filtrar também o fluxo de caixa
+                        colunas_fixas_fluxo = [col for col in resultado_fluxo.columns if not re.match(r'\d{4}-\d{2}', col)]
+                        resultado_fluxo_filtrado = resultado_fluxo[colunas_manter + colunas_fixas_fluxo].copy()
+                    else:
+                        resultado_dre_filtrado = resultado_dre.copy()
+                        resultado_fluxo_filtrado = resultado_fluxo.copy()
+
                     # Função para projetar valores (adaptada do sistema principal)
                     def projetar_valores_vyco(df, inflacao_anual, meses_futuros, percentual_receita=0, percentual_despesa=0):
+                        from datetime import datetime
+                        
                         df_projetado = df.copy()
                         colunas_meses = [col for col in df.columns if re.match(r'\d{4}-\d{2}', col)]
                         if not colunas_meses:
                             return df_projetado, []
 
+                        # Identificar o mês atual para excluir do cálculo (mês incompleto)
+                        mes_ano_atual = datetime.now().strftime("%Y-%m")
+
                         ultimo_mes = pd.to_datetime(colunas_meses[-1], format="%Y-%m").to_period("M")
                         meses_projetados = [ultimo_mes + i for i in range(1, meses_futuros + 1)]
                         meses_projetados = [m.strftime("%Y-%m") for m in meses_projetados]
 
+                        # Identificar linhas calculadas (que não devem ser projetadas, mas recalculadas)
+                        linhas_calculadas = [
+                            "MARGEM CONTRIBUIÇÃO",
+                            "MARGEM CONTRIBUICAO",
+                            "LUCRO OPERACIONAL",
+                            "LUCRO LIQUIDO",
+                            "LUCRO LÍQUIDO",
+                            "RESULTADO",
+                            "RESULTADO GERENCIAL"
+                        ]
+
                         for mes in meses_projetados:
                             df_projetado[mes] = 0
                             for idx in df_projetado.index:
+                                # Verificar se é linha calculada (pular projeção)
+                                eh_linha_calculada = any(calc.upper() in str(idx).upper() for calc in linhas_calculadas)
+                                
+                                if eh_linha_calculada:
+                                    # NÃO projetar - será recalculada depois com base nas outras linhas
+                                    df_projetado.loc[idx, mes] = 0
+                                    continue
+                                
                                 tipo = df_projetado.loc[idx, "__tipo__"] if "__tipo__" in df_projetado.columns else ""
-                                valor_base = df_projetado.loc[idx, colunas_meses[-1]] if colunas_meses[-1] in df_projetado.columns else 0
-                                if isinstance(valor_base, str):
-                                    valor_base = converter_para_float(valor_base)
+                                
+                                # Calcular média dos valores históricos, EXCLUINDO o mês atual (incompleto)
+                                valores_historicos = []
+                                for col in colunas_meses:
+                                    # Pular o mês atual (incompleto)
+                                    if col == mes_ano_atual:
+                                        continue
+                                    
+                                    val = df_projetado.loc[idx, col] if col in df_projetado.columns else 0
+                                    if isinstance(val, str):
+                                        val = converter_para_float(val)
+                                    
+                                    # INCLUIR ZEROS na média (para sazonalidade e conservadorismo)
+                                    valores_historicos.append(val)
+                                
+                                # Calcular média como valor base
+                                if valores_historicos:
+                                    valor_base = sum(valores_historicos) / len(valores_historicos)
+                                else:
+                                    # Fallback: se não tiver nenhum histórico válido, usar 0
+                                    valor_base = 0
 
                                 inflacao_fator = (1 + inflacao_anual / 100) ** ((meses_projetados.index(mes) + 1) / 12)
 
-                                if "RECEITA" in str(idx).upper() or "FATURAMENTO" in str(idx).upper():
-                                    df_projetado.loc[idx, mes] = valor_base * inflacao_fator * (1 + percentual_receita / 100)
+                                # Aplicar projeção com base no tipo de linha e cenário
+                                if "RECEITA" in str(idx).upper() or "FATURAMENTO" in str(idx).upper() or "ESTOQUE" in str(idx).upper():
+                                    # RECEITAS, FATURAMENTO, ESTOQUE
+                                    if percentual_receita != 0:
+                                        # Cenário Pessimista ou Otimista: aplica inflação + percentual
+                                        df_projetado.loc[idx, mes] = valor_base * inflacao_fator * (1 + percentual_receita / 100)
+                                    else:
+                                        # Cenário Realista: aplica SOMENTE inflação
+                                        df_projetado.loc[idx, mes] = valor_base * inflacao_fator
+                                
                                 elif any(desp in str(idx).upper() for desp in ["DESPESA", "CUSTO", "GASTO"]):
-                                    df_projetado.loc[idx, mes] = valor_base * inflacao_fator * (1 + percentual_despesa / 100)
+                                    # DESPESAS
+                                    if percentual_despesa != 0:
+                                        # Cenário Pessimista ou Otimista: aplica inflação + percentual
+                                        df_projetado.loc[idx, mes] = valor_base * inflacao_fator * (1 + percentual_despesa / 100)
+                                    else:
+                                        # Cenário Realista: aplica SOMENTE inflação
+                                        df_projetado.loc[idx, mes] = valor_base * inflacao_fator
+                                
                                 else:
+                                    # OUTRAS LINHAS (INVESTIMENTOS, RETIRADAS, SALDO, etc.)
+                                    # Sempre aplica SOMENTE inflação
                                     df_projetado.loc[idx, mes] = valor_base * inflacao_fator
+                        
+                        # RECALCULAR linhas derivadas após projetar todas as linhas base
+                        for mes in meses_projetados:
+                            # Helper para pegar valor com segurança
+                            def get_val(nome_linha):
+                                if nome_linha in df_projetado.index:
+                                    val = df_projetado.loc[nome_linha, mes]
+                                    return val if pd.notna(val) else 0
+                                return 0
+                            
+                            # MARGEM CONTRIBUIÇÃO = RECEITA - IMPOSTOS - DESPESA OPERACIONAL
+                            receita = get_val("RECEITA")
+                            impostos = get_val("IMPOSTOS")
+                            desp_oper = get_val("DESPESA OPERACIONAL")
+                            df_projetado.loc["MARGEM CONTRIBUIÇÃO", mes] = receita - impostos - desp_oper
+                            
+                            # LUCRO OPERACIONAL = MARGEM CONTRIBUIÇÃO - DESPESAS COM PESSOAL - DESPESA ADMINISTRATIVA
+                            margem = get_val("MARGEM CONTRIBUIÇÃO")
+                            desp_pessoal = get_val("DESPESAS COM PESSOAL")
+                            desp_admin = get_val("DESPESA ADMINISTRATIVA")
+                            df_projetado.loc["LUCRO OPERACIONAL", mes] = margem - desp_pessoal - desp_admin
+                            
+                            # LUCRO LIQUIDO = LUCRO OPERACIONAL - INVESTIMENTOS - DESPESA EXTRA OPERACIONAL
+                            lucro_oper = get_val("LUCRO OPERACIONAL")
+                            investimentos = get_val("INVESTIMENTOS")
+                            desp_extra = get_val("DESPESA EXTRA OPERACIONAL")
+                            df_projetado.loc["LUCRO LIQUIDO", mes] = lucro_oper - investimentos - desp_extra
+                            
+                            # RESULTADO = LUCRO LIQUIDO - RETIRADAS SÓCIOS + RECEITA EXTRA OPERACIONAL
+                            lucro_liq = get_val("LUCRO LIQUIDO")
+                            retiradas = get_val("RETIRADAS SÓCIOS")
+                            receita_extra = get_val("RECEITA EXTRA OPERACIONAL")
+                            df_projetado.loc["RESULTADO", mes] = lucro_liq - retiradas + receita_extra
+                            
+                            # RESULTADO GERENCIAL = RESULTADO + SALDO + ESTOQUE
+                            resultado = get_val("RESULTADO")
+                            saldo = get_val("SALDO")
+                            estoque = get_val("ESTOQUE")
+                            df_projetado.loc["RESULTADO GERENCIAL", mes] = resultado + saldo + estoque
 
                         # Recalcular totais
                         todas_colunas = [col for col in df_projetado.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
@@ -2137,7 +2271,7 @@ if 'df_vyco_processado' in st.session_state:
                     # Cenário Realista (apenas inflação)
                     with abas_cenarios[0]:
                         st.subheader("Cenário Realista (apenas inflação)")
-                        dre_realista, meses_proj = projetar_valores_vyco(resultado_dre, inflacao_anual, meses_futuros)
+                        dre_realista, meses_proj = projetar_valores_vyco(resultado_dre_filtrado, inflacao_anual, meses_futuros)
 
                         meses_exibir = [col for col in dre_realista.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
                         dre_formatado = formatar_dre(dre_realista, meses_exibir)
@@ -2152,7 +2286,7 @@ if 'df_vyco_processado' in st.session_state:
                     # Cenário Pessimista
                     with abas_cenarios[1]:
                         st.subheader(f"Cenário Pessimista ({pess_receita:+.0f}% receitas, {pess_despesa:+.0f}% despesas)")
-                        dre_pessimista, _ = projetar_valores_vyco(resultado_dre, inflacao_anual, meses_futuros, pess_receita, pess_despesa)
+                        dre_pessimista, _ = projetar_valores_vyco(resultado_dre_filtrado, inflacao_anual, meses_futuros, pess_receita, pess_despesa)
 
                         meses_exibir = [col for col in dre_pessimista.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
                         dre_formatado = formatar_dre(dre_pessimista, meses_exibir)
@@ -2167,7 +2301,7 @@ if 'df_vyco_processado' in st.session_state:
                     # Cenário Otimista
                     with abas_cenarios[2]:
                         st.subheader(f"Cenário Otimista ({otim_receita:+.0f}% receitas, {otim_despesa:+.0f}% despesas)")
-                        dre_otimista, _ = projetar_valores_vyco(resultado_dre, inflacao_anual, meses_futuros, otim_receita, otim_despesa)
+                        dre_otimista, _ = projetar_valores_vyco(resultado_dre_filtrado, inflacao_anual, meses_futuros, otim_receita, otim_despesa)
 
                         meses_exibir = [col for col in dre_otimista.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
                         dre_formatado = formatar_dre(dre_otimista, meses_exibir)
@@ -2179,9 +2313,9 @@ if 'df_vyco_processado' in st.session_state:
                             height=650
                         )
 
-                    # Salvar no estado da sessão
-                    st.session_state.resultado_fluxo_vyco = resultado_fluxo
-                    st.session_state.resultado_dre_vyco = resultado_dre
+                    # Salvar no estado da sessão (versões filtradas)
+                    st.session_state.resultado_fluxo_vyco = resultado_fluxo_filtrado
+                    st.session_state.resultado_dre_vyco = resultado_dre_filtrado
 
                 else:
                     st.error("❌ Erro ao gerar DRE")

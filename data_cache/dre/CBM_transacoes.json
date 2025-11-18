@@ -1,14 +1,14 @@
 {
   "empresa": "CBM",
-  "timestamp": "2025-11-18T11:19:56.388280",
+  "timestamp": "2025-11-18T16:45:32.075033",
   "tipo": "transacoes_categorizadas",
   "metadata": {
     "licenca": "CBM",
-    "total_transacoes": 7488,
-    "gerado_em": "2025-11-18T11:19:55.304859",
+    "total_transacoes": 7506,
+    "gerado_em": "2025-11-18T16:45:30.937868",
     "origem": "vyco_parecer_diagnostico"
   },
-  "total_transacoes": 7488,
+  "total_transacoes": 7506,
   "transacoes": [
     {
       "Descrição": "MOV TIT COB DISP  03/01S",
@@ -9071,7 +9071,7 @@
       "Valor_Formatado": "R$ 310,11"
     },
     {
-      "Descrição": "PIX TRANSF TOP COL28/11",
+      "Descrição": "MULTSTAMP ESTAMPARIA",
       "Categoria_Vyco": "VENDAS",
       "Valor (R$)": 1338.14,
       "Tipo": "Crédito",
@@ -9081,7 +9081,7 @@
       "Valor_Formatado": "R$ 1.338,14"
     },
     {
-      "Descrição": "MULTSTAMP ESTAMPARIA",
+      "Descrição": "PIX TRANSF TOP COL28/11",
       "Categoria_Vyco": "VENDAS",
       "Valor (R$)": 1338.14,
       "Tipo": "Crédito",
@@ -16291,7 +16291,7 @@
       "Valor_Formatado": "R$ 523,08"
     },
     {
-      "Descrição": "ZINCO FORTE INDUSTRI",
+      "Descrição": "ZINCO FORTE IND TRAT",
       "Categoria_Vyco": "VENDAS",
       "Valor (R$)": 525.0,
       "Tipo": "Crédito",
@@ -16301,7 +16301,7 @@
       "Valor_Formatado": "R$ 525,00"
     },
     {
-      "Descrição": "ZINCO FORTE IND TRAT",
+      "Descrição": "ZINCO FORTE INDUSTRI",
       "Categoria_Vyco": "VENDAS",
       "Valor (R$)": 525.0,
       "Tipo": "Crédito",
@@ -24701,7 +24701,7 @@
       "Valor_Formatado": "R$ 2.162,50"
     },
     {
-      "Descrição": "DEP CHEQUE ATM N. 000685",
+      "Descrição": "DEP CHEQUE ATM N. 000684",
       "Categoria_Vyco": "VENDAS",
       "Valor (R$)": 3543.0,
       "Tipo": "Crédito",
@@ -24711,7 +24711,7 @@
       "Valor_Formatado": "R$ 3.543,00"
     },
     {
-      "Descrição": "DEP CHEQUE ATM N. 000684",
+      "Descrição": "DEP CHEQUE ATM N. 000685",
       "Categoria_Vyco": "VENDAS",
       "Valor (R$)": 3543.0,
       "Tipo": "Crédito",
@@ -28491,6 +28491,86 @@
       "Valor_Formatado": "R$ 6.334,00"
     },
     {
+      "Descrição": "METALURGICA LOTH LTDA",
+      "Categoria_Vyco": "VENDAS",
+      "Valor (R$)": 234.37,
+      "Tipo": "Crédito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 234,37"
+    },
+    {
+      "Descrição": "PIX RECEBIDO MARIO L17/11 MARIO LUIS RANZI 277.377.130-34",
+      "Categoria_Vyco": "VENDAS",
+      "Valor (R$)": 1000.0,
+      "Tipo": "Crédito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 1.000,00"
+    },
+    {
+      "Descrição": "PIX RECEBIDO AIRTON 17/11 AIRTON JOSE FINGER 484.655.420-15",
+      "Categoria_Vyco": "VENDAS",
+      "Valor (R$)": 1000.0,
+      "Tipo": "Crédito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 1.000,00"
+    },
+    {
+      "Descrição": "ZINCOMETALMAT SERV. TRATAMENTO",
+      "Categoria_Vyco": "VENDAS",
+      "Valor (R$)": 1405.8,
+      "Tipo": "Crédito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 1.405,80"
+    },
+    {
+      "Descrição": "A M SOARES",
+      "Categoria_Vyco": "VENDAS",
+      "Valor (R$)": 1641.09,
+      "Tipo": "Crédito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 1.641,09"
+    },
+    {
+      "Descrição": "CROMOBRASIL CORRENTES E METAIS",
+      "Categoria_Vyco": "VENDAS",
+      "Valor (R$)": 1752.93,
+      "Tipo": "Crédito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 1.752,93"
+    },
+    {
+      "Descrição": "REGINATO METAIS INDUSTRIA E CO",
+      "Categoria_Vyco": "VENDAS",
+      "Valor (R$)": 1928.2,
+      "Tipo": "Crédito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 1.928,20"
+    },
+    {
+      "Descrição": "CAVALETTI S/A CADEIRAS PROFISS",
+      "Categoria_Vyco": "VENDAS",
+      "Valor (R$)": 8694.0,
+      "Tipo": "Crédito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 8.694,00"
+    },
+    {
       "Descrição": "FAXINA",
       "Categoria_Vyco": "HIG LIMPEZA/FAXINA",
       "Valor (R$)": -170.0,
@@ -30211,7 +30291,7 @@
       "Valor_Formatado": "R$ -94,84"
     },
     {
-      "Descrição": "RECIBO\tRECIBO CHARLES ASSINOU",
+      "Descrição": "RECIBO CHARLES ASSINOU",
       "Categoria_Vyco": "MATERIAL ESCRITÓRIO",
       "Valor (R$)": -100.0,
       "Tipo": "Débito",
@@ -30221,7 +30301,7 @@
       "Valor_Formatado": "R$ -100,00"
     },
     {
-      "Descrição": "RECIBO CHARLES ASSINOU",
+      "Descrição": "RECIBO\tRECIBO CHARLES ASSINOU",
       "Categoria_Vyco": "MATERIAL ESCRITÓRIO",
       "Valor (R$)": -100.0,
       "Tipo": "Débito",
@@ -46021,7 +46101,7 @@
       "Valor_Formatado": "R$ -222,50"
     },
     {
-      "Descrição": "HERON ROTH RODRIGUES",
+      "Descrição": "RENAN ROTH RODRIGUES",
       "Categoria_Vyco": "DIVISÃO DE LUCROS",
       "Valor (R$)": -33000.0,
       "Tipo": "Débito",
@@ -46031,7 +46111,7 @@
       "Valor_Formatado": "R$ -33.000,00"
     },
     {
-      "Descrição": "RENAN ROTH RODRIGUES",
+      "Descrição": "HERON ROTH RODRIGUES",
       "Categoria_Vyco": "DIVISÃO DE LUCROS",
       "Valor (R$)": -33000.0,
       "Tipo": "Débito",
@@ -49711,7 +49791,7 @@
       "Valor_Formatado": "R$ -971,82"
     },
     {
-      "Descrição": "MULTICRED GESTAO DE RISCO",
+      "Descrição": "ATLANTA F I D C MULTISSETORIAL",
       "Categoria_Vyco": "COMPRA DE PRODUTO PARA REVENDA",
       "Valor (R$)": -1037.46,
       "Tipo": "Débito",
@@ -49721,7 +49801,7 @@
       "Valor_Formatado": "R$ -1.037,46"
     },
     {
-      "Descrição": "ATLANTA F I D C MULTISSETORIAL",
+      "Descrição": "MULTICRED GESTAO DE RISCO",
       "Categoria_Vyco": "COMPRA DE PRODUTO PARA REVENDA",
       "Valor (R$)": -1037.46,
       "Tipo": "Débito",
@@ -74889,6 +74969,106 @@
       "Categoria": "Despesas com Fornecedores",
       "Considerar": "Sim",
       "Valor_Formatado": "R$ -13.242,16"
+    },
+    {
+      "Descrição": "TAR/CUSTAS COBRANCA",
+      "Categoria_Vyco": "DESP. BANCARIA",
+      "Valor (R$)": -16.86,
+      "Tipo": "Débito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -16,86"
+    },
+    {
+      "Descrição": "DA VIVO-RS 04335485629",
+      "Categoria_Vyco": "TELEFONIA/INTERNET",
+      "Valor (R$)": -80.24,
+      "Tipo": "Débito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Telefone / Internet",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -80,24"
+    },
+    {
+      "Descrição": "DA VIVO FIXO 9293054649",
+      "Categoria_Vyco": "TELEFONIA/INTERNET",
+      "Valor (R$)": -186.18,
+      "Tipo": "Débito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Telefone / Internet",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -186,18"
+    },
+    {
+      "Descrição": "BOLETO PAGO NOKXELLER QUIMICA LTDA 00.107.621/0001-79",
+      "Categoria_Vyco": "COMPRA DE MATÉRIA-PRIMA",
+      "Valor (R$)": -354.15,
+      "Tipo": "Débito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -354,15"
+    },
+    {
+      "Descrição": "BOLETO PAGO QUIMICAMAR I C P QUIMICOS LTDA 94.464.914/0001-57",
+      "Categoria_Vyco": "COMPRA DE MATÉRIA-PRIMA",
+      "Valor (R$)": -773.12,
+      "Tipo": "Débito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -773,12"
+    },
+    {
+      "Descrição": "BOLETO PAGO GR IND E COM DE PROD QUIM SA 03.157.268/0006-34",
+      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (SAÍDA)",
+      "Valor (R$)": -1013.58,
+      "Tipo": "Débito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Sem Identificação",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1.013,58"
+    },
+    {
+      "Descrição": "BOLETO PAGO CAVALLI INDUSTRIA E COMERCIO D 19.949.785/0001-71",
+      "Categoria_Vyco": "COMPRA DE MATÉRIA-PRIMA",
+      "Valor (R$)": -1292.2,
+      "Tipo": "Débito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1.292,20"
+    },
+    {
+      "Descrição": "BOLETO PAGO HB TRANSPORTES E LOGISTICA EIRELI 92.528.538/0001-91",
+      "Categoria_Vyco": "FRETE/TRANSPORTES",
+      "Valor (R$)": -3586.55,
+      "Tipo": "Débito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "VT",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -3.586,55"
+    },
+    {
+      "Descrição": "PIX ENVIADO JOSE CARLOS TEOFILO MONTEIRO 204.546.600-06",
+      "Categoria_Vyco": "DIVISÃO DE LUCROS",
+      "Valor (R$)": -100000.0,
+      "Tipo": "Débito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -100.000,00"
+    },
+    {
+      "Descrição": "PAGAMENTOS TRANSF CC ITAU ORLANDO RODRIGUES 217.203.980-20",
+      "Categoria_Vyco": "DIVISÃO DE LUCROS",
+      "Valor (R$)": -100000.0,
+      "Tipo": "Débito",
+      "Data": "2025-11-17 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -100.000,00"
     }
   ]
 }
