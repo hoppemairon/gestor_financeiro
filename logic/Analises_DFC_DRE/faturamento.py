@@ -81,6 +81,12 @@ def coletar_faturamentos(df_transacoes, path_csv="./logic/CSVs/faturamentos.csv"
         # 🔄 Substitui completamente o conteúdo do CSV
         df_salvo.to_csv(path_csv, index=False)
 
+        # Limpar cache do session_state para forçar recálculo
+        if 'resultado_fluxo' in st.session_state:
+            del st.session_state['resultado_fluxo']
+        if 'resultado_dre' in st.session_state:
+            del st.session_state['resultado_dre']
+
         st.success("✅ Faturamentos salvos com sucesso!")
         st.dataframe(df_salvo)
 

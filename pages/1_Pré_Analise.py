@@ -948,8 +948,9 @@ if st.session_state.df_transacoes_total is not None:
 
         if st.button("📈 Gerar Projeções", key="btn_projecoes"):
             with st.spinner("Gerando projeções... ⏳"):
-                resultado_fluxo = st.session_state.get("resultado_fluxo", exibir_fluxo_caixa(df_transacoes_total))
-                resultado_dre = st.session_state.get("resultado_dre", exibir_dre(df_fluxo=resultado_fluxo))
+                caminhos_empresa = obter_caminhos_empresa(st.session_state.empresa_selecionada)
+                resultado_fluxo = st.session_state.get("resultado_fluxo", exibir_fluxo_caixa(df_transacoes_total, path_faturamento=caminhos_empresa["faturamentos"], path_estoque=caminhos_empresa["estoques"]))
+                resultado_dre = st.session_state.get("resultado_dre", exibir_dre(df_fluxo=resultado_fluxo, path_faturamento=caminhos_empresa["faturamentos"], path_estoque=caminhos_empresa["estoques"]))
 
                 if resultado_fluxo is None or resultado_dre is None:
                     st.error("⚠️ Gere o Fluxo de Caixa e DRE antes de criar projeções.")
@@ -1088,8 +1089,9 @@ if st.session_state.df_transacoes_total is not None:
             with st.spinner("Gerando parecer diagnóstico... ⏳"):
                 df_transacoes_total = st.session_state.df_transacoes_total
                 # Usa os resultados salvos no session_state
-                resultado_fluxo = st.session_state.get("resultado_fluxo", exibir_fluxo_caixa(df_transacoes_total))
-                resultado_dre = st.session_state.get("resultado_dre", exibir_dre(df_fluxo=resultado_fluxo))
+                caminhos_empresa = obter_caminhos_empresa(st.session_state.empresa_selecionada)
+                resultado_fluxo = st.session_state.get("resultado_fluxo", exibir_fluxo_caixa(df_transacoes_total, path_faturamento=caminhos_empresa["faturamentos"], path_estoque=caminhos_empresa["estoques"]))
+                resultado_dre = st.session_state.get("resultado_dre", exibir_dre(df_fluxo=resultado_fluxo, path_faturamento=caminhos_empresa["faturamentos"], path_estoque=caminhos_empresa["estoques"]))
                 if resultado_dre is not None and any(col in resultado_dre.columns for col in ["Receita", "Despesas", "Lucro"]):
                     for col in ["Receita", "Despesas", "Lucro"]:
                         if col in resultado_dre.columns:
@@ -1117,8 +1119,9 @@ if st.session_state.df_transacoes_total is not None:
                 st.warning("⚠️ Por favor, preencha a descrição da empresa antes de gerar o parecer.")
             else:
                 with st.spinner("Gerando parecer financeiro com inteligência artificial... ⏳"):
-                    resultado_fluxo = st.session_state.get("resultado_fluxo", exibir_fluxo_caixa(df_transacoes_total))
-                    resultado_dre = st.session_state.get("resultado_dre", exibir_dre(df_fluxo=resultado_fluxo))
+                    caminhos_empresa = obter_caminhos_empresa(st.session_state.empresa_selecionada)
+                    resultado_fluxo = st.session_state.get("resultado_fluxo", exibir_fluxo_caixa(df_transacoes_total, path_faturamento=caminhos_empresa["faturamentos"], path_estoque=caminhos_empresa["estoques"]))
+                    resultado_dre = st.session_state.get("resultado_dre", exibir_dre(df_fluxo=resultado_fluxo, path_faturamento=caminhos_empresa["faturamentos"], path_estoque=caminhos_empresa["estoques"]))
                     
                     parecer = analisar_dfs_com_gpt(resultado_dre, resultado_fluxo, descricao_empresa)
                 

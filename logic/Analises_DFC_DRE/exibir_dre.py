@@ -101,9 +101,16 @@ def criar_dre(df_fluxo: pd.DataFrame, plano: pd.DataFrame) -> pd.DataFrame:
     # Construção do DRE por etapas
     dre = pd.DataFrame()
     
+    # Verificar se Faturamento Bruto existe no fluxo
+    if "💰 Faturamento Bruto" in df_fluxo.index:
+        linha_faturamento = df_fluxo.loc["💰 Faturamento Bruto"]
+    else:
+        st.warning("⚠️ Linha 'Faturamento Bruto' não encontrada no fluxo de caixa. Verifique se os dados foram salvos.")
+        linha_faturamento = pd.Series(0, index=meses)
+    
     # Bloco 1: Faturamento e Margem de Contribuição
     dre = pd.concat([
-        linha("FATURAMENTO", df_fluxo.loc["💰 Faturamento Bruto"]),
+        linha("FATURAMENTO", linha_faturamento),
         linha("RECEITA", soma_por_categoria(df_fluxo, "Receita de Vendas", "Receita de Serviços")),
         linha("IMPOSTOS", soma_por_grupo(df_fluxo, plano, "Despesas Impostos")),
         linha("DESPESA OPERACIONAL", soma_por_grupo(df_fluxo, plano, "Despesas Operacionais")),
@@ -142,6 +149,7 @@ def criar_dre(df_fluxo: pd.DataFrame, plano: pd.DataFrame) -> pd.DataFrame:
     if "📦 Estoque Final" in df_fluxo.index:
         dre.loc["ESTOQUE"] = df_fluxo.loc["📦 Estoque Final"]
     else:
+        st.warning("⚠️ Linha 'Estoque Final' não encontrada no fluxo de caixa. Verifique se os dados foram salvos.")
         dre.loc["ESTOQUE"] = 0
         
     dre.loc["SALDO"] = 0  # TODO: puxar saldo dos relatórios
@@ -225,7 +233,7 @@ def criar_grafico_dre(dre: pd.DataFrame) -> go.Figure:
     
     return fig
 
-def exibir_dre(df_fluxo=None, path_fluxo="./logic/CSVs/transacoes_numericas.xlsx", path_plano="./logic/CSVs/plano_de_contas.csv"):
+def exibir_dre(df_fluxo=None, path_fluxo="./logic/CSVs/transacoes_numericas.xlsx", path_plano="./logic/CSVs/plano_de_contas.csv", path_faturamento="./logic/CSVs/faturamentos.csv", path_estoque="./logic/CSVs/estoques.csv"):
     """Função principal que exibe o DRE no Streamlit."""
     st.markdown("## 📊 Demonstrativo de Resultados (DRE)")
 
@@ -234,6 +242,27 @@ def exibir_dre(df_fluxo=None, path_fluxo="./logic/CSVs/transacoes_numericas.xlsx
         df_fluxo, _ = carregar_dados(path_fluxo, path_plano)
         if df_fluxo is None:
             return
+
+    # Garantir que Faturamento e Estoque estejam no DataFrame do fluxo
+    if "💰 Faturamento Bruto" not in df_fluxo.index and os.path.exists(path_faturamento):
+        try:
+            df_fat = pd.read_csv(path_faturamento)
+            meses = df_fluxo.columns.tolist()
+            linha_fat = df_fat.set_index("Mes").T.reindex(columns=meses).fillna(0)
+            linha_fat.index = ["💰 Faturamento Bruto"]
+            df_fluxo = pd.concat([linha_fat, df_fluxo])
+        except Exception as e:
+            st.warning(f"⚠️ Erro ao carregar dados de faturamento: {e}")
+    
+    if "📦 Estoque Final" not in df_fluxo.index and os.path.exists(path_estoque):
+        try:
+            df_estoque = pd.read_csv(path_estoque)
+            meses = df_fluxo.columns.tolist()
+            linha_estoque = df_estoque.set_index("Mes").T.reindex(columns=meses).fillna(0)
+            linha_estoque.index = ["📦 Estoque Final"]
+            df_fluxo = pd.concat([df_fluxo, linha_estoque])
+        except Exception as e:
+            st.warning(f"⚠️ Erro ao carregar dados de estoque: {e}")
 
     plano = pd.read_csv(path_plano)
     meses = df_fluxo.columns.tolist()
