@@ -93,6 +93,266 @@ def converter_para_float(valor_str):
     except:
         return 0.0
 
+# ===== FUNÇÕES DE GERENCIAMENTO DE CACHE =====
+
+def verificar_status_cache(empresa_nome: str) -> dict:
+    """
+    Verifica status de todos os arquivos de cache de uma empresa
+    
+    Returns:
+        Dict com status de cada tipo de arquivo (dre, fluxo, transacoes, orcamento)
+    """
+    from logic.orcamento_manager import orcamento_manager
+    
+    status = {
+        'dre': {'existe': False},
+        'fluxo': {'existe': False},
+        'transacoes': {'existe': False},
+        'orcamento': {'existe': False}
+    }
+    
+    # Verificar DRE
+    dados_dre = cache_manager.carregar_dre(empresa_nome)
+    if dados_dre:
+        status['dre'] = {
+            'existe': True,
+            'timestamp': dados_dre.get('timestamp', 'Desconhecido'),
+            'periodo': extrair_periodo_dados(dados_dre.get('dre_estruturado', {})),
+            'categorias': contar_categorias_dre(dados_dre.get('dre_estruturado', {})),
+            'tem_detalhamento': verificar_tem_detalhamento(dados_dre.get('dre_estruturado', {})),
+            'tamanho': obter_tamanho_arquivo(f"{empresa_nome}_dre.json", 'dre')
+        }
+    
+    # Verificar Fluxo
+    dados_fluxo = cache_manager.carregar_fluxo_caixa(empresa_nome)
+    if dados_fluxo:
+        status['fluxo'] = {
+            'existe': True,
+            'timestamp': dados_fluxo.get('timestamp', 'Desconhecido'),
+            'periodo': extrair_periodo_dados(dados_fluxo.get('fluxo_estruturado', {})),
+            'grupos': contar_grupos_fluxo(dados_fluxo.get('fluxo_estruturado', {})),
+            'tamanho': obter_tamanho_arquivo(f"{empresa_nome}_fluxo.json", 'fluxo_caixa')
+        }
+    
+    # Verificar Transações
+    dados_transacoes = cache_manager.carregar_transacoes(empresa_nome)
+    if dados_transacoes is not None and not dados_transacoes.empty:
+        periodo_trans = extrair_periodo_transacoes(dados_transacoes)
+        status['transacoes'] = {
+            'existe': True,
+            'timestamp': datetime.now().isoformat(),  # Pegar do JSON depois
+            'total': len(dados_transacoes),
+            'periodo': periodo_trans,
+            'tamanho': obter_tamanho_arquivo(f"{empresa_nome}_transacoes.json", 'dre')
+        }
+    
+    # Verificar Orçamento
+    orcamentos = orcamento_manager.listar_orcamentos_disponiveis()
+    orcamento_empresa = [orc for orc in orcamentos if orc['empresa'] == empresa_nome]
+    if orcamento_empresa:
+        orc = orcamento_empresa[0]
+        status['orcamento'] = {
+            'existe': True,
+            'timestamp': orc.get('timestamp', 'Desconhecido'),
+            'ano_orcamento': orc.get('ano_orcamento', ''),
+            'ano_base': orc.get('ano_base', ''),
+            'tem_realizado': orc.get('tem_realizado', False)
+        }
+    
+    return status
+
+def extrair_periodo_dados(dados_estruturados: dict) -> str:
+    """Extrai período dos dados estruturados (formato YYYY-MM)"""
+    if not dados_estruturados:
+        return "N/A"
+    
+    meses = set()
+    for secao_data in dados_estruturados.values():
+        if isinstance(secao_data, dict):
+            itens = secao_data.get('itens', {}) if 'itens' in secao_data else secao_data.get('categorias', {})
+            for item_data in itens.values():
+                if isinstance(item_data, dict):
+                    valores = item_data.get('valores', {}) if 'valores' in item_data else item_data.get('valores_mensais', {})
+                    for mes in valores.keys():
+                        if isinstance(mes, str) and '-' in mes and mes not in ['TOTAL', '%']:
+                            meses.add(mes)
+    
+    if meses:
+        meses_sorted = sorted(list(meses))
+        return f"{meses_sorted[0]} até {meses_sorted[-1]}"
+    return "N/A"
+
+def extrair_periodo_transacoes(df: pd.DataFrame) -> str:
+    """Extrai período das transações"""
+    if 'Data' not in df.columns or df.empty:
+        return "N/A"
+    
+    df['Data'] = pd.to_datetime(df['Data'])
+    data_min = df['Data'].min().strftime('%m/%Y')
+    data_max = df['Data'].max().strftime('%m/%Y')
+    return f"{data_min} até {data_max}"
+
+def contar_categorias_dre(dre_estruturado: dict) -> int:
+    """Conta total de categorias no DRE"""
+    total = 0
+    for secao_data in dre_estruturado.values():
+        if isinstance(secao_data, dict) and 'itens' in secao_data:
+            total += len(secao_data['itens'])
+    return total
+
+def contar_grupos_fluxo(fluxo_estruturado: dict) -> int:
+    """Conta total de grupos no Fluxo"""
+    return len(fluxo_estruturado)
+
+def verificar_tem_detalhamento(dre_estruturado: dict) -> bool:
+    """Verifica se DRE tem detalhamento salvo"""
+    for secao_data in dre_estruturado.values():
+        if isinstance(secao_data, dict) and 'itens' in secao_data:
+            for item_data in secao_data['itens'].values():
+                if isinstance(item_data, dict) and 'detalhamento' in item_data:
+                    return True
+    return False
+
+def obter_tamanho_arquivo(filename: str, tipo: str) -> str:
+    """Obtém tamanho do arquivo em formato legível"""
+    try:
+        if tipo == 'dre' or tipo == 'transacoes':
+            filepath = os.path.join("./data_cache/dre", filename)
+        else:
+            filepath = os.path.join("./data_cache/fluxo_caixa", filename)
+        
+        if os.path.exists(filepath):
+            tamanho_bytes = os.path.getsize(filepath)
+            if tamanho_bytes < 1024:
+                return f"{tamanho_bytes} B"
+            elif tamanho_bytes < 1024 * 1024:
+                return f"{tamanho_bytes / 1024:.1f} KB"
+            else:
+                return f"{tamanho_bytes / (1024 * 1024):.1f} MB"
+        return "N/A"
+    except:
+        return "N/A"
+
+def exibir_card_status(tipo: str, info: dict):
+    """Exibe card visual do status de um arquivo de cache"""
+    if info['existe']:
+        st.success(f"✅ **{tipo}**")
+        
+        # Formatar timestamp
+        try:
+            if 'timestamp' in info and info['timestamp'] != 'Desconhecido':
+                dt = datetime.fromisoformat(info['timestamp'].replace('Z', '+00:00'))
+                timestamp_formatado = dt.strftime('%d/%m/%Y %H:%M')
+            else:
+                timestamp_formatado = "N/A"
+        except:
+            timestamp_formatado = "N/A"
+        
+        st.caption(f"📅 {timestamp_formatado}")
+        
+        # Informações específicas por tipo
+        if tipo == "DRE":
+            st.caption(f"📊 {info.get('categorias', 0)} categorias")
+            st.caption(f"📆 {info.get('periodo', 'N/A')}")
+            st.caption(f"💾 {info.get('tamanho', 'N/A')}")
+            if info.get('tem_detalhamento'):
+                st.caption("✨ Com detalhamento")
+        
+        elif tipo == "Fluxo":
+            st.caption(f"📊 {info.get('grupos', 0)} grupos")
+            st.caption(f"📆 {info.get('periodo', 'N/A')}")
+            st.caption(f"💾 {info.get('tamanho', 'N/A')}")
+        
+        elif tipo == "Transações":
+            st.caption(f"📊 {info.get('total', 0):,} transações".replace(",", "."))
+            st.caption(f"📆 {info.get('periodo', 'N/A')}")
+            st.caption(f"💾 {info.get('tamanho', 'N/A')}")
+        
+        elif tipo == "Orçamento":
+            st.caption(f"📅 {info.get('ano_orcamento', 'N/A')}")
+            st.caption(f"📊 Base: {info.get('ano_base', 'N/A')}")
+            if info.get('tem_realizado'):
+                st.caption("✨ Com realizado")
+    else:
+        st.error(f"❌ **{tipo}**")
+        st.caption("Não encontrado")
+
+def atualizar_cache_completo(empresa_nome: str):
+    """
+    Atualiza todos os arquivos de cache usando dados da session_state
+    Nota: Esta função requer que os dados já tenham sido processados nas outras abas
+    """
+    if 'df_transacoes_total_vyco' not in st.session_state or st.session_state.df_transacoes_total_vyco.empty:
+        st.error("❌ Nenhuma transação carregada. Carregue os dados do Vyco primeiro na aba 'Categorização'.")
+        st.info("💡 **Como atualizar o cache:**\n1. Vá na aba 'Categorização'\n2. Categorize as transações\n3. Volte aqui e clique novamente")
+        return
+    
+    # Verificar se já tem DRE/Fluxo processados
+    if 'ultimo_dre_vyco' not in st.session_state or 'ultimo_fluxo_vyco' not in st.session_state:
+        st.warning("⚠️ DRE/Fluxo não foram gerados ainda.")
+        st.info("💡 **Como atualizar o cache:**\n1. Vá em 'Projeções' ou 'Parecer Diagnóstico'\n2. Gere os relatórios\n3. Os dados serão salvos automaticamente no cache")
+        return
+    
+    with st.spinner("Atualizando cache completo..."):
+        try:
+            # Usar dados já processados da session_state
+            resultado_fluxo = st.session_state.get('ultimo_fluxo_vyco')
+            resultado_dre = st.session_state.get('ultimo_dre_vyco')
+            df_transacoes = st.session_state.df_transacoes_total_vyco
+            
+            # Preparar metadata
+            metadata = {
+                'licenca': empresa_nome,
+                'total_transacoes': len(df_transacoes),
+                'gerado_em': datetime.now().isoformat(),
+                'origem': 'cache_manual_update'
+            }
+            
+            # Salvar tudo
+            sucesso = True
+            
+            # Fluxo
+            if resultado_fluxo is not None and not resultado_fluxo.empty:
+                arquivo_fluxo = cache_manager.salvar_fluxo_caixa(resultado_fluxo, empresa_nome, metadata)
+                if arquivo_fluxo:
+                    st.success(f"✅ Fluxo de caixa atualizado")
+                else:
+                    sucesso = False
+            
+            # DRE
+            if resultado_dre is not None:
+                arquivo_dre = cache_manager.salvar_dre(
+                    resultado_dre,
+                    empresa_nome,
+                    metadata,
+                    df_transacoes=df_transacoes
+                )
+                if arquivo_dre:
+                    st.success(f"✅ DRE atualizado")
+                else:
+                    sucesso = False
+            
+            # Transações
+            if not df_transacoes.empty:
+                arquivo_transacoes = cache_manager.salvar_transacoes(
+                    df_transacoes,
+                    empresa_nome,
+                    metadata
+                )
+                if arquivo_transacoes:
+                    st.success(f"✅ Transações salvas")
+                else:
+                    sucesso = False
+            
+            if sucesso:
+                st.balloons()
+                st.success("🎉 Cache atualizado com sucesso!")
+            else:
+                st.warning("⚠️ Alguns arquivos não foram salvos corretamente")
+                
+        except Exception as e:
+            st.error(f"❌ Erro ao atualizar cache: {e}")
+
 def obter_arquivo_categorias_licenca(licenca_nome, tipo_lancamento=""):
     """
     Obtém o caminho do arquivo JSON específico para uma licença
@@ -1375,37 +1635,37 @@ with col_tipo2:
 st.markdown("---")
 
 # Sidebar para configurações
-st.sidebar.header("⚙️ Configurações de Conexão")
-
-# Verificar status das credenciais
-env_user = os.getenv("DB_USER", "")
-env_password = os.getenv("DB_PASSWORD", "")
-
-if env_user and env_password and env_user != "seu_usuario_aqui" and env_password != "sua_senha_aqui":
-    st.sidebar.success("✅ Credenciais configuradas no arquivo .env")
-    st.sidebar.info(f"📋 Usuário: {env_user}")
-    st.sidebar.info(f"🔗 Host: {os.getenv('DB_HOST', 'N/A')}")
-    st.sidebar.info(f"🗄️ Database: {os.getenv('DB_NAME', 'N/A')}")
-else:
-    st.sidebar.error("❌ Credenciais não configuradas no .env")
-    st.sidebar.warning("📝 **Para configurar:**")
-    st.sidebar.code("""1. Edite o arquivo .env na raiz do projeto
-2. Substitua:
-   DB_USER=seu_usuario_aqui
-   DB_PASSWORD=sua_senha_aqui
-3. Pelas suas credenciais reais""")
-    
-    # Fallback: Input manual para credenciais temporárias
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("**🔧 Temporário (esta sessão):**")
-    db_user = st.sidebar.text_input("Usuário do Banco:", type="default")
-    db_password = st.sidebar.text_input("Senha do Banco:", type="password")
-    
-    if db_user and db_password:
-        if "secrets" not in st.session_state:
-            st.session_state.secrets = {}
-        st.session_state.secrets["DB_USER"] = db_user
-        st.session_state.secrets["DB_PASSWORD"] = db_password
+#st.sidebar.header("⚙️ Configurações de Conexão")
+#
+## Verificar status das credenciais
+#env_user = os.getenv("DB_USER", "")
+#env_password = os.getenv("DB_PASSWORD", "")
+#
+#if env_user and env_password and env_user != "seu_usuario_aqui" and env_password != "sua_senha_aqui":
+#    st.sidebar.success("✅ Credenciais configuradas no arquivo .env")
+#    st.sidebar.info(f"📋 Usuário: {env_user}")
+#    st.sidebar.info(f"🔗 Host: {os.getenv('DB_HOST', 'N/A')}")
+#    st.sidebar.info(f"🗄️ Database: {os.getenv('DB_NAME', 'N/A')}")
+#else:
+#    st.sidebar.error("❌ Credenciais não configuradas no .env")
+#    st.sidebar.warning("📝 **Para configurar:**")
+#    st.sidebar.code("""1. Edite o arquivo .env na raiz do projeto
+#2. Substitua:
+#   DB_USER=seu_usuario_aqui
+#   DB_PASSWORD=sua_senha_aqui
+#3. Pelas suas credenciais reais""")
+#    
+#    # Fallback: Input manual para credenciais temporárias
+#    st.sidebar.markdown("---")
+#    st.sidebar.markdown("**🔧 Temporário (esta sessão):**")
+#    db_user = st.sidebar.text_input("Usuário do Banco:", type="default")
+#    db_password = st.sidebar.text_input("Senha do Banco:", type="password")
+#    
+#    if db_user and db_password:
+#        if "secrets" not in st.session_state:
+#            st.session_state.secrets = {}
+#        st.session_state.secrets["DB_USER"] = db_user
+#        st.session_state.secrets["DB_PASSWORD"] = db_password
 
 # Input para ID da licença
 st.sidebar.header("🏢 Configuração da Empresa")
@@ -1544,12 +1804,13 @@ if 'df_vyco_processado' in st.session_state:
     df_debitos = df_dados[df_dados['Valor (R$)'] <= 0].copy() if 'Valor (R$)' in df_dados.columns else pd.DataFrame()
     
     # Tabs principais
-    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
         "💰 Categorização", 
         "💹 Faturamento e Estoque", 
         "📅 Projeções", 
         "💼 Parecer Diagnóstico", 
-        "🤖 Análise GPT"
+        "🤖 Análise GPT",
+        "💾 Cache de Dados"
     ])
     
     with tab1:
@@ -1794,11 +2055,26 @@ if 'df_vyco_processado' in st.session_state:
                         if arquivo_fluxo:
                             st.info(f"💾 Fluxo de caixa atualizado: {empresa_nome}_fluxo.json")
                     
-                    # Salvar DRE
+                    # Salvar DRE com detalhamento
                     if resultado_dre is not None:
-                        arquivo_dre = cache_manager.salvar_dre(resultado_dre, empresa_nome, metadata)
+                        arquivo_dre = cache_manager.salvar_dre(
+                            resultado_dre, 
+                            empresa_nome, 
+                            metadata,
+                            df_transacoes=st.session_state.df_transacoes_total_vyco
+                        )
                         if arquivo_dre:
                             st.info(f"💾 DRE atualizado: {empresa_nome}_dre.json")
+                    
+                    # Salvar transações categorizadas para detalhamento
+                    if not st.session_state.df_transacoes_total_vyco.empty:
+                        arquivo_transacoes = cache_manager.salvar_transacoes(
+                            st.session_state.df_transacoes_total_vyco,
+                            empresa_nome,
+                            metadata
+                        )
+                        if arquivo_transacoes:
+                            st.info(f"💾 Transações salvas: {empresa_nome}_transacoes.json")
 
                 if resultado_dre is not None:
                     st.success("✅ Projeções geradas com sucesso!")
@@ -1935,11 +2211,26 @@ if 'df_vyco_processado' in st.session_state:
                         if arquivo_fluxo:
                             st.info(f"💾 Fluxo de caixa atualizado: {empresa_nome}_fluxo.json")
                     
-                    # Salvar DRE
+                    # Salvar DRE com detalhamento
                     if resultado_dre is not None:
-                        arquivo_dre = cache_manager.salvar_dre(resultado_dre, empresa_nome, metadata)
+                        arquivo_dre = cache_manager.salvar_dre(
+                            resultado_dre, 
+                            empresa_nome, 
+                            metadata,
+                            df_transacoes=st.session_state.df_transacoes_total_vyco
+                        )
                         if arquivo_dre:
                             st.info(f"💾 DRE atualizado: {empresa_nome}_dre.json")
+                    
+                    # Salvar transações categorizadas para detalhamento
+                    if not st.session_state.df_transacoes_total_vyco.empty:
+                        arquivo_transacoes = cache_manager.salvar_transacoes(
+                            st.session_state.df_transacoes_total_vyco,
+                            empresa_nome,
+                            metadata
+                        )
+                        if arquivo_transacoes:
+                            st.info(f"💾 Transações salvas: {empresa_nome}_transacoes.json")
                     
                     # Exibir DRE formatado
                     if resultado_dre is not None:
@@ -1992,11 +2283,26 @@ if 'df_vyco_processado' in st.session_state:
                         if arquivo_fluxo:
                             st.info(f"💾 Fluxo de caixa atualizado: {empresa_nome}_fluxo.json")
                     
-                    # Salvar DRE
+                    # Salvar DRE com detalhamento
                     if resultado_dre is not None:
-                        arquivo_dre = cache_manager.salvar_dre(resultado_dre, empresa_nome, metadata)
+                        arquivo_dre = cache_manager.salvar_dre(
+                            resultado_dre, 
+                            empresa_nome, 
+                            metadata,
+                            df_transacoes=st.session_state.df_transacoes_total_vyco
+                        )
                         if arquivo_dre:
                             st.info(f"💾 DRE atualizado: {empresa_nome}_dre.json")
+                    
+                    # Salvar transações categorizadas para detalhamento
+                    if not st.session_state.df_transacoes_total_vyco.empty:
+                        arquivo_transacoes = cache_manager.salvar_transacoes(
+                            st.session_state.df_transacoes_total_vyco,
+                            empresa_nome,
+                            metadata
+                        )
+                        if arquivo_transacoes:
+                            st.info(f"💾 Transações salvas: {empresa_nome}_transacoes.json")
                     
                     # Exibir DRE formatado
                     if resultado_dre is not None:
@@ -2015,6 +2321,213 @@ if 'df_vyco_processado' in st.session_state:
                     parecer = analisar_dfs_com_gpt(resultado_dre, resultado_fluxo, descricao_empresa)
                 
                 st.success("✅ Parecer gerado com sucesso!")
+    
+    # ===== TAB 6: CACHE DE DADOS =====
+    with tab6:
+        st.header("💾 Gerenciamento do Cache de Dados")
+        
+        st.markdown("""
+        Visualize e gerencie todos os dados salvos em cache para análises rápidas e orçamentos.
+        """)
+        
+        # Usar a empresa já selecionada no sidebar
+        if opcao_licenca and opcao_licenca not in ["", "Inserir manualmente", "🔧 Gerenciar Licenças"]:
+            empresa_cache = opcao_licenca
+            st.info(f"📊 **Empresa selecionada:** {empresa_cache}")
+        else:
+            st.warning("⚠️ Selecione uma licença no menu lateral primeiro")
+            empresa_cache = None
+        
+        # Botão de atualizar status
+        col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 4])
+        with col_btn1:
+            if st.button("🔄 Atualizar Status", use_container_width=True):
+                st.rerun()
+        
+        if not empresa_cache:
+            st.stop()
+        
+        st.markdown("---")
+        
+        # Verificar status do cache
+        status = verificar_status_cache(empresa_cache)
+        
+        # Exibir cards de status
+        st.subheader("📋 Status dos Arquivos de Cache")
+        
+        col1, col2, col3, col4 = st.columns(4)
+        
+        with col1:
+            exibir_card_status("DRE", status['dre'])
+        
+        with col2:
+            exibir_card_status("Fluxo", status['fluxo'])
+        
+        with col3:
+            exibir_card_status("Transações", status['transacoes'])
+        
+        with col4:
+            exibir_card_status("Orçamento", status['orcamento'])
+        
+        st.markdown("---")
+        
+        # Botões de ação
+        st.subheader("🔧 Ações Rápidas")
+        
+        col_btn1, col_btn2, col_btn3, col_btn4 = st.columns(4)
+        
+        with col_btn1:
+            if st.button("🔄 Atualizar Cache Completo", use_container_width=True, type="primary"):
+                atualizar_cache_completo(empresa_cache)
+                st.rerun()
+        
+        with col_btn2:
+            if st.button("📥 Download JSON", use_container_width=True):
+                st.info("💡 Selecione qual arquivo deseja baixar nos expanders abaixo")
+        
+        with col_btn3:
+            if st.button("📊 Estatísticas", use_container_width=True):
+                total_arquivos = sum(1 for s in status.values() if s['existe'])
+                st.info(f"📁 {total_arquivos} arquivos salvos no cache")
+        
+        with col_btn4:
+            if st.button("🗑️ Limpar Cache", use_container_width=True):
+                if st.checkbox("⚠️ Confirmar limpeza", key="confirm_clear"):
+                    st.warning("🚧 Funcionalidade em desenvolvimento")
+        
+        st.markdown("---")
+        
+        # Expanders com preview dos dados
+        st.subheader("👁️ Visualização dos Dados")
+        
+        # Preview DRE
+        if status['dre']['existe']:
+            with st.expander("📊 Preview DRE Estruturado"):
+                dados_dre = cache_manager.carregar_dre(empresa_cache)
+                if dados_dre and 'dre_estruturado' in dados_dre:
+                    st.markdown("**Estrutura do DRE:**")
+                    
+                    for secao_key, secao_data in dados_dre['dre_estruturado'].items():
+                        st.markdown(f"### {secao_data.get('nome_secao', secao_key)}")
+                        
+                        itens = secao_data.get('itens', {})
+                        for item_key, item_data in itens.items():
+                            tem_detalhamento = 'detalhamento' in item_data
+                            icone = "✨" if tem_detalhamento else "📊"
+                            st.markdown(f"{icone} **{item_key}**")
+                            
+                            # Mostrar total se disponível
+                            valores = item_data.get('valores', {})
+                            if 'TOTAL' in valores:
+                                total = valores['TOTAL']
+                                st.caption(f"   Total: R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                    
+                    # Botão de download
+                    json_str = json.dumps(dados_dre, indent=2, ensure_ascii=False, default=str)
+                    st.download_button(
+                        label="📥 Baixar DRE completo (JSON)",
+                        data=json_str,
+                        file_name=f"{empresa_cache}_dre.json",
+                        mime="application/json"
+                    )
+        
+        # Preview Fluxo
+        if status['fluxo']['existe']:
+            with st.expander("📊 Preview Fluxo de Caixa"):
+                dados_fluxo = cache_manager.carregar_fluxo_caixa(empresa_cache)
+                if dados_fluxo and 'fluxo_estruturado' in dados_fluxo:
+                    st.markdown("**Estrutura do Fluxo de Caixa:**")
+                    
+                    for grupo_key, grupo_data in dados_fluxo['fluxo_estruturado'].items():
+                        st.markdown(f"### {grupo_data.get('nome_grupo', grupo_key)}")
+                        
+                        categorias = grupo_data.get('categorias', {})
+                        st.caption(f"   {len(categorias)} categorias")
+                    
+                    # Botão de download
+                    json_str = json.dumps(dados_fluxo, indent=2, ensure_ascii=False, default=str)
+                    st.download_button(
+                        label="📥 Baixar Fluxo completo (JSON)",
+                        data=json_str,
+                        file_name=f"{empresa_cache}_fluxo.json",
+                        mime="application/json"
+                    )
+        
+        # Preview Transações
+        if status['transacoes']['existe']:
+            with st.expander("📊 Preview Transações Categorizadas"):
+                df_transacoes = cache_manager.carregar_transacoes(empresa_cache)
+                if df_transacoes is not None and not df_transacoes.empty:
+                    st.markdown(f"**Total de transações:** {len(df_transacoes):,}".replace(",", "."))
+                    
+                    # Mostrar primeiras 100 linhas
+                    st.dataframe(
+                        df_transacoes.head(100),
+                        use_container_width=True,
+                        height=400
+                    )
+                    
+                    st.caption("📝 Mostrando primeiras 100 transações")
+                    
+                    # Estatísticas rápidas
+                    col_stat1, col_stat2, col_stat3 = st.columns(3)
+                    
+                    with col_stat1:
+                        receitas = df_transacoes[df_transacoes['Valor (R$)'] > 0]['Valor (R$)'].sum()
+                        st.metric("💚 Receitas", f"R$ {receitas:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                    
+                    with col_stat2:
+                        despesas = df_transacoes[df_transacoes['Valor (R$)'] < 0]['Valor (R$)'].sum()
+                        st.metric("💸 Despesas", f"R$ {abs(despesas):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                    
+                    with col_stat3:
+                        saldo = receitas + despesas
+                        st.metric("💰 Saldo", f"R$ {saldo:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                    
+                    # Botão de download
+                    csv = df_transacoes.to_csv(index=False).encode('utf-8')
+                    st.download_button(
+                        label="📥 Baixar Transações (CSV)",
+                        data=csv,
+                        file_name=f"{empresa_cache}_transacoes.csv",
+                        mime="text/csv"
+                    )
+        
+        # Preview Orçamento
+        if status['orcamento']['existe']:
+            with st.expander("📊 Preview Orçamento"):
+                from logic.orcamento_manager import orcamento_manager
+                orcamento_data = orcamento_manager.carregar_orcamento(
+                    empresa_cache,
+                    status['orcamento']['ano_orcamento']
+                )
+                
+                if orcamento_data:
+                    st.markdown(f"**Ano Orçamento:** {status['orcamento']['ano_orcamento']}")
+                    st.markdown(f"**Ano Base:** {status['orcamento']['ano_base']}")
+                    
+                    # Mostrar resumo
+                    orcamento_mensal = orcamento_data.get('orcamento_mensal', {})
+                    st.caption(f"📅 {len(orcamento_mensal)} meses orçados")
+                    
+                    # Botão de download
+                    json_str = json.dumps(orcamento_data, indent=2, ensure_ascii=False, default=str)
+                    st.download_button(
+                        label="📥 Baixar Orçamento (JSON)",
+                        data=json_str,
+                        file_name=f"{empresa_cache}_orcamento_{status['orcamento']['ano_orcamento']}.json",
+                        mime="application/json"
+                    )
+        
+        # Informações adicionais
+        st.markdown("---")
+        st.info("""
+        💡 **Dicas:**
+        - Use "🔄 Atualizar Cache Completo" para garantir que os dados estejam atualizados
+        - Os dados ficam salvos localmente em `./data_cache/`
+        - Arquivos JSON podem ser abertos em qualquer editor de texto
+        - O cache é usado pelo módulo de Orçamento para análises rápidas
+        """)
 
 else:
     # Instruções iniciais quando não há dados carregados

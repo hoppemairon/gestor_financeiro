@@ -121,6 +121,121 @@ def ordenar_categorias_dre(categorias):
     
     return categorias_ordenadas
 
+def processar_detalhamento_local(df_transacoes: pd.DataFrame, categoria: str, mes: str) -> pd.DataFrame:
+    """
+    Processa detalhamento de uma categoria/mês usando DF de transações do cache
+    SEM importar módulo Vyco - totalmente independente
+    
+    Args:
+        df_transacoes: DataFrame completo de transações categorizadas (do cache)
+        categoria: Categoria do DRE (ex: 'DESPESA OPERACIONAL')
+        mes: Mês no formato 'YYYY-MM'
+    
+    Returns:
+        DataFrame com: Subcategoria | Tipo | Qtd | Valor | % Categoria
+    """
+    try:
+        if df_transacoes is None or df_transacoes.empty:
+            return pd.DataFrame()
+        
+        # Verificar qual coluna de descrição está presente (encoding pode variar)
+        col_descricao = None
+        for possivel_col in ['Descrição', 'DescriÃ§Ã£o', 'Descricao', 'descrição']:
+            if possivel_col in df_transacoes.columns:
+                col_descricao = possivel_col
+                break
+        
+        if not col_descricao:
+            # Debug: mostrar colunas disponíveis
+            colunas_disponiveis = ', '.join(df_transacoes.columns.tolist())
+            st.warning(f"⚠️ Coluna de descrição não encontrada no cache. Colunas disponíveis: {colunas_disponiveis}")
+            return pd.DataFrame()
+        
+        # Debug inicial
+        st.write(f"🔍 **Debug:** Procurando categoria '{categoria}' no mês '{mes}'")
+        st.write(f"📊 Total de transações no cache: {len(df_transacoes)}")
+        
+        # Filtrar por categoria
+        df_filtrado = df_transacoes[
+            df_transacoes['Categoria_Vyco'].str.contains(categoria, case=False, na=False)
+        ].copy()
+        
+        st.write(f"📊 Transações após filtro de categoria: {len(df_filtrado)}")
+        
+        if df_filtrado.empty:
+            st.warning(f"❌ Nenhuma transação encontrada para categoria '{categoria}'")
+            return pd.DataFrame()
+        
+        # Converter Data para datetime se necessário
+        if 'Data' in df_filtrado.columns:
+            df_filtrado['Data'] = pd.to_datetime(df_filtrado['Data'], errors='coerce')
+            
+            # Debug: mostrar range de datas
+            data_min = df_filtrado['Data'].min()
+            data_max = df_filtrado['Data'].max()
+            st.write(f"📅 Range de datas: {data_min} até {data_max}")
+            
+            # Criar coluna de ano-mês para debug
+            df_filtrado['Ano_Mes'] = df_filtrado['Data'].dt.strftime('%Y-%m')
+            st.write(f"📅 Meses disponíveis: {df_filtrado['Ano_Mes'].unique()[:10]}")
+            
+            # Filtrar por mês
+            df_filtrado = df_filtrado[df_filtrado['Ano_Mes'] == mes]
+            st.write(f"📊 Transações após filtro de mês '{mes}': {len(df_filtrado)}")
+        
+        if df_filtrado.empty:
+            st.warning(f"❌ Nenhuma transação encontrada para '{categoria}' em '{mes}'")
+            return pd.DataFrame()
+        
+        # Agrupar por Descrição (subcategoria) usando a coluna correta
+        resultado = df_filtrado.groupby(col_descricao).agg({
+            'Valor (R$)': 'sum',
+            'Tipo': lambda x: x.mode().iloc[0] if not x.empty else 'Misto',
+            'Data': 'count'  # Contar transações
+        }).reset_index()
+        
+        # Renomear colunas
+        resultado.columns = ['Subcategoria', 'Valor', 'Tipo', 'Qtd']
+        
+        # Reordenar colunas
+        resultado = resultado[['Subcategoria', 'Tipo', 'Qtd', 'Valor']]
+        
+        # Limitar tamanho da descrição
+        resultado['Subcategoria'] = resultado['Subcategoria'].apply(
+            lambda x: str(x)[:80] + "..." if len(str(x)) > 80 else str(x)
+        )
+        
+        # Filtrar valores significativos
+        resultado = resultado[resultado['Valor'].abs() > 0.01]
+        
+        # Calcular percentuais
+        total = resultado['Valor'].sum()
+        if total != 0:
+            resultado['% Categoria'] = (resultado['Valor'] / total * 100).round(2)
+        else:
+            resultado['% Categoria'] = 0.0
+        
+        # Ordenar por valor absoluto (maior → menor)
+        resultado = resultado.sort_values(by='Valor', key=abs, ascending=False)
+        
+        return resultado.reset_index(drop=True)
+        
+    except Exception as e:
+        st.error(f"Erro ao processar detalhamento: {e}")
+        return pd.DataFrame()
+    categorias_ordenadas = []
+    categorias_restantes = list(categorias)
+    
+    for categoria_dre in ordem_dre:
+        if categoria_dre in categorias_restantes:
+            categorias_ordenadas.append(categoria_dre)
+            categorias_restantes.remove(categoria_dre)
+    
+    # Adicionar categorias restantes no final
+    categorias_ordenadas.extend(sorted(categorias_restantes))
+    
+    return categorias_ordenadas
+
 def calcular_resultado_gerencial(dados_orcamento, meses_orcamento):
     """Recalcula o RESULTADO GERENCIAL = RESULTADO + SALDO + ESTOQUE"""
     for mes in meses_orcamento:
@@ -256,7 +371,25 @@ def highlight_rows_cenario(row):
 
 
 
-def obter_detalhamento_categoria(empresa_selecionada, categoria_principal, ano_base):
+def formatar_df_detalhamento(df):
+    """
+    Formata DataFrame de detalhamento com estilo brasileiro
+    """
+    if df.empty:
+        return df
+        
+    df_formatado = df.copy()
+    
+    # Formatar colunas de valores para o padrão brasileiro
+    for coluna in ['Base (2025)', 'Orçamento (2026)']:
+        if coluna in df_formatado.columns:
+            df_formatado[coluna] = df_formatado[coluna].apply(
+                lambda x: f"R$ {x:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") if pd.notna(x) and x != 0 else "R$ 0,00"
+            )
+    
+    return df_formatado
+
+# ===== INÍCIO DA INTERFACE =====
     """
     Obtém detalhamento das subcategorias que compõem uma categoria principal usando dados reais do Vyco
     
@@ -698,6 +831,104 @@ with tab1:
         file_name=f"orcamento_{empresa_selecionada}_{ano_orcamento}.csv",
         mime="text/csv",
     )
+    
+    # 🔍 DETALHAMENTO DE COMPOSIÇÃO (NOVO - VERSÃO LIMPA)
+    st.markdown("---")
+    with st.expander("🔍 **Detalhamento de Composição (Ano Base)** - Veja o que compõe cada linha do orçamento", expanded=False):
+        st.markdown("""
+        📊 **Como funciona:** Selecione uma categoria e um mês para ver todas as transações que compõem aquele valor.
+        Os dados são carregados diretamente do cache (rápido) e agrupados por subcategoria.
+        """)
+        
+        col_det1, col_det2 = st.columns(2)
+        
+        with col_det1:
+            categoria_detalhamento = st.selectbox(
+                "📋 Selecione a categoria",
+                ordenar_categorias_dre(categorias),
+                key="cat_detalhamento"
+            )
+        
+        with col_det2:
+            # Meses do ano base
+            meses_base_detalhamento = [mes.replace(str(ano_orcamento), str(ano_base)) for mes in meses_orcamento]
+            mes_detalhamento = st.selectbox(
+                "📅 Selecione o mês (Ano Base)",
+                meses_base_detalhamento,
+                format_func=nome_mes_pt,
+                key="mes_detalhamento"
+            )
+        
+        # Exibir detalhamento automaticamente ao selecionar
+        if categoria_detalhamento and mes_detalhamento:
+            with st.spinner("Carregando detalhamento..."):
+                # Usar detalhamento salvo no cache DRE (já tem a informação agregada)
+                detalhamento_lista = cache_manager.carregar_detalhamento_categoria_mes(
+                    empresa_selecionada,
+                    categoria_detalhamento,
+                    mes_detalhamento
+                )
+                
+                if detalhamento_lista is not None and len(detalhamento_lista) > 0:
+                    # Converter lista de dicts para DataFrame
+                    df_exibir = pd.DataFrame(detalhamento_lista)
+                    
+                    # Renomear colunas se necessário
+                    if 'subcategoria' in df_exibir.columns:
+                        df_exibir = df_exibir.rename(columns={
+                            'subcategoria': 'Subcategoria',
+                            'valor': 'Valor',
+                            'quantidade': 'Qtd',
+                            'tipo': 'Tipo'
+                        })
+                    
+                    # Calcular totais e percentuais
+                    if 'Valor' in df_exibir.columns:
+                        total = df_exibir['Valor'].sum()
+                        if total != 0 and '% Categoria' not in df_exibir.columns:
+                            df_exibir['% Categoria'] = (df_exibir['Valor'] / total * 100).round(2)
+                    
+                    # Ordenar por valor
+                    if 'Valor' in df_exibir.columns:
+                        df_exibir = df_exibir.sort_values(by='Valor', key=abs, ascending=False)
+                    
+                    # Exibir título
+                    st.markdown(f"#### 📊 Composição: {categoria_detalhamento} - {nome_mes_pt(mes_detalhamento)}")
+                    
+                    # Formatar valores para exibição
+                    df_display = df_exibir.copy()
+                    if 'Valor' in df_display.columns:
+                        df_display['Valor'] = df_display['Valor'].apply(formatar_valor_br)
+                    if '% Categoria' in df_display.columns:
+                        df_display['% Categoria'] = df_display['% Categoria'].apply(lambda x: f"{x:.2f}%")
+                    
+                    # Exibir tabela
+                    st.dataframe(
+                        df_display, 
+                        use_container_width=True, 
+                        hide_index=True,
+                        height=400
+                    )
+                    
+                    # Mostrar resumo
+                    total_valor = df_exibir['Valor'].sum() if 'Valor' in df_exibir.columns else 0
+                    total_subcategorias = len(df_exibir)
+                    total_transacoes = int(df_exibir['Qtd'].sum()) if 'Qtd' in df_exibir.columns else 0
+                    
+                    st.info(f"💰 **Total:** {formatar_valor_br(total_valor)} | 📝 **{total_subcategorias}** subcategorias | 🔢 **{total_transacoes}** transações")
+                    
+                    # Botão de download do detalhamento
+                    csv_detalhamento = df_display.to_csv(index=False).encode('utf-8')
+                    st.download_button(
+                        label="📥 Baixar Detalhamento como CSV",
+                        data=csv_detalhamento,
+                        file_name=f"detalhamento_{categoria_detalhamento}_{mes_detalhamento}.csv",
+                        mime="text/csv",
+                        key="download_detalhamento"
+                    )
+                else:
+                    st.warning(f"⚠️ **Sem detalhamento para {categoria_detalhamento} em {nome_mes_pt(mes_detalhamento)}**")
+                    st.info("💡 **Possíveis causas:**\n- Não há transações neste período\n- DRE precisa ser regenerado na aba **Integração Vyco**")
     
     # Interface de edição detalhada por mês
     st.markdown("---")
