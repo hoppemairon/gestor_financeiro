@@ -22,6 +22,9 @@ from logic.Analises_DFC_DRE.exibir_dre import exibir_dre
 from logic.Analises_DFC_DRE.analise_gpt import analisar_dfs_com_gpt
 from logic.Analises_DFC_DRE.exibir_dre import highlight_rows
 
+# Importar gerenciador de tipos de negócio
+from logic.business_types.business_manager import carregar_tipos_negocio
+
 # Configuração da página
 st.set_page_config(
     page_title="Pré Análise de Documentos", 
@@ -403,6 +406,8 @@ if "df_resumo_total" not in st.session_state:
     st.session_state.df_resumo_total = None
 if "empresa_selecionada" not in st.session_state:
     st.session_state.empresa_selecionada = ""
+if "tipo_negocio_pre_analise" not in st.session_state:
+    st.session_state.tipo_negocio_pre_analise = None
 
 # Interface principal
 st.title("📑 Pré-Análise de Documentos Bancários")
@@ -447,6 +452,36 @@ if st.session_state.empresa_selecionada:
     st.info(f"📊 **Empresa atual:** {st.session_state.empresa_selecionada}")
 else:
     st.warning("⚠️ Nenhuma empresa selecionada. Os dados serão salvos na pasta geral.")
+
+# Seleção de Tipo de Negócio
+st.markdown("---")
+st.markdown("## 🏭 Tipo de Negócio")
+
+col_tipo1, col_tipo2 = st.columns([2, 3])
+
+with col_tipo1:
+    # Carregar tipos disponíveis
+    tipos_negocio = carregar_tipos_negocio()
+    opcoes_tipo = [(key, valor["nome"]) for key, valor in tipos_negocio.items()]
+    
+    tipo_selecionado = st.selectbox(
+        "Selecione o tipo de negócio:",
+        options=[key for key, _ in opcoes_tipo],
+        format_func=lambda x: next((nome for key, nome in opcoes_tipo if key == x), x),
+        help="Selecione o tipo de negócio para usar benchmarks específicos no parecer financeiro",
+        key="select_tipo_negocio_pre_analise"
+    )
+    
+    # Salvar no session_state
+    if tipo_selecionado:
+        st.session_state['tipo_negocio_pre_analise'] = tipo_selecionado
+
+with col_tipo2:
+    if tipo_selecionado and tipo_selecionado in tipos_negocio:
+        tipo_info = tipos_negocio[tipo_selecionado]
+        st.info(f"**{tipo_info['nome']}**")
+        st.write(tipo_info['descricao'])
+        st.caption("📈 Os benchmarks serão ajustados de acordo com o setor selecionado")
 
 st.markdown("---")
 
@@ -1101,7 +1136,7 @@ if st.session_state.df_transacoes_total is not None:
                         "Despesas": formatar_valor_br,
                         "Lucro": formatar_valor_br
                     }), use_container_width=True)
-                gerar_parecer_automatico(resultado_fluxo)
+                gerar_parecer_automatico(resultado_fluxo, tipo_negocio=st.session_state.get('tipo_negocio_pre_analise'))
     
     with tab5:
         st.header("🤖 Análise GPT - Parecer Financeiro Inteligente")

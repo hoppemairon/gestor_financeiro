@@ -1,12 +1,12 @@
 {
   "empresa": "Arani",
-  "timestamp": "2025-11-03T12:59:50.757662",
+  "timestamp": "2025-11-18T17:11:13.011392",
   "tipo": "fluxo_caixa_estruturado",
   "metadata": {
     "licenca": "Arani",
     "total_transacoes": 916,
-    "gerado_em": "2025-11-03T12:59:50.755529",
-    "origem": "vyco_integração"
+    "gerado_em": "2025-11-18T17:11:13.009904",
+    "origem": "vyco_parecer_diagnostico"
   },
   "estrutura": "grupos_organizados",
   "fluxo_estruturado": {

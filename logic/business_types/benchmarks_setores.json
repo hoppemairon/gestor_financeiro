@@ -1,0 +1,118 @@
+{
+  "comercio": {
+    "nome": "Comércio / Varejo",
+    "descricao": "Benchmarks para empresas do setor comercial e varejista",
+    "margem_media": 12,
+    "margem_bruta": 30,
+    "margem_operacional": 10,
+    "giro_estoque": 8,
+    "interpretacao": {
+      "margem_media": "Margem líquida típica do varejo varia entre 8-15%. Supermercados operam com margens menores (5-8%), enquanto lojas especializadas podem ter margens maiores (15-20%).",
+      "margem_bruta": "Margem bruta esperada de 25-35%. Representa o markup sobre o custo das mercadorias. Varejo de moda/joias pode atingir 40-50%.",
+      "margem_operacional": "Margem operacional de 8-12%. Indica eficiência operacional antes de impostos e financiamentos.",
+      "giro_estoque": "Giro de estoque esperado de 6-12x ao ano. Quanto maior, melhor o uso do capital investido. Supermercados podem ter giro de 15-20x."
+    },
+    "indicadores_complementares": [
+      "CMV/Receita (deve ficar entre 65-75%)",
+      "Despesas Operacionais/Receita (ideal abaixo de 20%)",
+      "Ticket Médio",
+      "Ruptura de Estoque"
+    ]
+  },
+  "industria": {
+    "nome": "Indústria / Manufatura",
+    "descricao": "Benchmarks para empresas do setor industrial e de manufatura",
+    "margem_media": 15,
+    "margem_bruta": 38,
+    "margem_operacional": 15,
+    "giro_estoque": 6,
+    "interpretacao": {
+      "margem_media": "Margem líquida industrial varia entre 10-20%. Maior que o comércio devido à agregação de valor no processo produtivo.",
+      "margem_bruta": "Margem bruta esperada de 30-45%. Indústrias de transformação têm margens maiores que comércio puro. Alta tecnologia pode superar 50%.",
+      "margem_operacional": "Margem operacional de 12-18%. Reflete eficiência da operação industrial.",
+      "giro_estoque": "Giro de estoque de 4-8x ao ano. Mais lento que comércio devido ao ciclo de produção e estoque de matéria-prima."
+    },
+    "indicadores_complementares": [
+      "Custo Industrial/Receita",
+      "Produtividade (Receita/Funcionário)",
+      "OEE - Eficiência dos Equipamentos",
+      "Custos Fixos/Custos Totais",
+      "Ponto de Equilíbrio"
+    ]
+  },
+  "servico": {
+    "nome": "Serviços",
+    "descricao": "Benchmarks para empresas prestadoras de serviços",
+    "margem_media": 20,
+    "margem_bruta": 50,
+    "margem_operacional": 25,
+    "giro_estoque": null,
+    "interpretacao": {
+      "margem_media": "Margem líquida de serviços varia entre 15-30%. Pode ser maior que comércio/indústria pois não há estoque e CMV é baixo.",
+      "margem_bruta": "Margem bruta esperada de 40-60%. Serviços têm custos variáveis menores. Consultorias especializadas podem superar 70%.",
+      "margem_operacional": "Margem operacional de 20-35%. Boa gestão de pessoas e processos resulta em margens operacionais altas.",
+      "giro_estoque": "Não aplicável para serviços. Empresas de serviços não possuem estoque físico."
+    },
+    "indicadores_complementares": [
+      "Faturamento por Colaborador (R$/pessoa)",
+      "Taxa de Utilização (%)",
+      "Custo Pessoal/Receita (ideal 30-45%)",
+      "Ticket Médio por Projeto",
+      "Taxa de Recorrência de Clientes"
+    ]
+  },
+  "agronegocio": {
+    "nome": "Agronegócio",
+    "descricao": "Benchmarks para empresas do setor agrícola e pecuário",
+    "margem_media": 18,
+    "margem_bruta": 42,
+    "margem_operacional": 22,
+    "giro_estoque": 1.5,
+    "interpretacao": {
+      "margem_media": "Margem líquida no agro varia entre 10-25%. Altamente dependente de fatores climáticos, preço de commodities e câmbio.",
+      "margem_bruta": "Margem bruta esperada de 35-50%. Varia por cultura: soja (35-45%), milho (30-40%), café (40-55%).",
+      "margem_operacional": "Margem operacional de 15-30%. Boa gestão de custos de insumos e logística é crucial.",
+      "giro_estoque": "Giro de estoque de 1-2x ao ano devido ao ciclo de safra. Produção sazonal impacta diretamente."
+    },
+    "indicadores_complementares": [
+      "Receita por Hectare (R$/ha)",
+      "Custo por Hectare (R$/ha)",
+      "Custo por Saca (R$/saca)",
+      "Produtividade (sacas/ha)",
+      "Margem por Hectare (R$/ha)",
+      "Rentabilidade sobre Terra (%)"
+    ],
+    "benchmarks_especificos": {
+      "soja": {
+        "produtividade_media": "55-65 sacas/ha",
+        "custo_medio_ha": "R$ 4.000 - R$ 5.500/ha",
+        "receita_media_ha": "R$ 6.500 - R$ 9.000/ha"
+      },
+      "milho": {
+        "produtividade_media": "90-120 sacas/ha",
+        "custo_medio_ha": "R$ 3.500 - R$ 5.000/ha",
+        "receita_media_ha": "R$ 5.000 - R$ 7.500/ha"
+      },
+      "cafe": {
+        "produtividade_media": "25-35 sacas/ha",
+        "custo_medio_ha": "R$ 8.000 - R$ 12.000/ha",
+        "receita_media_ha": "R$ 12.000 - R$ 18.000/ha"
+      }
+    }
+  },
+  "default": {
+    "nome": "Geral",
+    "descricao": "Benchmarks genéricos aplicáveis a diversos setores",
+    "margem_media": 15,
+    "margem_bruta": 35,
+    "margem_operacional": 12,
+    "giro_estoque": 6,
+    "interpretacao": {
+      "margem_media": "Margem líquida média de referência. Varia significativamente entre setores.",
+      "margem_bruta": "Margem bruta de referência geral.",
+      "margem_operacional": "Margem operacional de referência.",
+      "giro_estoque": "Giro de estoque de referência (quando aplicável)."
+    },
+    "indicadores_complementares": []
+  }
+}

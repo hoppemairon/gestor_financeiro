@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import os
+import json
 import plotly.express as px
 import plotly.graph_objects as go
 from typing import Optional, Dict
@@ -10,6 +11,41 @@ from datetime import datetime
 def formatar_brl(valor: float) -> str:
     """Formata um valor para o formato de moeda brasileira."""
     return f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+def carregar_benchmarks(tipo_negocio: str = None) -> Dict:
+    """Carrega benchmarks específicos do setor/tipo de negócio."""
+    benchmarks_path = os.path.join(os.path.dirname(__file__), "../business_types/benchmarks_setores.json")
+    
+    try:
+        with open(benchmarks_path, 'r', encoding='utf-8') as f:
+            benchmarks_data = json.load(f)
+    except Exception as e:
+        st.warning(f"Não foi possível carregar benchmarks: {e}. Usando valores padrão.")
+        # Retornar benchmarks padrão em caso de erro
+        return {
+            "nome": "Geral",
+            "margem_media": 15,
+            "margem_bruta": 35,
+            "margem_operacional": 12,
+            "giro_estoque": 6,
+            "interpretacao": {},
+            "indicadores_complementares": []
+        }
+    
+    # Mapear tipo_negocio para chave do JSON
+    mapa_tipos = {
+        "servico": "servico",
+        "comercio": "comercio",
+        "industria": "industria",
+        "agronegocio": "agronegocio"
+    }
+    
+    # Se tipo_negocio não for especificado ou não existir, usar default
+    if not tipo_negocio or tipo_negocio not in mapa_tipos:
+        return benchmarks_data.get("default", benchmarks_data["comercio"])
+    
+    chave = mapa_tipos[tipo_negocio]
+    return benchmarks_data.get(chave, benchmarks_data["default"])
 
 def carregar_dados(path_fluxo: str, path_dre: str = None) -> Optional[pd.DataFrame]:
     """Carrega os dados do fluxo de caixa e, se disponível, do DRE. Valida presença de índices essenciais."""
@@ -54,7 +90,7 @@ def extrair_metricas_principais(df_fluxo: pd.DataFrame, df_dre: pd.DataFrame = N
         metricas["lucro_liquido"] = buscar_indice(df_dre, ["LUCRO LIQUIDO", "Lucro Líquido"])
     return metricas
 
-def calcular_indicadores(metricas: Dict[str, pd.Series]) -> Dict[str, float]:
+def calcular_indicadores(metricas: Dict[str, pd.Series], tipo_negocio: str = None) -> Dict[str, float]:
     """
     Calcula indicadores financeiros avançados. Compara com benchmarks do setor.
 
@@ -62,6 +98,10 @@ def calcular_indicadores(metricas: Dict[str, pd.Series]) -> Dict[str, float]:
     - Para cada indicador (receita, despesa, resultado), a tendência é calculada usando uma regressão linear simples (numpy.polyfit).
     - O valor retornado representa a inclinação da linha de tendência, ou seja, o quanto o indicador cresce ou diminui, em média, a cada mês.
     - Exemplo: Se a tendência da receita for +1000, significa que, em média, a receita está aumentando R$ 1.000 por mês.
+    
+    Args:
+        metricas: Dicionário com as séries de métricas extraídas
+        tipo_negocio: Tipo de negócio (servico, comercio, industria, agronegocio) para benchmarks específicos
     """
     indicadores = {}
     meses = metricas["total_receita"].index
@@ -104,14 +144,17 @@ def calcular_indicadores(metricas: Dict[str, pd.Series]) -> Dict[str, float]:
         indicadores["estoque_medio"] = metricas["estoque"].mean()
         indicadores["giro_estoque"] = metricas["total_receita"].sum() / indicadores["estoque_medio"] if indicadores["estoque_medio"] != 0 else np.nan
 
-    # Benchmarks (exemplo: setor varejo)
-    benchmarks = {
-        "margem_media": 15,
-        "margem_bruta": 35,
-        "margem_operacional": 12,
-        "giro_estoque": 6
+    # Carregar benchmarks específicos do setor
+    benchmarks_setor = carregar_benchmarks(tipo_negocio)
+    indicadores["benchmarks"] = {
+        "nome_setor": benchmarks_setor.get("nome", "Geral"),
+        "margem_media": benchmarks_setor.get("margem_media", 15),
+        "margem_bruta": benchmarks_setor.get("margem_bruta", 35),
+        "margem_operacional": benchmarks_setor.get("margem_operacional", 12),
+        "giro_estoque": benchmarks_setor.get("giro_estoque"),
+        "interpretacao": benchmarks_setor.get("interpretacao", {}),
+        "indicadores_complementares": benchmarks_setor.get("indicadores_complementares", [])
     }
-    indicadores["benchmarks"] = benchmarks
     return indicadores
 
 def exibir_metricas_principais(metricas: Dict[str, pd.Series], indicadores: Dict[str, float]):
@@ -156,11 +199,17 @@ def exibir_metricas_principais(metricas: Dict[str, pd.Series], indicadores: Dict
         )
     
     # Comparativo com benchmarks
-    st.markdown("##### Benchmarks do setor (varejo):")
+    nome_setor = indicadores['benchmarks'].get('nome_setor', 'Geral')
+    st.markdown(f"##### Benchmarks do setor ({nome_setor}):")
     st.markdown(f"- Margem média esperada: {indicadores['benchmarks']['margem_media']}%")
     st.markdown(f"- Margem bruta esperada: {indicadores['benchmarks']['margem_bruta']}%")
     st.markdown(f"- Margem operacional esperada: {indicadores['benchmarks']['margem_operacional']}%")
-    st.markdown(f"- Giro de estoque esperado: {indicadores['benchmarks']['giro_estoque']:.2f}")
+    
+    giro_bench = indicadores['benchmarks']['giro_estoque']
+    if giro_bench is not None:
+        st.markdown(f"- Giro de estoque esperado: {giro_bench:.2f}")
+    else:
+        st.markdown("- Giro de estoque: N/A (não aplicável para este setor)")
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -472,8 +521,16 @@ def exibir_projecoes_cenario(projecoes: dict):
         if "comentario" in dados:
             st.markdown(f"_Comentário: {dados['comentario']}_")
 
-def gerar_parecer_automatico(df_fluxo=None, df_dre=None, path_fluxo="./logic/CSVs/transacoes_numericas.xlsx", projecoes=None):
-    """Função principal para gerar o parecer financeiro. Sempre analisa todo o período."""
+def gerar_parecer_automatico(df_fluxo=None, df_dre=None, path_fluxo="./logic/CSVs/transacoes_numericas.xlsx", projecoes=None, tipo_negocio=None):
+    """Função principal para gerar o parecer financeiro. Sempre analisa todo o período.
+    
+    Args:
+        df_fluxo: DataFrame do fluxo de caixa
+        df_dre: DataFrame do DRE
+        path_fluxo: Caminho do arquivo de fluxo
+        projecoes: Dados de projeções
+        tipo_negocio: Tipo de negócio (servico, comercio, industria, agronegocio) para benchmarks específicos
+    """
     st.header("📄 Diagnóstico Financeiro Interativo")
     
     # Carregar dados
@@ -484,7 +541,7 @@ def gerar_parecer_automatico(df_fluxo=None, df_dre=None, path_fluxo="./logic/CSV
 
     # Sempre usa todo o período, sem filtro
     metricas = extrair_metricas_principais(df_fluxo, df_dre)
-    indicadores = calcular_indicadores(metricas)
+    indicadores = calcular_indicadores(metricas, tipo_negocio)
     exibir_metricas_principais(metricas, indicadores)
     tab1, tab2 = st.tabs(["📊 Gráficos", "🧠 Análise e Recomendações"])
     with tab1:

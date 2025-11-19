@@ -1490,6 +1490,12 @@ def coletar_faturamentos_vyco(df_transacoes, licenca_nome):
     """
     st.markdown("## 🧾 Cadastro de Faturamento por Mês")
     st.markdown("#### 💵 Preencha o faturamento bruto mensal:")
+    
+    # Exibir qual arquivo está sendo usado
+    nome_limpo = "".join(c for c in licenca_nome if c.isalnum() or c in (' ', '-', '_')).rstrip()
+    nome_limpo = nome_limpo.replace(' ', '_').lower()
+    arquivo_json = f"./logic/CSVs/licencas/{nome_limpo}_faturamento.json"
+    st.caption(f"📁 Arquivo: `{arquivo_json}`")
 
     # Garante que a data está em datetime
     df_transacoes["Data"] = pd.to_datetime(df_transacoes["Data"], format="%d/%m/%Y", errors="coerce")
@@ -1548,6 +1554,12 @@ def coletar_estoques_vyco(df_transacoes, licenca_nome):
     """
     st.markdown("## 📦 Cadastro de Estoque Final por Mês")
     st.markdown("#### 🧾 Informe o valor do estoque no fim de cada mês:")
+    
+    # Exibir qual arquivo está sendo usado
+    nome_limpo = "".join(c for c in licenca_nome if c.isalnum() or c in (' ', '-', '_')).rstrip()
+    nome_limpo = nome_limpo.replace(' ', '_').lower()
+    arquivo_json = f"./logic/CSVs/licencas/{nome_limpo}_estoque.json"
+    st.caption(f"📁 Arquivo: `{arquivo_json}`")
 
     # Garante que datas estejam OK
     df_transacoes["Data"] = pd.to_datetime(df_transacoes["Data"], format="%d/%m/%Y", errors="coerce")
@@ -1798,7 +1810,17 @@ if st.sidebar.button("🔍 Buscar Dados do Vyco", type="primary"):
                     # Armazenar no session_state
                     st.session_state.df_vyco_raw = df_raw
                     st.session_state.df_vyco_processado = df_sem_duplicatas
-                    st.session_state.licenca_atual = opcao_licenca if opcao_licenca != "Inserir manualmente" else licenca_id
+                    nova_licenca = opcao_licenca if opcao_licenca != "Inserir manualmente" else licenca_id
+                    
+                    # Limpar cache se mudou de licença
+                    if 'licenca_atual' in st.session_state and st.session_state.licenca_atual != nova_licenca:
+                        if 'resultado_fluxo' in st.session_state:
+                            del st.session_state['resultado_fluxo']
+                        if 'resultado_dre' in st.session_state:
+                            del st.session_state['resultado_dre']
+                        st.info(f"🔄 Trocando de licença: {st.session_state.licenca_atual} → {nova_licenca}")
+                    
+                    st.session_state.licenca_atual = nova_licenca
                 else:
                     st.error("❌ Erro ao processar os dados do banco")
             else:
@@ -1950,6 +1972,11 @@ if 'df_vyco_processado' in st.session_state:
             # Status dos arquivos JSON
             st.info(f"📄 **Licença atual:** {st.session_state.licenca_atual}")
             
+            # Mostrar arquivos sendo usados
+            nome_limpo = "".join(c for c in st.session_state.licenca_atual if c.isalnum() or c in (' ', '-', '_')).rstrip()
+            nome_limpo = nome_limpo.replace(' ', '_').lower()
+            st.caption(f"📂 Dados salvos em: `./logic/CSVs/licencas/{nome_limpo}_[faturamento|estoque].json`")
+            
             # Verificar se existem dados salvos
             dados_faturamento = carregar_faturamento_json(st.session_state.licenca_atual)
             dados_estoque = carregar_estoque_json(st.session_state.licenca_atual)
@@ -1958,14 +1985,16 @@ if 'df_vyco_processado' in st.session_state:
             with col_status1:
                 if dados_faturamento:
                     st.success(f"✅ Faturamento: {len(dados_faturamento)} meses salvos")
+                    st.caption(f"Licença: {st.session_state.licenca_atual}")
                 else:
-                    st.warning("⚠️ Nenhum faturamento salvo")
+                    st.warning(f"⚠️ Nenhum faturamento salvo para **{st.session_state.licenca_atual}**")
             
             with col_status2:
                 if dados_estoque:
                     st.success(f"✅ Estoque: {len(dados_estoque)} meses salvos")
+                    st.caption(f"Licença: {st.session_state.licenca_atual}")
                 else:
-                    st.warning("⚠️ Nenhum estoque salvo")
+                    st.warning(f"⚠️ Nenhum estoque salvo para **{st.session_state.licenca_atual}**")
             
             st.markdown("---")
             
@@ -2380,7 +2409,8 @@ if 'df_vyco_processado' in st.session_state:
                         )
                     
                     # Gerar parecer automático com dados do fluxo de caixa
-                    gerar_parecer_automatico(resultado_fluxo)
+                    tipo_negocio_atual = st.session_state.get('tipo_negocio_selecionado', None)
+                    gerar_parecer_automatico(resultado_fluxo, tipo_negocio=tipo_negocio_atual)
     
     with tab5:
         st.header("🤖 Análise GPT - Parecer Financeiro Inteligente - Vyco")

@@ -1,11 +1,11 @@
 {
   "empresa": "CBM",
-  "timestamp": "2025-11-18T16:45:30.939254",
+  "timestamp": "2025-11-18T17:06:47.252770",
   "tipo": "fluxo_caixa_estruturado",
   "metadata": {
     "licenca": "CBM",
     "total_transacoes": 7506,
-    "gerado_em": "2025-11-18T16:45:30.937868",
+    "gerado_em": "2025-11-18T17:06:47.251362",
     "origem": "vyco_parecer_diagnostico"
   },
   "estrutura": "grupos_organizados",

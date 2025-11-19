@@ -1,13 +1,12 @@
 {
   "empresa": "Arani",
-  "timestamp": "2025-11-03T13:04:24.375860",
+  "timestamp": "2025-11-18T17:11:13.090706",
   "tipo": "dre_estruturado",
   "metadata": {
     "licenca": "Arani",
     "total_transacoes": 916,
-    "gerado_em": "2025-11-03T12:59:50.755529",
-    "origem": "vyco_integração",
-    "atualizacao_forcada": "estrutura_compatibilidade_culturas"
+    "gerado_em": "2025-11-18T17:11:13.009904",
+    "origem": "vyco_parecer_diagnostico"
   },
   "estrutura": "secoes_organizadas",
   "dre_estruturado": {
@@ -67,6 +66,416 @@
             "2025-10": 548785.74,
             "TOTAL": 1992790.1300000001,
             "%": 0.0
+          },
+          "detalhamento": {
+            "2025-08": [
+              {
+                "subcategoria": "PIX ENVIADO TRANSPORTADO",
+                "tipo": "Débito",
+                "quantidade": 3,
+                "valor": -49972.05
+              },
+              {
+                "subcategoria": "PAGAMENTO DE BOLETO - PETROGASS COMBUSTIVEIS LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -42240.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 07/08 18:59 TRANSPORTADORA SANA LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -3960.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 08/08 17:40 TRANSPORTADORA SANA LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -2860.0
+              },
+              {
+                "subcategoria": "COMPRA COM CARTÃO - 04/08 16:34 BUFFON 20",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -755.25
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 25/08 14:53 TRANSPORTADORA SANA LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -440.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 26/08 10:40 COMERCIAL BUFFON COMBUSTIV",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -318.96
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 04/08 18:06 COMERCIAL BUFFON COMBUSTIV",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -301.68
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 11/08 18:03 COMERCIAL BUFFON COMBUSTIV",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -274.25
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 15/08 17:44 COMERCIAL BUFFON COMBUSTIV",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -97.02
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 22/08 17:23 COMERCIAL BUFFON COMBUSTIV",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -97.02
+              }
+            ],
+            "2025-09": [
+              {
+                "subcategoria": "PIX - ENVIADO - 29/09 14:40 AGROFEL",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -496842.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 29/09 14:43 AGROFEL",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -496808.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 16/09 11:24 PETROGASS COMBUSTIVEIS LT",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -57530.0
+              },
+              {
+                "subcategoria": "PIX ENVIADO JALE TRANSPO - REFERENTE À SERVIÇO DE FRETE",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -46554.25
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 11/09 14:53 TRANSPORTADORA SANA LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -41638.4
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 16/09 17:23 JALE TRANSPORTES LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -32165.6
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 04/09 09:57 TRANSPORTADORA SANA LTDA",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -29323.2
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 11/09 14:47 TRANSPORTADORA SANA LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -17640.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 11/09 14:51 TRANSPORTADORA SANA LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -17400.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 04/09 09:55 TRANSPORTADORA SANA LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -14580.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 11/09 14:59 TRANSPORTADORA SANA LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -14428.95
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 29/09 17:11 ILDO JOSÉ ROSSATO SIQUEIR",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -10000.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 30/09 14:42 MICHEL SCHNEIDER FASSINI - FRETE",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -9920.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 12/09 11:18 CORTE &AMP; DOBRA SILVEIRA - SERVIÇO PRESTADO",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -9400.0
+              },
+              {
+                "subcategoria": "TED TRANSF.ELETR.DISPONIV - 104 0508 67443893000 JOAO FELIPE BRAND - COMISSAO PA...",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -9150.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 15/09 18:11 JALE TRANSPORTES LTDA - REFERENTE À SERVIÇO DE FRETE",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -5933.4
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 01/09 12:55 CJ PLANEJAMENTO E ASSISTEN- SERVIÇO PRESTADO",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -5042.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 01/09 17:33 JOAO FRANCISCO FONSECA DE - SERVIÇOS AGRONÔMICOS",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -5000.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 17/09 17:03 CEREAGRO",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -4458.33
+              },
+              {
+                "subcategoria": "TED TRANSF.ELETR.DISPONIV - 104 0508 67443893000 JOAO FELIPE BRAND",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -3600.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 23/09 18:38 OFICINA MECANICA DE MANUT - SERVIÇO DE MUCK RETIRADA...",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -3450.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 26/09 14:33 RUBENS ANDRADE DOS REIS - SERVIÇO FRETE SEMENTE SOJA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -2600.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 04/09 10:41 PIX MARKETPLACE - BOTA BORRACHA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1120.97
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 09/09 16:36 BASE PRECISAO NA AGRICULTU - LAUDO SEMENTE GALPÃO",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -770.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 18/09 16:32 MILENE RODRIGUES DA SILVA - FRETE",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -750.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 12/09 16:15 PAULO ROBERTO WIEDENHOFT W",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -700.0
+              },
+              {
+                "subcategoria": "PIX ENVIADO PAULO ROBERT",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -700.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 15/09 18:13 ZOOP BRASIL",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -600.19
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 30/09 14:30 MILENE RODRIGUES DA SILVA -FRETE",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -600.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 04/09 10:45 PIX MARKETPLACE - BOTA SEGURANÇA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -564.19
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 09/09 16:35 ANTONIO AUGUSTO OLIVEIRA R - MANUTENÇÃO DE CANOS IRR...",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -505.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 10/09 14:20 PAULO CESAR ROSANELLI DALL - SERVIÇO DE ELÉTRICA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -470.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 29/09 17:35 ZOOP BRASIL -",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -384.18
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 01/09 11:35 PIX MARKETPLACE - PROTETOR AURICULAR",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -289.9
+              },
+              {
+                "subcategoria": "PAGAMENTO DE BOLETO - TRITEC EQUIPAMENTOS LTDA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -245.0
+              },
+              {
+                "subcategoria": "MARKETPLACE - CONJUNTO PARA DETETIZAÇÃO PROTEÇÃO QUIMICA + MASCARA + VISOR",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -216.89
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 30/09 14:21 SERGIO MIGUEL DA SILVA BR - REEMBOLSO",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -216.08
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 04/09 09:51 PIX MARKETPLACE - KIT C/ 4 ADITIVOS DIESEL S-10 BARD...",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -177.37
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 25/09 15:28 PIX MARKETPLACE - CAPACETE SEGURANÇA, FRETE.",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -129.04
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 04/09 10:50 PIX MARKETPLACE - OCULOS SEGURANÇA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -118.61
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 24/09 17:53 PEDRO CESAR RODRIGUES LUC - BOTA PVC.",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -105.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 29/09 11:01 PIX MARKETPLACE - EQUIPAMENTO SEGURANÇA- MACACÃO PUL...",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -104.82
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 25/09 15:30 PIX MARKETPLACE - KIT PRIMEIRO SOCORROS",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -93.89
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 25/09 15:26 PIX MARKETPLACE - KIT 10 COLETES SEGURANÇA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -92.98
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 24/09 17:43 GUILHERME CARVALHO MARQUE - SERVIÇO DE ELÉTRICA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -92.5
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 18/09 15:08 PIX MARKETPLACE - RESPIRADOR FACIAL + OCULOS",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -78.49
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 30/09 14:19 ROGERIO RODRIGUES DORNELE - REEMBOLSO",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -39.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 18/09 15:19 PIX MARKETPLACE - LUVA ANTI CORTE AÇOUGUE",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -35.94
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 18/09 15:16 PIX MARKETPLACE - AVENTAL EMBORRACHADO",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -23.99
+              }
+            ],
+            "2025-10": [
+              {
+                "subcategoria": "PIX ENVIADO FERTILIZANTE",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -520000.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 14/10 16:55 MICHEL SCHNEIDER FASSINI",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -10500.0
+              },
+              {
+                "subcategoria": "PAGAMENTO CARTAO CREDITO BCE 01/10 13:12 CARTAO VISA - PGTO CARTAO POR ENGANO- F...",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -8438.42
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 06/10 14:53 JOAO FRANCISCO FONSECA DE - SERVIÇOS AGRONÔMICOS",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -7500.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 01/10 17:10 TIAGO BATISTA 01258889021 - CARGA DE GÁS",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1600.0
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 13/10 12:57 ZOOP BRASIL - ÓLEO DIESEL",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -400.08
+              },
+              {
+                "subcategoria": "PIX - ENVIADO - 08/10 18:41 SIM REDE DE POSTOS LTDA - ÓLEO DIESEL",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -347.24
+              }
+            ]
           }
         }
       }
@@ -186,6 +595,31 @@
         }
       }
     },
+    "patrimonial": {
+      "nome_secao": "INFORMAÇÕES PATRIMONIAIS",
+      "itens": {
+        "ESTOQUE": {
+          "nome_linha": "ESTOQUE",
+          "valores": {
+            "2025-08": 0.0,
+            "2025-09": 0.0,
+            "2025-10": 0.0,
+            "TOTAL": 0.0,
+            "%": 0.0
+          }
+        },
+        "SALDO": {
+          "nome_linha": "SALDO",
+          "valores": {
+            "2025-08": 0.0,
+            "2025-09": 0.0,
+            "2025-10": 0.0,
+            "TOTAL": 0.0,
+            "%": 0.0
+          }
+        }
+      }
+    },
     "resultado_gerencial": {
       "nome_secao": "RESULTADO GERENCIAL FINAL",
       "itens": {
@@ -202,6 +636,127 @@
       }
     }
   },
+  "dados": [
+    {
+      "2025-08": 0.0,
+      "2025-09": 0.0,
+      "2025-10": 0.0,
+      "TOTAL": 0.0,
+      "%": 0.0
+    },
+    {
+      "2025-08": 1485126.52,
+      "2025-09": 2828976.88,
+      "2025-10": 42056.21,
+      "TOTAL": 4356159.61,
+      "%": 0.0
+    },
+    {
+      "2025-08": 22257.690000000002,
+      "2025-09": 208984.02000000002,
+      "2025-10": 114.98,
+      "TOTAL": 231356.69000000003,
+      "%": 0.0
+    },
+    {
+      "2025-08": 101316.23000000001,
+      "2025-09": 1342688.1600000001,
+      "2025-10": 548785.74,
+      "TOTAL": 1992790.1300000001,
+      "%": 0.0
+    },
+    {
+      "2025-08": 1361552.6,
+      "2025-09": 1277304.6999999997,
+      "2025-10": -506844.51,
+      "TOTAL": 2132012.79,
+      "%": 0.0
+    },
+    {
+      "2025-08": 493.05,
+      "2025-09": 81542.52,
+      "2025-10": 24845.91,
+      "TOTAL": 106881.48000000001,
+      "%": 0.0
+    },
+    {
+      "2025-08": 25855.760000000002,
+      "2025-09": 66954.23,
+      "2025-10": 75048.62999999999,
+      "TOTAL": 167858.62,
+      "%": 0.0
+    },
+    {
+      "2025-08": 1335203.79,
+      "2025-09": 1128807.9499999997,
+      "2025-10": -606739.05,
+      "TOTAL": 1857272.6899999997,
+      "%": 0.0
+    },
+    {
+      "2025-08": 16447.02,
+      "2025-09": 55230.75,
+      "2025-10": 39507.61,
+      "TOTAL": 111185.38,
+      "%": 0.0
+    },
+    {
+      "2025-08": 3623016.8200000008,
+      "2025-09": 193253.18,
+      "2025-10": 2549557.6099999994,
+      "TOTAL": 6365827.61,
+      "%": 0.0
+    },
+    {
+      "2025-08": -2304260.0500000007,
+      "2025-09": 880324.0199999998,
+      "2025-10": -3195804.2699999996,
+      "TOTAL": -4619740.300000001,
+      "%": 0.0
+    },
+    {
+      "2025-08": 458692.65,
+      "2025-09": 58890.979999999996,
+      "2025-10": 56482.34,
+      "TOTAL": 574065.97,
+      "%": 0.0
+    },
+    {
+      "2025-08": 695914.7100000001,
+      "2025-09": 90.22999999999999,
+      "2025-10": 2185824.23,
+      "TOTAL": 2881829.17,
+      "%": 0.0
+    },
+    {
+      "2025-08": -2067037.9900000007,
+      "2025-09": 821523.2699999998,
+      "2025-10": -1066462.3799999994,
+      "TOTAL": -2311977.1000000006,
+      "%": 0.0
+    },
+    {
+      "2025-08": 0.0,
+      "2025-09": 0.0,
+      "2025-10": 0.0,
+      "TOTAL": 0.0,
+      "%": 0.0
+    },
+    {
+      "2025-08": 0.0,
+      "2025-09": 0.0,
+      "2025-10": 0.0,
+      "TOTAL": 0.0,
+      "%": 0.0
+    },
+    {
+      "2025-08": -2067037.9900000007,
+      "2025-09": 821523.2699999998,
+      "2025-10": -1066462.3799999994,
+      "TOTAL": -2311977.1000000006,
+      "%": 0.0
+    }
+  ],
   "dados_indexados": {
     "FATURAMENTO": {
       "2025-08": 0.0,
