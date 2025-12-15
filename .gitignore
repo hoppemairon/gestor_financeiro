@@ -37,7 +37,6 @@ fix_*.py
 # Arquivos de exportação
 *.xlsx
 *.xls
-*.csv
 
 # Diretórios de saída
 output/

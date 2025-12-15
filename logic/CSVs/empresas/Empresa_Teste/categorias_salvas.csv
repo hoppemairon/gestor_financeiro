@@ -1,0 +1,15 @@
+Descricao,Tipo,Categoria
+APLICACAO AUTOMATICO,Débito,Transferência entre contas
+CORSAN,Débito,Energia Elétrica / Agua
+MENSALIDADE PACOTE,Débito,Tarifas Bancárias
+PAGAMENTO TITULO,Débito,Despesas com Fornecedores
+RGE SUL,Débito,Energia Elétrica / Agua
+TED,Débito,Despesas com Fornecedores
+VIVO,Débito,Telefone / Internet
+CREDITO CONSORCIO,Crédito,Outros Recebimentos
+CREDITO TRANSFERENCIA,Crédito,Receita de Vendas
+DEP DINHEIRO INTER AG,Crédito,Receita de Vendas
+RESGATE AUTOMATICO,Crédito,Transferência entre contas
+VERO BANRICARD OUTROS,Crédito,Receita de Vendas
+VERO BANRICOMPRAS A PRAZO,Crédito,Receita de Vendas
+VERO BANRICOMPRAS A VISTA,Crédito,Receita de Vendas
