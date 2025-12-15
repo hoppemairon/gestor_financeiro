@@ -1,2 +1,11 @@
 PalavraChave,Tipo,Categoria
 PIX,Crédito,Receita de Vendas
+CREDITO AUTORIZADO SICRED,Crédito,Receita de Vendas
+TED,Crédito,Receita de Vendas
+CREDITO PAGTO FORNECEDOR,Crédito,Receita de Vendas
+DEP DINHEIRO,Crédito,Receita de Vendas
+DEP CHEQUE,Crédito,Receita de Vendas
+LIQ.COBRANCA,Crédito,Receita de Vendas
+PAGAMENTO FORNECEDOR,Crédito,Receita de Vendas
+TRANSFER NCIA RECEBIDA,Crédito,Receita de Vendas
+TRANSF ENTRE CONTAS-S,Crédito,Receita de Vendas
