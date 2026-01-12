@@ -3062,7 +3062,10 @@ if 'df_vyco_processado' in st.session_state:
                     if meses_filtro and not resultado_dre.empty:
                         colunas_manter = [col for col in resultado_dre.columns if col in meses_filtro or not re.match(r'\d{4}-\d{2}', col)]
                         resultado_dre = resultado_dre[colunas_manter]
-                        resultado_fluxo = resultado_fluxo[colunas_manter] if not resultado_fluxo.empty else resultado_fluxo
+                        # Filtrar fluxo apenas com colunas que existem nele
+                        if not resultado_fluxo.empty:
+                            colunas_manter_fluxo = [col for col in colunas_manter if col in resultado_fluxo.columns]
+                            resultado_fluxo = resultado_fluxo[colunas_manter_fluxo]
                     
                     st.session_state.resultado_fluxo_vyco = resultado_fluxo
                     st.session_state.resultado_dre_vyco = resultado_dre
@@ -3079,44 +3082,73 @@ if 'df_vyco_processado' in st.session_state:
             df_transacoes = st.session_state.get('df_transacoes_relatorio', st.session_state.df_transacoes_total_vyco)
             
             # ========== 1. DASHBOARD EXECUTIVO ==========
-            st.markdown("## 📊 Dashboard Executivo")
+            st.markdown("## 📊 Dashboard Executivo - Visão Geral de Todos os Meses")
             
             # Calcular métricas principais
             colunas_meses = [col for col in resultado_dre.columns if re.match(r'\d{4}-\d{2}', col)]
             
-            # Pegar dados do último mês disponível
+            # Função auxiliar para extrair valores
+            def obter_valor_dre_mes(linha_nome, mes):
+                """Extrai valor do DRE para um mês específico"""
+                try:
+                    if linha_nome in resultado_dre.index:
+                        val = resultado_dre.loc[linha_nome, mes]
+                        if isinstance(val, str):
+                            val = float(val.replace('R$', '').replace('.', '').replace(',', '.').strip())
+                        return float(val) if pd.notna(val) else 0
+                    return 0
+                except:
+                    return 0
+            
+            # CRIAR TABELA COM TODOS OS MESES
             if colunas_meses:
+                st.markdown("### 📊 Indicadores Mensais Consolidados")
+                
+                # Construir DataFrame com métricas de todos os meses
+                metricas_todos_meses = []
+                
+                for mes in colunas_meses:
+                    faturamento = obter_valor_dre_mes("FATURAMENTO", mes)
+                    receita = obter_valor_dre_mes("RECEITA", mes)
+                    impostos = obter_valor_dre_mes("IMPOSTOS", mes)
+                    lucro_liquido = obter_valor_dre_mes("RESULTADO", mes)
+                    lucro_operacional = obter_valor_dre_mes("LUCRO OPERACIONAL", mes)
+                    estoque = obter_valor_dre_mes("ESTOQUE", mes)
+                    
+                    margem_liquida = (lucro_liquido / faturamento * 100) if faturamento != 0 else 0
+                    margem_ebitda = ((lucro_operacional - impostos) / faturamento * 100) if faturamento != 0 else 0
+                    
+                    metricas_todos_meses.append({
+                        'Mês': mes,
+                        'Faturamento': f"R$ {abs(faturamento):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                        'EBITDA': f"R$ {lucro_operacional-impostos:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                        'Margem EBITDA': f"{margem_ebitda:.1f}%",
+                        'Lucro Líquido': f"R$ {lucro_liquido:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                        'Margem Líquida': f"{margem_liquida:.1f}%",
+                        'Estoque': f"R$ {abs(estoque):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                    })
+                
+                df_metricas = pd.DataFrame(metricas_todos_meses)
+                st.dataframe(df_metricas, use_container_width=True, hide_index=True)
+                
+                st.markdown("---")
+                
+                # CARDS DO ÚLTIMO MÊS
                 ultimo_mes = colunas_meses[-1]
+                st.markdown(f"### 📅 Destaques do Último Período: {ultimo_mes}")
                 
-                # Extrair valores do DRE
-                def obter_valor_dre(linha_nome):
-                    try:
-                        if linha_nome in resultado_dre.index:
-                            val = resultado_dre.loc[linha_nome, ultimo_mes]
-                            if isinstance(val, str):
-                                val = float(val.replace('R$', '').replace('.', '').replace(',', '.').strip())
-                            return float(val) if pd.notna(val) else 0
-                        return 0
-                    except:
-                        return 0
+                faturamento = obter_valor_dre_mes("FATURAMENTO", ultimo_mes)
+                receita = obter_valor_dre_mes("RECEITA", ultimo_mes)
+                impostos = obter_valor_dre_mes("IMPOSTOS", ultimo_mes)
+                lucro_liquido = obter_valor_dre_mes("RESULTADO", ultimo_mes)
+                resultado = obter_valor_dre_mes("RESULTADO", ultimo_mes)
+                estoque = obter_valor_dre_mes("📦 Estoque Final", ultimo_mes)
                 
-                faturamento = obter_valor_dre("💰 Faturamento Bruto")
-                receita = obter_valor_dre("RECEITA")
-                despesas = obter_valor_dre("🔻 Total de Despesas")
-                lucro_liquido = obter_valor_dre("LUCRO LIQUIDO")
-                resultado = obter_valor_dre("RESULTADO")
-                estoque = obter_valor_dre("📦 Estoque Final")
-                
-                # Calcular métricas derivadas
+                # Calcular métricas derivadas do último mês
                 margem_liquida = (lucro_liquido / faturamento * 100) if faturamento != 0 else 0
-                
-                # EBITDA simplificado (Lucro Operacional antes de depreciação)
-                lucro_operacional = obter_valor_dre("LUCRO OPERACIONAL")
-                ebitda = lucro_operacional  # Simplificado
+                lucro_operacional = obter_valor_dre_mes("LUCRO OPERACIONAL", ultimo_mes)
+                ebitda = lucro_operacional-impostos
                 margem_ebitda = (ebitda / faturamento * 100) if faturamento != 0 else 0
-                
-                # Cards de KPIs
-                st.markdown(f"### 📅 Período: {ultimo_mes}")
                 
                 col1, col2, col3, col4 = st.columns(4)
                 
@@ -3169,26 +3201,22 @@ if 'df_vyco_processado' in st.session_state:
                     
                     faturamentos_meses = []
                     for mes in colunas_meses:
-                        fat = obter_valor_dre("💰 Faturamento Bruto") if mes == ultimo_mes else 0
-                        # Recalcular para cada mês
                         try:
-                            val = resultado_dre.loc["💰 Faturamento Bruto", mes] if "💰 Faturamento Bruto" in resultado_dre.index else 0
-                            if isinstance(val, str):
-                                val = float(val.replace('R$', '').replace('.', '').replace(',', '.').strip())
-                            faturamentos_meses.append(float(val) if pd.notna(val) else 0)
+                            val = obter_valor_dre_mes("FATURAMENTO", mes)
+                            faturamentos_meses.append(abs(val))
                         except:
                             faturamentos_meses.append(0)
                     
                     import plotly.graph_objects as go
                     
                     fig_fat = go.Figure()
-                    fig_fat.add_trace(go.Scatter(
+                    fig_fat.add_trace(go.Bar(
                         x=colunas_meses,
                         y=faturamentos_meses,
-                        mode='lines+markers',
                         name='Faturamento',
-                        line=dict(color='#1f77b4', width=3),
-                        marker=dict(size=8)
+                        marker=dict(color='#1f77b4'),
+                        text=[f"R$ {v:,.0f}" for v in faturamentos_meses],
+                        textposition='outside'
                     ))
                     
                     fig_fat.update_layout(
@@ -3207,23 +3235,21 @@ if 'df_vyco_processado' in st.session_state:
                     lucros_meses = []
                     for mes in colunas_meses:
                         try:
-                            val = resultado_dre.loc["LUCRO LIQUIDO", mes] if "LUCRO LIQUIDO" in resultado_dre.index else 0
-                            if isinstance(val, str):
-                                val = float(val.replace('R$', '').replace('.', '').replace(',', '.').strip())
-                            lucros_meses.append(float(val) if pd.notna(val) else 0)
+                            val = obter_valor_dre_mes("RESULTADO", mes)
+                            lucros_meses.append(val)
                         except:
                             lucros_meses.append(0)
                     
                     fig_lucro = go.Figure()
-                    fig_lucro.add_trace(go.Scatter(
+                    fig_lucro.add_trace(go.Bar(
                         x=colunas_meses,
                         y=lucros_meses,
-                        mode='lines+markers',
                         name='Lucro Líquido',
-                        line=dict(color='#2ca02c', width=3),
-                        marker=dict(size=8),
-                        fill='tozeroy',
-                        fillcolor='rgba(44, 160, 44, 0.1)'
+                        marker=dict(
+                            color=['#e74c3c' if v < 0 else '#2ca02c' for v in lucros_meses]
+                        ),
+                        text=[f"R$ {v:,.0f}" for v in lucros_meses],
+                        textposition='outside'
                     ))
                     
                     fig_lucro.update_layout(
@@ -3403,18 +3429,92 @@ if 'df_vyco_processado' in st.session_state:
                 
                 st.markdown("---")
                 
-                # ========== 6. PARECER INTELIGENTE (GPT) ==========
-                if st.session_state.get('parecer_relatorio'):
-                    st.markdown("## 🤖 Análise Inteligente (GPT)")
+                # ========== 6. DRE COMPLETO ==========
+                st.markdown("## 📊 DRE - Demonstração do Resultado do Exercício")
+                
+                with st.expander("📄 Ver DRE Completo", expanded=False):
+                    from logic.Analises_DFC_DRE.exibir_dre import formatar_dre, highlight_rows
                     
-                    with st.expander("📄 Ver Parecer Completo", expanded=False):
-                        st.markdown(st.session_state.parecer_relatorio)
+                    # Formatar DRE
+                    meses_dre = [col for col in resultado_dre.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
+                    dre_formatado = formatar_dre(resultado_dre, meses_dre)
                     
-                    st.caption("💡 Este parecer foi gerado por Inteligência Artificial com base nos dados financeiros")
+                    st.dataframe(
+                        dre_formatado.style.apply(highlight_rows, axis=1).hide(axis="index"),
+                        use_container_width=True,
+                        height=600
+                    )
+                    
+                    st.caption(f"📅 Período: {meses_dre[0]} a {meses_dre[-1]}" if meses_dre else "Sem dados")
                 
                 st.markdown("---")
                 
-                # ========== 7. EXPORTAÇÃO ==========
+                # ========== 7. FLUXO DE CAIXA COMPLETO ==========
+                st.markdown("## 💰 Fluxo de Caixa Consolidado")
+                
+                with st.expander("📄 Ver Fluxo de Caixa Completo", expanded=False):
+                    if not resultado_fluxo.empty:
+                        st.dataframe(resultado_fluxo, use_container_width=True, height=600)
+                        st.caption(f"📅 {len(resultado_fluxo)} categorias de fluxo")
+                    else:
+                        st.info("Nenhum dado de fluxo de caixa disponível")
+                
+                st.markdown("---")
+                
+                # ========== 8. PROJEÇÕES FUTURAS ==========
+                st.markdown("## 📅 Projeções Futuras - Cenários")
+                
+                st.info("""
+                💡 **Como gerar projeções:**
+                1. Vá para a aba **📅 Projeções**
+                2. Configure os parâmetros (inflação, meses futuros, cenários)
+                3. Clique em **🚀 Gerar Projeções Vyco**
+                4. Retorne aqui para ver as projeções no relatório
+                """)
+                
+                # Verificar se há projeções salvas
+                if 'resultado_dre_vyco' in st.session_state and not resultado_dre.empty:
+                    # Identificar colunas de projeção (meses futuros)
+                    meses_historicos = [col for col in resultado_dre.columns if re.match(r'\d{4}-\d{2}', col)]
+                    
+                    if meses_historicos:
+                        with st.expander("📈 Ver Projeções de Cenários", expanded=False):
+                            st.markdown("""
+                            **Nota:** As projeções são geradas dinamicamente na aba **📅 Projeções**.
+                            
+                            Para incluir projeções neste relatório:
+                            - Cenário Realista (apenas inflação)
+                            - Cenário Pessimista (queda receitas + aumento despesas)
+                            - Cenário Otimista (crescimento receitas + redução despesas)
+                            
+                            Configure os cenários na aba de projeções e volte aqui.
+                            """)
+                else:
+                    st.caption("Gere as análises primeiro nas abas anteriores")
+                
+                st.markdown("---")
+                
+                # ========== 9. PARECER INTELIGENTE (GPT) ==========
+                if st.session_state.get('parecer_relatorio'):
+                    st.markdown("## 🤖 Análise Inteligente (GPT)")
+                    
+                    with st.expander("📄 Ver Parecer Completo", expanded=True):
+                        st.markdown(st.session_state.parecer_relatorio)
+                    
+                    st.caption("💡 Este parecer foi gerado por Inteligência Artificial com base nos dados financeiros")
+                else:
+                    st.markdown("## 🤖 Análise Inteligente (GPT)")
+                    st.info("""
+                    ℹ️ **Nenhum parecer GPT selecionado.**
+                    
+                    Para incluir análise inteligente:
+                    1. Configure o parecer nas opções acima (use último, escolha anterior, ou gere novo)
+                    2. Clique novamente em **Gerar Relatório Executivo Completo**
+                    """)
+                
+                st.markdown("---")
+                
+                # ========== 10. EXPORTAÇÃO ==========
                 st.markdown("## 📥 Exportação")
                 
                 col_exp1, col_exp2 = st.columns(2)
@@ -3463,7 +3563,12 @@ if 'df_vyco_processado' in st.session_state:
                         
                         # Adicionar DRE
                         if not resultado_dre.empty:
-                            dre_export = resultado_dre[colunas_meses + ['TOTAL', '%']].copy()
+                            # Incluir apenas colunas que existem
+                            colunas_export = colunas_meses.copy()
+                            for col in ['TOTAL', '%']:
+                                if col in resultado_dre.columns:
+                                    colunas_export.append(col)
+                            dre_export = resultado_dre[colunas_export].copy()
                             dre_export.to_excel(writer, sheet_name='DRE')
                         
                         # Adicionar transações

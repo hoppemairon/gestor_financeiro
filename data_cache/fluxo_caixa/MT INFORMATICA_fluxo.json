@@ -1,13 +1,12 @@
 {
   "empresa": "MT INFORMATICA",
-  "timestamp": "2026-01-12T19:31:41.270402",
+  "timestamp": "2026-01-12T20:09:15.617620",
   "tipo": "fluxo_caixa_estruturado",
   "metadata": {
     "licenca": "MT INFORMATICA",
     "total_transacoes": 810,
-    "gerado_em": "2026-01-12T19:31:41.269633",
-    "origem": "vyco_parecer_gpt",
-    "descricao_empresa": "A MT Informática é uma empresa de tecnologia da informação (TI) sediada em Santo Antônio da Patrulha, Rio Grande do Sul (RS), Brasil. Fundada há mais de 14 anos, a empresa atua como referência em soluções tecnológicas voltadas principalmente para pequenas e médias empresas da região, oferecendo serviços que tornam o ambiente de TI mais eficiente, seguro e alinhado às necessidades de cada cliente.\n\nEntre os principais serviços prestados estão manutenção de computadores, tanto preventiva quanto corretiva, para garantir desempenho e durabilidade dos equipamentos, e manutenção de redes, incluindo projetos, instalações e suporte para redes estruturadas com foco em estabilidade e segurança. A MT Informática também trabalha com virtualização de servidores, que otimiza recursos e reduz custos para as empresas.\n\nOutro serviço importante é o de backup e recuperação de dados, com estratégias e rotinas que protegem informações críticas do negócio. A empresa oferece ainda automação comercial, com sistemas para varejo e restaurantes que integram vendas, estoque e emissão fiscal, emissão de certificado digital e soluções TEF para integração de pagamentos com cartões — tudo com atendimento personalizado.\n\nEm resumo, a MT Informática fornece suporte de TI, infraestrutura, segurança de dados e soluções de automação, ajudando empresas a crescer e operar de forma mais tecnológica e eficiente"
+    "gerado_em": "2026-01-12T20:09:15.615844",
+    "origem": "vyco_parecer_diagnostico"
   },
   "estrutura": "grupos_organizados",
   "fluxo_estruturado": {
