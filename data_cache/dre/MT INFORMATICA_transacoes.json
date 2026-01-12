@@ -1,12 +1,12 @@
 {
   "empresa": "MT INFORMATICA",
-  "timestamp": "2026-01-12T17:24:57.416066",
+  "timestamp": "2026-01-12T17:43:44.094599",
   "tipo": "transacoes_categorizadas",
   "metadata": {
     "licenca": "MT INFORMATICA",
     "total_transacoes": 810,
-    "gerado_em": "2026-01-12T17:24:57.410174",
-    "origem": "vyco_integração"
+    "gerado_em": "2026-01-12T17:43:44.050787",
+    "origem": "vyco_parecer_diagnostico"
   },
   "total_transacoes": 810,
   "transacoes": [
