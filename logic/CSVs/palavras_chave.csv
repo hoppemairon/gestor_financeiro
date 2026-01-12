@@ -9,3 +9,9 @@ LIQ.COBRANCA,Crédito,Receita de Vendas
 PAGAMENTO FORNECEDOR,Crédito,Receita de Vendas
 TRANSFER NCIA RECEBIDA,Crédito,Receita de Vendas
 TRANSF ENTRE CONTAS-S,Crédito,Receita de Vendas
+CREDITO ELO,Crédito,Receita de Vendas
+CREDITO MASTER-,Crédito,Receita de Vendas
+ CREDITO VISA,Crédito,Receita de Vendas
+DEBITO ELO,Crédito,Receita de Vendas
+DEBITO MASTER,Crédito,Receita de Vendas
+DEBITO VISA,Crédito,Receita de Vendas

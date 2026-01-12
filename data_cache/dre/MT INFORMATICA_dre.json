@@ -1,0 +1,575 @@
+{
+  "empresa": "MT INFORMATICA",
+  "timestamp": "2026-01-12T17:22:30.070241",
+  "tipo": "dre_estruturado",
+  "metadata": {
+    "licenca": "MT INFORMATICA",
+    "total_transacoes": 810,
+    "gerado_em": "2026-01-12T17:22:30.023005",
+    "origem": "vyco_integração"
+  },
+  "estrutura": "secoes_organizadas",
+  "dre_estruturado": {
+    "receitas": {
+      "nome_secao": "RECEITAS",
+      "itens": {
+        "FATURAMENTO": {
+          "nome_linha": "FATURAMENTO",
+          "valores": {
+            "2025-10": 0.0,
+            "2025-11": 0.0,
+            "2025-12": 0.0,
+            "TOTAL": 0.0,
+            "%": 0.0
+          }
+        },
+        "RECEITA": {
+          "nome_linha": "RECEITA",
+          "valores": {
+            "2025-10": 88033.31999999999,
+            "2025-11": 83295.94,
+            "2025-12": 77602.54,
+            "TOTAL": 248931.8,
+            "%": 0.0
+          }
+        },
+        "RECEITA EXTRA OPERACIONAL": {
+          "nome_linha": "RECEITA EXTRA OPERACIONAL",
+          "valores": {
+            "2025-10": 3800.0,
+            "2025-11": 41890.0,
+            "2025-12": 222.25,
+            "TOTAL": 45912.25,
+            "%": 0.0
+          }
+        }
+      }
+    },
+    "custos_diretos": {
+      "nome_secao": "CUSTOS E DESPESAS DIRETAS",
+      "itens": {
+        "IMPOSTOS": {
+          "nome_linha": "IMPOSTOS",
+          "valores": {
+            "2025-10": 6516.54,
+            "2025-11": 5879.71,
+            "2025-12": 5390.04,
+            "TOTAL": 17786.29,
+            "%": 0.0
+          }
+        },
+        "DESPESA OPERACIONAL": {
+          "nome_linha": "DESPESA OPERACIONAL",
+          "valores": {
+            "2025-10": 25631.19,
+            "2025-11": 21917.27,
+            "2025-12": 23366.4,
+            "TOTAL": 70914.86,
+            "%": 0.0
+          },
+          "detalhamento": {
+            "2025-10": [
+              {
+                "subcategoria": "DÉB.TIT.COMPE EFETIVADO",
+                "tipo": "Débito",
+                "quantidade": 42,
+                "valor": -24162.19
+              },
+              {
+                "subcategoria": "PAGAMENTO PIX ***.530.220-** - PIX EMITIDO OUTRA IF",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1269.0
+              },
+              {
+                "subcategoria": "STE MANUTENÇÃO IMPRESSORA - REPARO IMPRESSORA CLASSE",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -200.0
+              }
+            ],
+            "2025-11": [
+              {
+                "subcategoria": "DÉB.TIT.COMPE EFETIVADO",
+                "tipo": "Débito",
+                "quantidade": 38,
+                "valor": -19654.27
+              },
+              {
+                "subcategoria": "PAGAMENTO PIX ***.530.220-** - PIX EMITIDO OUTRA IF",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -2263.0
+              }
+            ],
+            "2025-12": [
+              {
+                "subcategoria": "DÉB.TIT.COMPE EFETIVADO",
+                "tipo": "Débito",
+                "quantidade": 43,
+                "valor": -22248.9
+              },
+              {
+                "subcategoria": "PAGAMENTO PIX ***.530.220-** - PIX EMITIDO OUTRA IF",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1017.5
+              },
+              {
+                "subcategoria": "STE MANUTENÇÃO IMPRESSORA - REPARO IMPRESSORA CLASSE",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -100.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "margem_contribuicao": {
+      "nome_secao": "MARGEM DE CONTRIBUIÇÃO",
+      "itens": {
+        "MARGEM CONTRIBUIÇÃO": {
+          "nome_linha": "MARGEM CONTRIBUIÇÃO",
+          "valores": {
+            "2025-10": 55885.59,
+            "2025-11": 55498.95999999999,
+            "2025-12": 48846.1,
+            "TOTAL": 160230.65,
+            "%": 0.0
+          }
+        }
+      }
+    },
+    "despesas_operacionais": {
+      "nome_secao": "DESPESAS OPERACIONAIS",
+      "itens": {
+        "DESPESAS COM PESSOAL": {
+          "nome_linha": "DESPESAS COM PESSOAL",
+          "valores": {
+            "2025-10": 19762.72,
+            "2025-11": 25567.890000000003,
+            "2025-12": 25059.780000000002,
+            "TOTAL": 70390.39,
+            "%": 0.0
+          }
+        },
+        "DESPESA ADMINISTRATIVA": {
+          "nome_linha": "DESPESA ADMINISTRATIVA",
+          "valores": {
+            "2025-10": 12105.119999999999,
+            "2025-11": 11288.54,
+            "2025-12": 8484.800000000001,
+            "TOTAL": 31878.46,
+            "%": 0.0
+          }
+        }
+      }
+    },
+    "resultado_operacional": {
+      "nome_secao": "RESULTADO OPERACIONAL",
+      "itens": {
+        "LUCRO OPERACIONAL": {
+          "nome_linha": "LUCRO OPERACIONAL",
+          "valores": {
+            "2025-10": 24017.749999999996,
+            "2025-11": 18642.529999999988,
+            "2025-12": 15301.519999999995,
+            "TOTAL": 57961.79999999998,
+            "%": 0.0
+          }
+        }
+      }
+    },
+    "outras_despesas": {
+      "nome_secao": "OUTRAS DESPESAS E INVESTIMENTOS",
+      "itens": {
+        "INVESTIMENTOS": {
+          "nome_linha": "INVESTIMENTOS",
+          "valores": {
+            "2025-10": 2403.17,
+            "2025-11": 24400.0,
+            "2025-12": 0.0,
+            "TOTAL": 26803.17,
+            "%": 0.0
+          }
+        },
+        "DESPESA EXTRA OPERACIONAL": {
+          "nome_linha": "DESPESA EXTRA OPERACIONAL",
+          "valores": {
+            "2025-10": 22611.989999999998,
+            "2025-11": 12635.060000000001,
+            "2025-12": 11570.36,
+            "TOTAL": 46817.41,
+            "%": 0.0
+          }
+        },
+        "RETIRADAS SÓCIOS": {
+          "nome_linha": "RETIRADAS SÓCIOS",
+          "valores": {
+            "2025-10": 4237.6,
+            "2025-11": 28845.57,
+            "2025-12": 14724.220000000001,
+            "TOTAL": 47807.39,
+            "%": 0.0
+          }
+        }
+      }
+    },
+    "resultado_liquido": {
+      "nome_secao": "RESULTADO LÍQUIDO",
+      "itens": {
+        "LUCRO LIQUIDO": {
+          "nome_linha": "LUCRO LIQUIDO",
+          "valores": {
+            "2025-10": -997.4100000000035,
+            "2025-11": -18392.530000000013,
+            "2025-12": 3731.1599999999944,
+            "TOTAL": -15658.780000000022,
+            "%": 0.0
+          }
+        },
+        "RESULTADO": {
+          "nome_linha": "RESULTADO",
+          "valores": {
+            "2025-10": -1435.0100000000039,
+            "2025-11": -5348.100000000013,
+            "2025-12": -10770.810000000007,
+            "TOTAL": -17553.920000000024,
+            "%": 0.0
+          }
+        }
+      }
+    },
+    "patrimonial": {
+      "nome_secao": "INFORMAÇÕES PATRIMONIAIS",
+      "itens": {
+        "ESTOQUE": {
+          "nome_linha": "ESTOQUE",
+          "valores": {
+            "2025-10": 0.0,
+            "2025-11": 0.0,
+            "2025-12": 0.0,
+            "TOTAL": 0.0,
+            "%": 0.0
+          }
+        },
+        "SALDO": {
+          "nome_linha": "SALDO",
+          "valores": {
+            "2025-10": 0.0,
+            "2025-11": 0.0,
+            "2025-12": 0.0,
+            "TOTAL": 0.0,
+            "%": 0.0
+          }
+        }
+      }
+    },
+    "resultado_gerencial": {
+      "nome_secao": "RESULTADO GERENCIAL FINAL",
+      "itens": {
+        "RESULTADO GERENCIAL": {
+          "nome_linha": "RESULTADO GERENCIAL",
+          "valores": {
+            "2025-10": -1435.0100000000039,
+            "2025-11": -5348.100000000013,
+            "2025-12": -10770.810000000007,
+            "TOTAL": -17553.920000000024,
+            "%": 0.0
+          }
+        }
+      }
+    }
+  },
+  "dados": [
+    {
+      "2025-10": 0.0,
+      "2025-11": 0.0,
+      "2025-12": 0.0,
+      "TOTAL": 0.0,
+      "%": 0.0
+    },
+    {
+      "2025-10": 88033.31999999999,
+      "2025-11": 83295.94,
+      "2025-12": 77602.54,
+      "TOTAL": 248931.8,
+      "%": 0.0
+    },
+    {
+      "2025-10": 6516.54,
+      "2025-11": 5879.71,
+      "2025-12": 5390.04,
+      "TOTAL": 17786.29,
+      "%": 0.0
+    },
+    {
+      "2025-10": 25631.19,
+      "2025-11": 21917.27,
+      "2025-12": 23366.4,
+      "TOTAL": 70914.86,
+      "%": 0.0
+    },
+    {
+      "2025-10": 55885.59,
+      "2025-11": 55498.95999999999,
+      "2025-12": 48846.1,
+      "TOTAL": 160230.65,
+      "%": 0.0
+    },
+    {
+      "2025-10": 19762.72,
+      "2025-11": 25567.890000000003,
+      "2025-12": 25059.780000000002,
+      "TOTAL": 70390.39,
+      "%": 0.0
+    },
+    {
+      "2025-10": 12105.119999999999,
+      "2025-11": 11288.54,
+      "2025-12": 8484.800000000001,
+      "TOTAL": 31878.46,
+      "%": 0.0
+    },
+    {
+      "2025-10": 24017.749999999996,
+      "2025-11": 18642.529999999988,
+      "2025-12": 15301.519999999995,
+      "TOTAL": 57961.79999999998,
+      "%": 0.0
+    },
+    {
+      "2025-10": 2403.17,
+      "2025-11": 24400.0,
+      "2025-12": 0.0,
+      "TOTAL": 26803.17,
+      "%": 0.0
+    },
+    {
+      "2025-10": 22611.989999999998,
+      "2025-11": 12635.060000000001,
+      "2025-12": 11570.36,
+      "TOTAL": 46817.41,
+      "%": 0.0
+    },
+    {
+      "2025-10": -997.4100000000035,
+      "2025-11": -18392.530000000013,
+      "2025-12": 3731.1599999999944,
+      "TOTAL": -15658.780000000022,
+      "%": 0.0
+    },
+    {
+      "2025-10": 4237.6,
+      "2025-11": 28845.57,
+      "2025-12": 14724.220000000001,
+      "TOTAL": 47807.39,
+      "%": 0.0
+    },
+    {
+      "2025-10": 3800.0,
+      "2025-11": 41890.0,
+      "2025-12": 222.25,
+      "TOTAL": 45912.25,
+      "%": 0.0
+    },
+    {
+      "2025-10": -1435.0100000000039,
+      "2025-11": -5348.100000000013,
+      "2025-12": -10770.810000000007,
+      "TOTAL": -17553.920000000024,
+      "%": 0.0
+    },
+    {
+      "2025-10": 0.0,
+      "2025-11": 0.0,
+      "2025-12": 0.0,
+      "TOTAL": 0.0,
+      "%": 0.0
+    },
+    {
+      "2025-10": 0.0,
+      "2025-11": 0.0,
+      "2025-12": 0.0,
+      "TOTAL": 0.0,
+      "%": 0.0
+    },
+    {
+      "2025-10": -1435.0100000000039,
+      "2025-11": -5348.100000000013,
+      "2025-12": -10770.810000000007,
+      "TOTAL": -17553.920000000024,
+      "%": 0.0
+    }
+  ],
+  "dados_indexados": {
+    "FATURAMENTO": {
+      "2025-10": 0.0,
+      "2025-11": 0.0,
+      "2025-12": 0.0,
+      "TOTAL": 0.0,
+      "%": 0.0
+    },
+    "RECEITA": {
+      "2025-10": 88033.31999999999,
+      "2025-11": 83295.94,
+      "2025-12": 77602.54,
+      "TOTAL": 248931.8,
+      "%": 0.0
+    },
+    "IMPOSTOS": {
+      "2025-10": 6516.54,
+      "2025-11": 5879.71,
+      "2025-12": 5390.04,
+      "TOTAL": 17786.29,
+      "%": 0.0
+    },
+    "DESPESA OPERACIONAL": {
+      "2025-10": 25631.19,
+      "2025-11": 21917.27,
+      "2025-12": 23366.4,
+      "TOTAL": 70914.86,
+      "%": 0.0
+    },
+    "MARGEM CONTRIBUIÇÃO": {
+      "2025-10": 55885.59,
+      "2025-11": 55498.95999999999,
+      "2025-12": 48846.1,
+      "TOTAL": 160230.65,
+      "%": 0.0
+    },
+    "DESPESAS COM PESSOAL": {
+      "2025-10": 19762.72,
+      "2025-11": 25567.890000000003,
+      "2025-12": 25059.780000000002,
+      "TOTAL": 70390.39,
+      "%": 0.0
+    },
+    "DESPESA ADMINISTRATIVA": {
+      "2025-10": 12105.119999999999,
+      "2025-11": 11288.54,
+      "2025-12": 8484.800000000001,
+      "TOTAL": 31878.46,
+      "%": 0.0
+    },
+    "LUCRO OPERACIONAL": {
+      "2025-10": 24017.749999999996,
+      "2025-11": 18642.529999999988,
+      "2025-12": 15301.519999999995,
+      "TOTAL": 57961.79999999998,
+      "%": 0.0
+    },
+    "INVESTIMENTOS": {
+      "2025-10": 2403.17,
+      "2025-11": 24400.0,
+      "2025-12": 0.0,
+      "TOTAL": 26803.17,
+      "%": 0.0
+    },
+    "DESPESA EXTRA OPERACIONAL": {
+      "2025-10": 22611.989999999998,
+      "2025-11": 12635.060000000001,
+      "2025-12": 11570.36,
+      "TOTAL": 46817.41,
+      "%": 0.0
+    },
+    "LUCRO LIQUIDO": {
+      "2025-10": -997.4100000000035,
+      "2025-11": -18392.530000000013,
+      "2025-12": 3731.1599999999944,
+      "TOTAL": -15658.780000000022,
+      "%": 0.0
+    },
+    "RETIRADAS SÓCIOS": {
+      "2025-10": 4237.6,
+      "2025-11": 28845.57,
+      "2025-12": 14724.220000000001,
+      "TOTAL": 47807.39,
+      "%": 0.0
+    },
+    "RECEITA EXTRA OPERACIONAL": {
+      "2025-10": 3800.0,
+      "2025-11": 41890.0,
+      "2025-12": 222.25,
+      "TOTAL": 45912.25,
+      "%": 0.0
+    },
+    "RESULTADO": {
+      "2025-10": -1435.0100000000039,
+      "2025-11": -5348.100000000013,
+      "2025-12": -10770.810000000007,
+      "TOTAL": -17553.920000000024,
+      "%": 0.0
+    },
+    "ESTOQUE": {
+      "2025-10": 0.0,
+      "2025-11": 0.0,
+      "2025-12": 0.0,
+      "TOTAL": 0.0,
+      "%": 0.0
+    },
+    "SALDO": {
+      "2025-10": 0.0,
+      "2025-11": 0.0,
+      "2025-12": 0.0,
+      "TOTAL": 0.0,
+      "%": 0.0
+    },
+    "RESULTADO GERENCIAL": {
+      "2025-10": -1435.0100000000039,
+      "2025-11": -5348.100000000013,
+      "2025-12": -10770.810000000007,
+      "TOTAL": -17553.920000000024,
+      "%": 0.0
+    }
+  },
+  "resumo_dre": {
+    "totais_por_secao": {
+      "receitas": {
+        "nome": "RECEITAS",
+        "total": 294844.05
+      },
+      "custos_diretos": {
+        "nome": "CUSTOS E DESPESAS DIRETAS",
+        "total": 88701.15
+      },
+      "margem_contribuicao": {
+        "nome": "MARGEM DE CONTRIBUIÇÃO",
+        "total": 160230.65
+      },
+      "despesas_operacionais": {
+        "nome": "DESPESAS OPERACIONAIS",
+        "total": 102268.85
+      },
+      "resultado_operacional": {
+        "nome": "RESULTADO OPERACIONAL",
+        "total": 57961.79999999998
+      },
+      "outras_despesas": {
+        "nome": "OUTRAS DESPESAS E INVESTIMENTOS",
+        "total": 121427.97
+      },
+      "resultado_liquido": {
+        "nome": "RESULTADO LÍQUIDO",
+        "total": -33212.70000000005
+      },
+      "patrimonial": {
+        "nome": "INFORMAÇÕES PATRIMONIAIS",
+        "total": 0
+      },
+      "resultado_gerencial": {
+        "nome": "RESULTADO GERENCIAL FINAL",
+        "total": -17553.920000000024
+      }
+    },
+    "total_receitas": 294844.05,
+    "total_custos_diretos": 88701.15,
+    "total_despesas_operacionais": 102268.85,
+    "resultado_liquido": -33212.70000000005,
+    "custos_diretos": 88701.15,
+    "custos_administrativos": 102268.85,
+    "despesas_extra": 73620.58,
+    "retiradas": 47807.39
+  }
+}
