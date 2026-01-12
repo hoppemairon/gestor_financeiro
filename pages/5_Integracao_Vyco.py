@@ -482,6 +482,179 @@ def carregar_estoque_json(licenca_nome):
         st.error(f"❌ Erro ao carregar estoque: {e}")
         return {}
 
+# ==================== FUNÇÕES DE PARECER GPT ====================
+
+def salvar_parecer_gpt(licenca_nome, parecer_texto, descricao_empresa, periodo_analise=""):
+    """
+    Salva o parecer GPT em arquivo JSON com timestamp
+    
+    Args:
+        licenca_nome: Nome da licença/empresa
+        parecer_texto: Texto completo do parecer gerado pelo GPT
+        descricao_empresa: Descrição da empresa fornecida pelo usuário
+        periodo_analise: Período analisado (ex: "2024-01 a 2024-12")
+    
+    Returns:
+        str: Caminho do arquivo salvo ou None se houver erro
+    """
+    try:
+        # Criar pasta se não existir
+        pasta_pareceres = "./data_cache/pareceres_gpt"
+        os.makedirs(pasta_pareceres, exist_ok=True)
+        
+        # Limpar nome da licença para usar no arquivo
+        nome_limpo = "".join(c for c in licenca_nome if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        nome_limpo = nome_limpo.replace(' ', '_').lower()
+        
+        # Gerar timestamp
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        # Nome do arquivo: Empresa_YYYYMMDD_HHMMSS.json
+        arquivo_json = os.path.join(pasta_pareceres, f"{nome_limpo}_{timestamp}.json")
+        
+        # Preparar dados
+        dados_parecer = {
+            "licenca": licenca_nome,
+            "data_geracao": datetime.now().isoformat(),
+            "timestamp": timestamp,
+            "parecer_texto": parecer_texto,
+            "metadata": {
+                "descricao_empresa": descricao_empresa,
+                "periodo_analise": periodo_analise,
+                "total_caracteres": len(parecer_texto)
+            }
+        }
+        
+        # Salvar arquivo
+        with open(arquivo_json, 'w', encoding='utf-8') as f:
+            json.dump(dados_parecer, f, indent=2, ensure_ascii=False)
+        
+        return arquivo_json
+    
+    except Exception as e:
+        st.error(f"Erro ao salvar parecer GPT: {e}")
+        return None
+
+def carregar_ultimo_parecer_gpt(licenca_nome):
+    """
+    Carrega o último parecer GPT salvo para a licença
+    
+    Args:
+        licenca_nome: Nome da licença/empresa
+    
+    Returns:
+        dict: Dados do parecer ou None se não encontrado
+    """
+    try:
+        pasta_pareceres = "./data_cache/pareceres_gpt"
+        
+        if not os.path.exists(pasta_pareceres):
+            return None
+        
+        # Limpar nome da licença
+        nome_limpo = "".join(c for c in licenca_nome if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        nome_limpo = nome_limpo.replace(' ', '_').lower()
+        
+        # Listar arquivos da licença
+        arquivos = [f for f in os.listdir(pasta_pareceres) if f.startswith(nome_limpo) and f.endswith('.json')]
+        
+        if not arquivos:
+            return None
+        
+        # Ordenar por data (mais recente primeiro)
+        arquivos.sort(reverse=True)
+        
+        # Carregar o mais recente
+        arquivo_json = os.path.join(pasta_pareceres, arquivos[0])
+        
+        with open(arquivo_json, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    
+    except Exception as e:
+        st.error(f"Erro ao carregar último parecer: {e}")
+        return None
+
+def listar_pareceres_gpt(licenca_nome):
+    """
+    Lista todos os pareceres GPT salvos para a licença
+    
+    Args:
+        licenca_nome: Nome da licença/empresa
+    
+    Returns:
+        list: Lista de dicionários com informações dos pareceres
+    """
+    try:
+        pasta_pareceres = "./data_cache/pareceres_gpt"
+        
+        if not os.path.exists(pasta_pareceres):
+            return []
+        
+        # Limpar nome da licença
+        nome_limpo = "".join(c for c in licenca_nome if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        nome_limpo = nome_limpo.replace(' ', '_').lower()
+        
+        # Listar arquivos da licença
+        arquivos = [f for f in os.listdir(pasta_pareceres) if f.startswith(nome_limpo) and f.endswith('.json')]
+        
+        pareceres = []
+        for arquivo in arquivos:
+            try:
+                arquivo_path = os.path.join(pasta_pareceres, arquivo)
+                with open(arquivo_path, 'r', encoding='utf-8') as f:
+                    dados = json.load(f)
+                    
+                    # Extrair data do timestamp
+                    data_geracao = dados.get('data_geracao', '')
+                    try:
+                        data_obj = datetime.fromisoformat(data_geracao)
+                        data_formatada = data_obj.strftime("%d/%m/%Y %H:%M")
+                    except:
+                        data_formatada = data_geracao
+                    
+                    pareceres.append({
+                        'arquivo': arquivo,
+                        'data_geracao': data_geracao,
+                        'data_formatada': data_formatada,
+                        'periodo': dados.get('metadata', {}).get('periodo_analise', 'N/A'),
+                        'caracteres': dados.get('metadata', {}).get('total_caracteres', 0)
+                    })
+            except:
+                continue
+        
+        # Ordenar por data (mais recente primeiro)
+        pareceres.sort(key=lambda x: x['data_geracao'], reverse=True)
+        
+        return pareceres
+    
+    except Exception as e:
+        st.error(f"Erro ao listar pareceres: {e}")
+        return []
+
+def carregar_parecer_especifico(licenca_nome, arquivo_nome):
+    """
+    Carrega um parecer GPT específico
+    
+    Args:
+        licenca_nome: Nome da licença/empresa
+        arquivo_nome: Nome do arquivo do parecer
+    
+    Returns:
+        dict: Dados do parecer ou None se não encontrado
+    """
+    try:
+        pasta_pareceres = "./data_cache/pareceres_gpt"
+        arquivo_path = os.path.join(pasta_pareceres, arquivo_nome)
+        
+        if os.path.exists(arquivo_path):
+            with open(arquivo_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        return None
+    
+    except Exception as e:
+        st.error(f"Erro ao carregar parecer: {e}")
+        return None
+
 def categorizar_transacoes_vyco(
     df_transacoes,
     plano_path="./logic/CSVs/plano_de_contas.csv",
@@ -1845,13 +2018,14 @@ if 'df_vyco_processado' in st.session_state:
     df_debitos = df_dados[df_dados['Valor (R$)'] <= 0].copy() if 'Valor (R$)' in df_dados.columns else pd.DataFrame()
     
     # Tabs principais
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
         "💰 Categorização", 
         "💹 Faturamento e Estoque", 
         "📅 Projeções", 
         "💼 Parecer Diagnóstico", 
         "🤖 Análise GPT",
-        "💾 Cache de Dados"
+        "💾 Cache de Dados",
+        "📊 Relatório Executivo"
     ])
     
     with tab1:
@@ -2482,8 +2656,33 @@ if 'df_vyco_processado' in st.session_state:
                     
                     # Gerar parecer inteligente com dados completos
                     parecer = analisar_dfs_com_gpt(resultado_dre, resultado_fluxo, descricao_empresa)
-                
-                st.success("✅ Parecer gerado com sucesso!")
+                    
+                    # 💾 SALVAR PARECER GPT EM ARQUIVO
+                    if parecer:
+                        # Identificar período analisado
+                        colunas_meses_parecer = [col for col in resultado_dre.columns if re.match(r'\d{4}-\d{2}', col)]
+                        if colunas_meses_parecer:
+                            periodo_analise = f"{colunas_meses_parecer[0]} a {colunas_meses_parecer[-1]}"
+                        else:
+                            periodo_analise = "Período não especificado"
+                        
+                        arquivo_salvo = salvar_parecer_gpt(
+                            licenca_nome=st.session_state.licenca_atual,
+                            parecer_texto=parecer,
+                            descricao_empresa=descricao_empresa,
+                            periodo_analise=periodo_analise
+                        )
+                        
+                        if arquivo_salvo:
+                            st.success(f"✅ Parecer gerado com sucesso!")
+                            st.info(f"💾 Parecer salvo: `{os.path.basename(arquivo_salvo)}`")
+                            # Salvar no session_state para usar no relatório
+                            st.session_state.ultimo_parecer_gpt = parecer
+                        else:
+                            st.success("✅ Parecer gerado com sucesso!")
+                            st.warning("⚠️ Não foi possível salvar o parecer em arquivo")
+                    else:
+                        st.error("❌ Erro ao gerar parecer")
     
     # ===== TAB 6: CACHE DE DADOS =====
     with tab6:
@@ -2691,6 +2890,625 @@ if 'df_vyco_processado' in st.session_state:
         - Arquivos JSON podem ser abertos em qualquer editor de texto
         - O cache é usado pelo módulo de Orçamento para análises rápidas
         """)
+    
+    # ===== TAB 7: RELATÓRIO EXECUTIVO =====
+    with tab7:
+        st.header("📊 Relatório Executivo - Visão Consolidada")
+        
+        st.markdown("""
+        Visão executiva consolidada de todas as análises financeiras. Este relatório integra dados de:
+        - 💹 Faturamento e Estoque
+        - 📅 Projeções (3 cenários)
+        - 💼 Parecer Diagnóstico
+        - 🤖 Análise GPT
+        """)
+        
+        # Verificar se há dados disponíveis
+        tem_transacoes = 'df_transacoes_total_vyco' in st.session_state
+        tem_dre = 'resultado_dre_vyco' in st.session_state
+        tem_fluxo = 'resultado_fluxo_vyco' in st.session_state
+        
+        if not tem_transacoes:
+            st.warning("⚠️ Carregue os dados da licença e categorize as transações primeiro (Aba 1: Categorização)")
+            st.stop()
+        
+        st.markdown("---")
+        
+        # ========== CONFIGURAÇÕES DO RELATÓRIO ==========
+        st.subheader("⚙️ Configurações do Relatório")
+        
+        col_config1, col_config2 = st.columns([2, 2])
+        
+        with col_config1:
+            st.markdown("#### 📅 Período de Análise")
+            
+            # Obter meses disponíveis das transações
+            df_transacoes = st.session_state.df_transacoes_total_vyco
+            if 'Data' in df_transacoes.columns:
+                df_transacoes['Data'] = pd.to_datetime(df_transacoes['Data'], errors='coerce')
+                meses_disponiveis = sorted(df_transacoes['Data'].dropna().dt.to_period('M').astype(str).unique())
+                anos_disponiveis = sorted(set([m[:4] for m in meses_disponiveis]))
+            else:
+                meses_disponiveis = []
+                anos_disponiveis = []
+            
+            if meses_disponiveis:
+                tipo_filtro = st.radio(
+                    "Tipo de filtro:",
+                    ["📅 Últimos N meses", "📆 Ano completo", "🗓️ Meses específicos"],
+                    key="tipo_filtro_relatorio",
+                    horizontal=True
+                )
+                
+                meses_selecionados = []
+                
+                if tipo_filtro == "📅 Últimos N meses":
+                    num_meses = st.slider(
+                        "Quantidade de meses:",
+                        min_value=1,
+                        max_value=len(meses_disponiveis),
+                        value=min(6, len(meses_disponiveis)),
+                        key="slider_meses_relatorio"
+                    )
+                    meses_selecionados = meses_disponiveis[-num_meses:]
+                    st.caption(f"📊 Período: {meses_selecionados[0]} a {meses_selecionados[-1]}")
+                
+                elif tipo_filtro == "📆 Ano completo":
+                    ano_selecionado = st.selectbox(
+                        "Selecione o ano:",
+                        anos_disponiveis,
+                        index=len(anos_disponiveis)-1 if anos_disponiveis else 0,
+                        key="select_ano_relatorio"
+                    )
+                    meses_selecionados = [m for m in meses_disponiveis if m.startswith(ano_selecionado)]
+                    st.caption(f"📊 {len(meses_selecionados)} meses em {ano_selecionado}")
+                
+                else:  # Meses específicos
+                    meses_selecionados = st.multiselect(
+                        "Selecione os meses:",
+                        meses_disponiveis,
+                        default=meses_disponiveis[-6:] if len(meses_disponiveis) >= 6 else meses_disponiveis,
+                        key="multiselect_meses_relatorio"
+                    )
+                    if meses_selecionados:
+                        st.caption(f"📊 {len(meses_selecionados)} meses selecionados")
+                
+                # Salvar no session_state
+                st.session_state.meses_relatorio = meses_selecionados
+            else:
+                st.warning("⚠️ Nenhum mês disponível nos dados")
+                meses_selecionados = []
+        
+        with col_config2:
+            st.markdown("#### 🤖 Parecer Inteligente (GPT)")
+            
+            # Verificar se existem pareceres salvos
+            pareceres_disponiveis = listar_pareceres_gpt(st.session_state.licenca_atual)
+            
+            if pareceres_disponiveis:
+                ultimo_parecer_info = pareceres_disponiveis[0]
+                st.success(f"✅ Último parecer: {ultimo_parecer_info['data_formatada']}")
+                st.caption(f"📊 Período: {ultimo_parecer_info['periodo']}")
+                
+                opcao_parecer = st.radio(
+                    "Incluir parecer no relatório:",
+                    ["📄 Usar último parecer", "📂 Escolher parecer anterior", "🤖 Gerar novo (requer GPT)", "❌ Não incluir"],
+                    key="radio_parecer_relatorio"
+                )
+                
+                if opcao_parecer == "📄 Usar último parecer":
+                    parecer_selecionado = carregar_ultimo_parecer_gpt(st.session_state.licenca_atual)
+                    if parecer_selecionado:
+                        st.session_state.parecer_relatorio = parecer_selecionado['parecer_texto']
+                        st.info(f"✅ Parecer carregado ({len(parecer_selecionado['parecer_texto'])} caracteres)")
+                
+                elif opcao_parecer == "📂 Escolher parecer anterior":
+                    opcoes_parecer = [f"{p['data_formatada']} - {p['periodo']}" for p in pareceres_disponiveis]
+                    parecer_escolhido = st.selectbox(
+                        "Selecione o parecer:",
+                        opcoes_parecer,
+                        key="select_parecer_anterior"
+                    )
+                    idx_escolhido = opcoes_parecer.index(parecer_escolhido)
+                    parecer_selecionado = carregar_parecer_especifico(
+                        st.session_state.licenca_atual,
+                        pareceres_disponiveis[idx_escolhido]['arquivo']
+                    )
+                    if parecer_selecionado:
+                        st.session_state.parecer_relatorio = parecer_selecionado['parecer_texto']
+                        st.info(f"✅ Parecer carregado ({len(parecer_selecionado['parecer_texto'])} caracteres)")
+                
+                elif opcao_parecer == "🤖 Gerar novo (requer GPT)":
+                    st.warning("⚠️ Novo parecer será gerado ao clicar no botão abaixo")
+                    st.session_state.gerar_novo_parecer = True
+                    st.session_state.parecer_relatorio = None
+                
+                else:  # Não incluir
+                    st.session_state.parecer_relatorio = None
+                    st.info("ℹ️ Relatório será gerado sem parecer GPT")
+            else:
+                st.info("ℹ️ Nenhum parecer salvo ainda")
+                st.caption("Gere um parecer na aba 'Análise GPT' primeiro")
+                st.session_state.parecer_relatorio = None
+        
+        st.markdown("---")
+        
+        # Botão para gerar relatório
+        col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
+        with col_btn2:
+            if st.button("📊 Gerar Relatório Executivo Completo", key="btn_relatorio_exec", use_container_width=True, type="primary"):
+                with st.spinner("Gerando relatório executivo... ⏳"):
+                    # Filtrar transações pelo período selecionado
+                    meses_filtro = st.session_state.get('meses_relatorio', [])
+                    df_transacoes_filtrado = st.session_state.df_transacoes_total_vyco.copy()
+                    
+                    if meses_filtro:
+                        df_transacoes_filtrado['Data'] = pd.to_datetime(df_transacoes_filtrado['Data'], errors='coerce')
+                        df_transacoes_filtrado['Mes_Periodo'] = df_transacoes_filtrado['Data'].dt.to_period('M').astype(str)
+                        df_transacoes_filtrado = df_transacoes_filtrado[df_transacoes_filtrado['Mes_Periodo'].isin(meses_filtro)]
+                        df_transacoes_filtrado = df_transacoes_filtrado.drop('Mes_Periodo', axis=1)
+                    
+                    # Gerar dados com período filtrado
+                    resultado_fluxo = exibir_fluxo_caixa_vyco(
+                        df_transacoes_filtrado, 
+                        st.session_state.licenca_atual
+                    )
+                    resultado_dre = exibir_dre_vyco(
+                        resultado_fluxo, 
+                        st.session_state.licenca_atual
+                    )
+                    
+                    # Filtrar DRE pelos meses selecionados
+                    if meses_filtro and not resultado_dre.empty:
+                        colunas_manter = [col for col in resultado_dre.columns if col in meses_filtro or not re.match(r'\d{4}-\d{2}', col)]
+                        resultado_dre = resultado_dre[colunas_manter]
+                        resultado_fluxo = resultado_fluxo[colunas_manter] if not resultado_fluxo.empty else resultado_fluxo
+                    
+                    st.session_state.resultado_fluxo_vyco = resultado_fluxo
+                    st.session_state.resultado_dre_vyco = resultado_dre
+                    st.session_state.df_transacoes_relatorio = df_transacoes_filtrado
+                    st.session_state.relatorio_executivo_gerado = True
+                    st.success("✅ Relatório executivo gerado com sucesso!")
+                    st.rerun()
+        
+        # Exibir relatório se foi gerado
+        if st.session_state.get('relatorio_executivo_gerado', False) and tem_dre and tem_fluxo:
+            resultado_dre = st.session_state.resultado_dre_vyco
+            resultado_fluxo = st.session_state.resultado_fluxo_vyco
+            # Usar transações filtradas se disponível, senão usar todas
+            df_transacoes = st.session_state.get('df_transacoes_relatorio', st.session_state.df_transacoes_total_vyco)
+            
+            # ========== 1. DASHBOARD EXECUTIVO ==========
+            st.markdown("## 📊 Dashboard Executivo")
+            
+            # Calcular métricas principais
+            colunas_meses = [col for col in resultado_dre.columns if re.match(r'\d{4}-\d{2}', col)]
+            
+            # Pegar dados do último mês disponível
+            if colunas_meses:
+                ultimo_mes = colunas_meses[-1]
+                
+                # Extrair valores do DRE
+                def obter_valor_dre(linha_nome):
+                    try:
+                        if linha_nome in resultado_dre.index:
+                            val = resultado_dre.loc[linha_nome, ultimo_mes]
+                            if isinstance(val, str):
+                                val = float(val.replace('R$', '').replace('.', '').replace(',', '.').strip())
+                            return float(val) if pd.notna(val) else 0
+                        return 0
+                    except:
+                        return 0
+                
+                faturamento = obter_valor_dre("💰 Faturamento Bruto")
+                receita = obter_valor_dre("RECEITA")
+                despesas = obter_valor_dre("🔻 Total de Despesas")
+                lucro_liquido = obter_valor_dre("LUCRO LIQUIDO")
+                resultado = obter_valor_dre("RESULTADO")
+                estoque = obter_valor_dre("📦 Estoque Final")
+                
+                # Calcular métricas derivadas
+                margem_liquida = (lucro_liquido / faturamento * 100) if faturamento != 0 else 0
+                
+                # EBITDA simplificado (Lucro Operacional antes de depreciação)
+                lucro_operacional = obter_valor_dre("LUCRO OPERACIONAL")
+                ebitda = lucro_operacional  # Simplificado
+                margem_ebitda = (ebitda / faturamento * 100) if faturamento != 0 else 0
+                
+                # Cards de KPIs
+                st.markdown(f"### 📅 Período: {ultimo_mes}")
+                
+                col1, col2, col3, col4 = st.columns(4)
+                
+                with col1:
+                    st.metric(
+                        "💰 Faturamento",
+                        f"R$ {abs(faturamento):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                        delta=None,
+                        help="Faturamento bruto do período"
+                    )
+                
+                with col2:
+                    delta_color = "normal" if lucro_liquido >= 0 else "inverse"
+                    st.metric(
+                        "💎 Lucro Líquido",
+                        f"R$ {lucro_liquido:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                        delta=f"{margem_liquida:.1f}% margem",
+                        delta_color=delta_color,
+                        help="Lucro líquido após todas as deduções"
+                    )
+                
+                with col3:
+                    delta_color = "normal" if ebitda >= 0 else "inverse"
+                    st.metric(
+                        "📈 EBITDA",
+                        f"R$ {ebitda:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                        delta=f"{margem_ebitda:.1f}% margem",
+                        delta_color=delta_color,
+                        help="Lucro antes de juros, impostos, depreciação e amortização"
+                    )
+                
+                with col4:
+                    st.metric(
+                        "📦 Estoque",
+                        f"R$ {abs(estoque):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                        delta=None,
+                        help="Valor do estoque no fim do período"
+                    )
+                
+                st.markdown("---")
+                
+                # ========== 2. ANÁLISE DE PERFORMANCE ==========
+                st.markdown("## 📈 Análise de Performance")
+                
+                # Gráfico de evolução temporal
+                col_graf1, col_graf2 = st.columns(2)
+                
+                with col_graf1:
+                    st.markdown("### 💰 Evolução do Faturamento")
+                    
+                    faturamentos_meses = []
+                    for mes in colunas_meses:
+                        fat = obter_valor_dre("💰 Faturamento Bruto") if mes == ultimo_mes else 0
+                        # Recalcular para cada mês
+                        try:
+                            val = resultado_dre.loc["💰 Faturamento Bruto", mes] if "💰 Faturamento Bruto" in resultado_dre.index else 0
+                            if isinstance(val, str):
+                                val = float(val.replace('R$', '').replace('.', '').replace(',', '.').strip())
+                            faturamentos_meses.append(float(val) if pd.notna(val) else 0)
+                        except:
+                            faturamentos_meses.append(0)
+                    
+                    import plotly.graph_objects as go
+                    
+                    fig_fat = go.Figure()
+                    fig_fat.add_trace(go.Scatter(
+                        x=colunas_meses,
+                        y=faturamentos_meses,
+                        mode='lines+markers',
+                        name='Faturamento',
+                        line=dict(color='#1f77b4', width=3),
+                        marker=dict(size=8)
+                    ))
+                    
+                    fig_fat.update_layout(
+                        height=300,
+                        margin=dict(l=0, r=0, t=30, b=0),
+                        xaxis_title="Mês",
+                        yaxis_title="Valor (R$)",
+                        hovermode='x unified'
+                    )
+                    
+                    st.plotly_chart(fig_fat, use_container_width=True)
+                
+                with col_graf2:
+                    st.markdown("### 💎 Evolução do Lucro Líquido")
+                    
+                    lucros_meses = []
+                    for mes in colunas_meses:
+                        try:
+                            val = resultado_dre.loc["LUCRO LIQUIDO", mes] if "LUCRO LIQUIDO" in resultado_dre.index else 0
+                            if isinstance(val, str):
+                                val = float(val.replace('R$', '').replace('.', '').replace(',', '.').strip())
+                            lucros_meses.append(float(val) if pd.notna(val) else 0)
+                        except:
+                            lucros_meses.append(0)
+                    
+                    fig_lucro = go.Figure()
+                    fig_lucro.add_trace(go.Scatter(
+                        x=colunas_meses,
+                        y=lucros_meses,
+                        mode='lines+markers',
+                        name='Lucro Líquido',
+                        line=dict(color='#2ca02c', width=3),
+                        marker=dict(size=8),
+                        fill='tozeroy',
+                        fillcolor='rgba(44, 160, 44, 0.1)'
+                    ))
+                    
+                    fig_lucro.update_layout(
+                        height=300,
+                        margin=dict(l=0, r=0, t=30, b=0),
+                        xaxis_title="Mês",
+                        yaxis_title="Valor (R$)",
+                        hovermode='x unified'
+                    )
+                    
+                    st.plotly_chart(fig_lucro, use_container_width=True)
+                
+                st.markdown("---")
+                
+                # ========== 3. DISTRIBUIÇÃO DE RECEITAS E DESPESAS ==========
+                st.markdown("## 🔍 Composição Financeira")
+                
+                col_comp1, col_comp2 = st.columns(2)
+                
+                with col_comp1:
+                    st.markdown("### 💚 Composição de Receitas")
+                    
+                    # Extrair receitas por categoria
+                    df_receitas = df_transacoes[df_transacoes['Valor (R$)'] > 0].copy()
+                    if not df_receitas.empty and 'Categoria' in df_receitas.columns:
+                        receitas_cat = df_receitas.groupby('Categoria')['Valor (R$)'].sum().sort_values(ascending=False).head(5)
+                        
+                        fig_rec = go.Figure(data=[go.Pie(
+                            labels=receitas_cat.index,
+                            values=receitas_cat.values,
+                            hole=0.3,
+                            marker=dict(colors=['#2ecc71', '#27ae60', '#16a085', '#1abc9c', '#48c9b0'])
+                        )])
+                        
+                        fig_rec.update_layout(
+                            height=300,
+                            margin=dict(l=0, r=0, t=30, b=0),
+                            showlegend=True
+                        )
+                        
+                        st.plotly_chart(fig_rec, use_container_width=True)
+                    else:
+                        st.info("Sem dados de receitas categorizadas")
+                
+                with col_comp2:
+                    st.markdown("### 💸 Composição de Despesas")
+                    
+                    # Extrair despesas por categoria
+                    df_despesas = df_transacoes[df_transacoes['Valor (R$)'] < 0].copy()
+                    if not df_despesas.empty and 'Categoria' in df_despesas.columns:
+                        df_despesas['Valor_Abs'] = df_despesas['Valor (R$)'].abs()
+                        despesas_cat = df_despesas.groupby('Categoria')['Valor_Abs'].sum().sort_values(ascending=False).head(5)
+                        
+                        fig_desp = go.Figure(data=[go.Pie(
+                            labels=despesas_cat.index,
+                            values=despesas_cat.values,
+                            hole=0.3,
+                            marker=dict(colors=['#e74c3c', '#c0392b', '#e67e22', '#d35400', '#f39c12'])
+                        )])
+                        
+                        fig_desp.update_layout(
+                            height=300,
+                            margin=dict(l=0, r=0, t=30, b=0),
+                            showlegend=True
+                        )
+                        
+                        st.plotly_chart(fig_desp, use_container_width=True)
+                    else:
+                        st.info("Sem dados de despesas categorizadas")
+                
+                st.markdown("---")
+                
+                # ========== 4. INDICADORES FINANCEIROS ==========
+                st.markdown("## 📊 Indicadores Financeiros Chave")
+                
+                col_ind1, col_ind2, col_ind3 = st.columns(3)
+                
+                with col_ind1:
+                    st.markdown("#### 💹 Rentabilidade")
+                    
+                    margem_bruta = ((receita - abs(despesas)) / faturamento * 100) if faturamento != 0 else 0
+                    
+                    st.metric("Margem Bruta", f"{margem_bruta:.1f}%")
+                    st.metric("Margem Líquida", f"{margem_liquida:.1f}%")
+                    st.metric("Margem EBITDA", f"{margem_ebitda:.1f}%")
+                
+                with col_ind2:
+                    st.markdown("#### 💰 Liquidez")
+                    
+                    # Calcular indicadores de liquidez
+                    total_receitas = abs(receita)
+                    total_despesas = abs(despesas)
+                    
+                    indice_liquidez = (total_receitas / total_despesas) if total_despesas != 0 else 0
+                    
+                    st.metric("Índice de Liquidez", f"{indice_liquidez:.2f}x")
+                    st.metric("Total Receitas", f"R$ {total_receitas:,.0f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                    st.metric("Total Despesas", f"R$ {total_despesas:,.0f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                
+                with col_ind3:
+                    st.markdown("#### 📈 Crescimento")
+                    
+                    # Calcular variação vs mês anterior se houver dados
+                    if len(colunas_meses) >= 2:
+                        mes_anterior = colunas_meses[-2]
+                        try:
+                            fat_anterior = resultado_dre.loc["💰 Faturamento Bruto", mes_anterior] if "💰 Faturamento Bruto" in resultado_dre.index else 0
+                            if isinstance(fat_anterior, str):
+                                fat_anterior = float(fat_anterior.replace('R$', '').replace('.', '').replace(',', '.').strip())
+                            fat_anterior = float(fat_anterior) if pd.notna(fat_anterior) else 0
+                            
+                            variacao_fat = ((faturamento - fat_anterior) / fat_anterior * 100) if fat_anterior != 0 else 0
+                            
+                            st.metric("Variação Faturamento (MoM)", f"{variacao_fat:+.1f}%")
+                        except:
+                            st.metric("Variação Faturamento (MoM)", "N/A")
+                    else:
+                        st.metric("Variação Faturamento (MoM)", "N/A")
+                    
+                    # Calcular ticket médio de transações
+                    num_transacoes = len(df_transacoes[df_transacoes['Valor (R$)'] > 0])
+                    ticket_medio = (total_receitas / num_transacoes) if num_transacoes > 0 else 0
+                    
+                    st.metric("Ticket Médio", f"R$ {ticket_medio:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                    st.metric("Transações", f"{num_transacoes:,}".replace(",", "."))
+                
+                st.markdown("---")
+                
+                # ========== 5. INSIGHTS E ALERTAS ==========
+                st.markdown("## 💡 Insights e Recomendações")
+                
+                insights = []
+                alertas = []
+                recomendacoes = []
+                
+                # Análise de rentabilidade
+                if margem_liquida < 5:
+                    alertas.append("⚠️ **Margem líquida baixa** ({:.1f}%): Empresa opera com rentabilidade reduzida".format(margem_liquida))
+                    recomendacoes.append("🎯 Revisar estrutura de custos e precificação para melhorar margens")
+                elif margem_liquida > 15:
+                    insights.append("✅ **Margem líquida saudável** ({:.1f}%): Empresa demonstra boa rentabilidade".format(margem_liquida))
+                
+                # Análise de liquidez
+                if indice_liquidez < 1.0:
+                    alertas.append("🚨 **Liquidez crítica** ({:.2f}x): Despesas superam receitas".format(indice_liquidez))
+                    recomendacoes.append("🎯 Urgente: reduzir custos e/ou aumentar receitas para evitar déficit")
+                elif indice_liquidez > 1.5:
+                    insights.append("✅ **Liquidez confortável** ({:.2f}x): Receitas superam despesas com boa margem".format(indice_liquidez))
+                
+                # Análise de crescimento
+                if len(colunas_meses) >= 2 and variacao_fat < -5:
+                    alertas.append("📉 **Queda no faturamento** ({:+.1f}%): Receitas em declínio vs mês anterior".format(variacao_fat))
+                    recomendacoes.append("🎯 Investigar causas da queda e implementar ações comerciais")
+                elif len(colunas_meses) >= 2 and variacao_fat > 10:
+                    insights.append("📈 **Crescimento forte** ({:+.1f}%): Faturamento em expansão".format(variacao_fat))
+                
+                # Exibir insights
+                if insights:
+                    st.success("### ✅ Pontos Positivos")
+                    for insight in insights:
+                        st.markdown(insight)
+                
+                # Exibir alertas
+                if alertas:
+                    st.warning("### ⚠️ Pontos de Atenção")
+                    for alerta in alertas:
+                        st.markdown(alerta)
+                
+                # Exibir recomendações
+                if recomendacoes:
+                    st.info("### 🎯 Recomendações")
+                    for rec in recomendacoes:
+                        st.markdown(rec)
+                
+                if not insights and not alertas:
+                    st.info("💼 Desempenho dentro dos padrões esperados")
+                
+                st.markdown("---")
+                
+                # ========== 6. PARECER INTELIGENTE (GPT) ==========
+                if st.session_state.get('parecer_relatorio'):
+                    st.markdown("## 🤖 Análise Inteligente (GPT)")
+                    
+                    with st.expander("📄 Ver Parecer Completo", expanded=False):
+                        st.markdown(st.session_state.parecer_relatorio)
+                    
+                    st.caption("💡 Este parecer foi gerado por Inteligência Artificial com base nos dados financeiros")
+                
+                st.markdown("---")
+                
+                # ========== 7. EXPORTAÇÃO ==========
+                st.markdown("## 📥 Exportação")
+                
+                col_exp1, col_exp2 = st.columns(2)
+                
+                with col_exp1:
+                    # Preparar dados para CSV
+                    dados_exportacao = {
+                        'Métrica': [
+                            'Faturamento Bruto',
+                            'Lucro Líquido',
+                            'EBITDA',
+                            'Estoque',
+                            'Margem Líquida (%)',
+                            'Margem EBITDA (%)',
+                            'Índice de Liquidez',
+                            'Ticket Médio'
+                        ],
+                        'Valor': [
+                            f"R$ {abs(faturamento):,.2f}",
+                            f"R$ {lucro_liquido:,.2f}",
+                            f"R$ {ebitda:,.2f}",
+                            f"R$ {abs(estoque):,.2f}",
+                            f"{margem_liquida:.1f}%",
+                            f"{margem_ebitda:.1f}%",
+                            f"{indice_liquidez:.2f}x",
+                            f"R$ {ticket_medio:,.2f}"
+                        ]
+                    }
+                    
+                    df_export = pd.DataFrame(dados_exportacao)
+                    csv = df_export.to_csv(index=False).encode('utf-8-sig')
+                    
+                    st.download_button(
+                        label="📊 Download Relatório (CSV)",
+                        data=csv,
+                        file_name=f"relatorio_executivo_{st.session_state.licenca_atual}_{datetime.now().strftime('%Y%m%d')}.csv",
+                        mime="text/csv",
+                        use_container_width=True
+                    )
+                
+                with col_exp2:
+                    # Preparar dados para Excel
+                    output = io.BytesIO()
+                    with pd.ExcelWriter(output, engine='openpyxl') as writer:
+                        df_export.to_excel(writer, sheet_name='Resumo Executivo', index=False)
+                        
+                        # Adicionar DRE
+                        if not resultado_dre.empty:
+                            dre_export = resultado_dre[colunas_meses + ['TOTAL', '%']].copy()
+                            dre_export.to_excel(writer, sheet_name='DRE')
+                        
+                        # Adicionar transações
+                        df_transacoes_export = df_transacoes[['Data', 'Descrição', 'Categoria', 'Valor (R$)']].copy()
+                        df_transacoes_export.head(1000).to_excel(writer, sheet_name='Transações', index=False)
+                    
+                    output.seek(0)
+                    
+                    st.download_button(
+                        label="📊 Download Relatório Completo (Excel)",
+                        data=output,
+                        file_name=f"relatorio_executivo_completo_{st.session_state.licenca_atual}_{datetime.now().strftime('%Y%m%d')}.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        use_container_width=True
+                    )
+                
+                st.markdown("---")
+                st.success("✅ Relatório Executivo gerado com sucesso!")
+                
+                # Mostrar informações do período
+                meses_relatorio = st.session_state.get('meses_relatorio', [])
+                if meses_relatorio:
+                    periodo_str = f"{meses_relatorio[0]} a {meses_relatorio[-1]}" if len(meses_relatorio) > 1 else meses_relatorio[0]
+                    st.info(f"""
+                    💡 **Sobre este relatório:**
+                    - **Período analisado:** {periodo_str} ({len(meses_relatorio)} meses)
+                    - Dados consolidados de todas as análises financeiras
+                    - Métricas e KPIs atualizados automaticamente
+                    - Insights gerados com base em regras de negócio
+                    - {'Parecer GPT incluído' if st.session_state.get('parecer_relatorio') else 'Sem parecer GPT'}
+                    - Exportação disponível em CSV e Excel
+                    """)
+                else:
+                    st.info("""
+                    💡 **Sobre este relatório:**
+                    - Dados consolidados de todas as análises financeiras
+                    - Métricas e KPIs atualizados automaticamente
+                    - Insights gerados com base em regras de negócio
+                    - Exportação disponível em CSV e Excel
+                    """)
+            
+            else:
+                st.info("👆 Clique no botão acima para gerar o relatório executivo completo")
+        else:
+            st.info("👆 Clique no botão acima para gerar o relatório executivo completo")
 
 else:
     # Instruções iniciais quando não há dados carregados
