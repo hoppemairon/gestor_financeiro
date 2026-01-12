@@ -1241,15 +1241,14 @@ def criar_dre_vyco(df_fluxo, plano, licenca_nome):
     for mes in meses:
         estoque_serie[mes] = dados_estoque.get(mes, 0.0)
     
-    # Bloco 5: Saldo e Resultado Final
+    # Bloco 5: Estoque e Resultado Final
     dre = pd.concat([
         dre,
         linha("ESTOQUE", estoque_serie),
-        linha("SALDO", pd.Series([0.0] * len(meses), index=meses)),  # Placeholder para saldo
     ])
     
-    # RESULTADO GERENCIAL = RESULTADO + SALDO + ESTOQUE (fórmula correta)
-    dre.loc["RESULTADO GERENCIAL"] = dre.loc["RESULTADO"] + dre.loc["SALDO"] + dre.loc["ESTOQUE"]
+    # RESULTADO GERENCIAL = RESULTADO + ESTOQUE
+    dre.loc["RESULTADO GERENCIAL"] = dre.loc["RESULTADO"] + dre.loc["ESTOQUE"]
     
     # Adicionar coluna TOTAL (soma de todos os meses)
     dre["TOTAL"] = dre[meses].sum(axis=1)
