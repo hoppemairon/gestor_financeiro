@@ -3326,12 +3326,22 @@ if 'df_vyco_processado' in st.session_state:
                 st.markdown("## 📊 Indicadores Financeiros Chave")
                 
                 col_ind1, col_ind2, col_ind3 = st.columns(3)
+
+                faturamento = obter_valor_dre_mes("FATURAMENTO", ultimo_mes)
+                receita = obter_valor_dre_mes("RECEITA", ultimo_mes)
+                impostos = obter_valor_dre_mes("IMPOSTOS", ultimo_mes)
+                lucro_operacional = obter_valor_dre_mes("LUCRO OPERACIONAL",ultimo_mes)
+                lucro_liquido = obter_valor_dre_mes("RESULTADO", ultimo_mes)
+                resultado = obter_valor_dre_mes("RESULTADO", ultimo_mes)
+                estoque = obter_valor_dre_mes("📦 Estoque Final", ultimo_mes)
                 
                 with col_ind1:
                     st.markdown("#### 💹 Rentabilidade")
                     
-                    margem_bruta = ((receita - abs(despesas)) / faturamento * 100) if faturamento != 0 else 0
-                    
+                    margem_bruta = ((lucro_operacional) / receita * 100) if receita != 0 else 0
+                    margem_liquida = (lucro_liquido / receita * 100) if receita != 0 else 0
+                    margem_ebitda = ((lucro_operacional - impostos) / receita * 100) if receita != 0 else 0
+
                     st.metric("Margem Bruta", f"{margem_bruta:.1f}%")
                     st.metric("Margem Líquida", f"{margem_liquida:.1f}%")
                     st.metric("Margem EBITDA", f"{margem_ebitda:.1f}%")
@@ -3340,7 +3350,8 @@ if 'df_vyco_processado' in st.session_state:
                     st.markdown("#### 💰 Liquidez")
                     
                     # Calcular indicadores de liquidez
-                    total_receitas = abs(receita)
+                    receitas_total = df_transacoes[df_transacoes['Valor (R$)'] > 0]['Valor (R$)'].sum()
+                    total_receitas = abs(receitas_total)
                     total_despesas = abs(despesas)
                     
                     indice_liquidez = (total_receitas / total_despesas) if total_despesas != 0 else 0
@@ -3356,13 +3367,15 @@ if 'df_vyco_processado' in st.session_state:
                     if len(colunas_meses) >= 2:
                         mes_anterior = colunas_meses[-2]
                         try:
-                            fat_anterior = resultado_dre.loc["💰 Faturamento Bruto", mes_anterior] if "💰 Faturamento Bruto" in resultado_dre.index else 0
+                            fat_anterior = resultado_dre.loc["FATURAMENTO", mes_anterior] if "FATURAMENTO" in resultado_dre.index else 0
                             if isinstance(fat_anterior, str):
                                 fat_anterior = float(fat_anterior.replace('R$', '').replace('.', '').replace(',', '.').strip())
                             fat_anterior = float(fat_anterior) if pd.notna(fat_anterior) else 0
                             
                             variacao_fat = ((faturamento - fat_anterior) / fat_anterior * 100) if fat_anterior != 0 else 0
                             
+                            #st.metric("Faturamento (MoM)", f"{faturamento}%")
+                            #st.metric("Faturamento (MoM)", f"{fat_anterior}%")
                             st.metric("Variação Faturamento (MoM)", f"{variacao_fat:+.1f}%")
                         except:
                             st.metric("Variação Faturamento (MoM)", "N/A")
@@ -3451,14 +3464,28 @@ if 'df_vyco_processado' in st.session_state:
                 
                 # ========== 7. FLUXO DE CAIXA COMPLETO ==========
                 st.markdown("## 💰 Fluxo de Caixa Consolidado")
-                
+
                 with st.expander("📄 Ver Fluxo de Caixa Completo", expanded=False):
                     if not resultado_fluxo.empty:
-                        st.dataframe(resultado_fluxo, use_container_width=True, height=600)
+                        # Formatar os números para o padrão brasileiro
+                        resultado_fluxo_formatado = resultado_fluxo.copy()
+                        for col in resultado_fluxo_formatado.select_dtypes(include=['float', 'int']).columns:
+                            resultado_fluxo_formatado[col] = resultado_fluxo_formatado[col].apply(
+                                lambda x: f"R$ {x:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") if pd.notna(x) else ""
+                            )
+
+                        # Aplicar estilo para alinhar os números à direita
+                        resultado_fluxo_styled = resultado_fluxo_formatado.style.set_properties(
+                            subset=resultado_fluxo_formatado.select_dtypes(include=['float', 'int']).columns,
+                            **{'text-align': 'right'}
+                        )
+
+                        # Exibir o DataFrame formatado
+                        st.dataframe(resultado_fluxo_styled, use_container_width=True, height=600)
                         st.caption(f"📅 {len(resultado_fluxo)} categorias de fluxo")
                     else:
                         st.info("Nenhum dado de fluxo de caixa disponível")
-                
+
                 st.markdown("---")
                 
                 # ========== 8. PROJEÇÕES FUTURAS ==========
