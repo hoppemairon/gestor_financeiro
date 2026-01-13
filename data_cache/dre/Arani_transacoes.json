@@ -1,14 +1,14 @@
 {
   "empresa": "Arani",
-  "timestamp": "2025-11-18T17:11:13.099250",
+  "timestamp": "2025-11-19T16:02:39.374247",
   "tipo": "transacoes_categorizadas",
   "metadata": {
     "licenca": "Arani",
-    "total_transacoes": 916,
-    "gerado_em": "2025-11-18T17:11:13.009904",
-    "origem": "vyco_parecer_diagnostico"
+    "total_transacoes": 923,
+    "gerado_em": "2025-11-19T16:02:39.343976",
+    "origem": "vyco_integração"
   },
-  "total_transacoes": 916,
+  "total_transacoes": 923,
   "transacoes": [
     {
       "Descrição": "PIX - RECEBIDO - 01/08 08:32 02021128024 EDUARDO PINHO",
@@ -847,6 +847,17 @@
       "Valor_Formatado": "R$ 1.690,36"
     },
     {
+      "Descrição": "PIX - RECEBIDO - 31/10 09:49 02457656036 BRUNA SCHMITT",
+      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (+)",
+      "Valor (R$)": 50000.0,
+      "Tipo": "Crédito",
+      "Data": "2025-10-31 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ 50.000,00"
+    },
+    {
       "Descrição": "TARIFA PIX ENVIADO - TAR. AGRUPADAS - OCORRENCIA 01/08/2025",
       "Categoria_Vyco": "TARIFA BANCÁRIA",
       "Valor (R$)": -5.14,
@@ -1365,11 +1376,11 @@
     },
     {
       "Descrição": "PIX - ENVIADO - 06/08 07:48 POSTO LIDER",
-      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Categoria_Vyco": "DISTRIBUIÇÃO DE LUCROS",
       "Valor (R$)": -300.39,
       "Tipo": "Débito",
       "Data": "2025-08-06 00:00:00",
-      "Categoria": "Sem Identificação",
+      "Categoria": "Sócios",
       "Considerar": "Sim",
       "centro_custo": null,
       "Valor_Formatado": "R$ -300,39"
@@ -1673,17 +1684,17 @@
     },
     {
       "Descrição": "PIX - ENVIADO - 07/08 09:07 LOJAO DAS TINTAS",
-      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Categoria_Vyco": "MANUTENÇÕES E REFORMAS MAQUINÁRIAS",
       "Valor (R$)": -873.0,
       "Tipo": "Débito",
       "Data": "2025-08-07 00:00:00",
-      "Categoria": "Sem Identificação",
+      "Categoria": "Manutenção Predial / Equipamentos",
       "Considerar": "Sim",
       "centro_custo": null,
       "Valor_Formatado": "R$ -873,00"
     },
     {
-      "Descrição": "PIX - ENVIADO - 07/08 17:57 MARISA SCHMITT",
+      "Descrição": "PIX - ENVIADO - 07/08 18:02 BIANCA SCHMITT PARCIANELLO",
       "Categoria_Vyco": "DISTRIBUIÇÃO DE LUCROS",
       "Valor (R$)": -1351.02,
       "Tipo": "Débito",
@@ -1694,7 +1705,7 @@
       "Valor_Formatado": "R$ -1.351,02"
     },
     {
-      "Descrição": "PIX - ENVIADO - 07/08 18:02 BIANCA SCHMITT PARCIANELLO",
+      "Descrição": "PIX - ENVIADO - 07/08 17:57 MARISA SCHMITT",
       "Categoria_Vyco": "DISTRIBUIÇÃO DE LUCROS",
       "Valor (R$)": -1351.02,
       "Tipo": "Débito",
@@ -2388,11 +2399,11 @@
     },
     {
       "Descrição": "PIX - ENVIADO - 13/08 15:57 LOJAO DAS TINTAS",
-      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Categoria_Vyco": "MANUTENÇÕES E REFORMAS MAQUINÁRIAS",
       "Valor (R$)": -746.4,
       "Tipo": "Débito",
       "Data": "2025-08-13 00:00:00",
-      "Categoria": "Sem Identificação",
+      "Categoria": "Manutenção Predial / Equipamentos",
       "Considerar": "Sim",
       "centro_custo": null,
       "Valor_Formatado": "R$ -746,40"
@@ -2618,7 +2629,7 @@
       "Valor_Formatado": "R$ -100,00"
     },
     {
-      "Descrição": "PIX ENVIADO                        POSTO BATOVI COMERCIAL RS",
+      "Descrição": "COMPRA COM CARTÃO - 16/08 11:02 MOTORMAC",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -150.0,
       "Tipo": "Débito",
@@ -2629,7 +2640,7 @@
       "Valor_Formatado": "R$ -150,00"
     },
     {
-      "Descrição": "COMPRA COM CARTÃO - 16/08 11:02 MOTORMAC",
+      "Descrição": "PIX ENVIADO                        POSTO BATOVI COMERCIAL RS",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -150.0,
       "Tipo": "Débito",
@@ -2695,17 +2706,6 @@
       "Valor_Formatado": "R$ -400,00"
     },
     {
-      "Descrição": "PIX ENVIADO                        ANASKIN CLINIC LTDA",
-      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
-      "Valor (R$)": -450.0,
-      "Tipo": "Débito",
-      "Data": "2025-08-18 00:00:00",
-      "Categoria": "Sem Identificação",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -450,00"
-    },
-    {
       "Descrição": "PIX ENVIADO                        ANGELICA QUADROS DA SILVA",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -450.0,
@@ -2718,6 +2718,17 @@
     },
     {
       "Descrição": "PIX ENVIADO                        ZELIO RIBEIRO RODRIGUES",
+      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Valor (R$)": -450.0,
+      "Tipo": "Débito",
+      "Data": "2025-08-18 00:00:00",
+      "Categoria": "Sem Identificação",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -450,00"
+    },
+    {
+      "Descrição": "PIX ENVIADO                        ANASKIN CLINIC LTDA",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -450.0,
       "Tipo": "Débito",
@@ -3224,11 +3235,11 @@
     },
     {
       "Descrição": "PIX - ENVIADO - 25/08 17:45 LOJAO DAS TINTAS",
-      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Categoria_Vyco": "MANUTENÇÕES E REFORMAS MAQUINÁRIAS",
       "Valor (R$)": -75.0,
       "Tipo": "Débito",
       "Data": "2025-08-25 00:00:00",
-      "Categoria": "Sem Identificação",
+      "Categoria": "Manutenção Predial / Equipamentos",
       "Considerar": "Sim",
       "centro_custo": null,
       "Valor_Formatado": "R$ -75,00"
@@ -3674,7 +3685,7 @@
       "Valor_Formatado": "R$ -2.298,23"
     },
     {
-      "Descrição": "PIX ENVIADO ASTROGILDO M",
+      "Descrição": "PIX ENVIADO GILMAR LUIZ",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -2666.13,
       "Tipo": "Débito",
@@ -3685,7 +3696,7 @@
       "Valor_Formatado": "R$ -2.666,13"
     },
     {
-      "Descrição": "PIX ENVIADO GILMAR LUIZ",
+      "Descrição": "PIX ENVIADO ASTROGILDO M",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -2666.13,
       "Tipo": "Débito",
@@ -4092,7 +4103,7 @@
       "Valor_Formatado": "R$ -680,00"
     },
     {
-      "Descrição": "PIX - ENVIADO - 01/09 14:42 MAURÍCIO ALFAMA RIBEIRO",
+      "Descrição": "PIX ENVIADO                        GILMAR DA SILVA",
       "Categoria_Vyco": "ADIANTAMENTO/ VALE SALARIAL",
       "Valor (R$)": -1000.0,
       "Tipo": "Débito",
@@ -4103,7 +4114,7 @@
       "Valor_Formatado": "R$ -1.000,00"
     },
     {
-      "Descrição": "PIX ENVIADO                        GILMAR DA SILVA",
+      "Descrição": "PIX - ENVIADO - 01/09 14:42 MAURÍCIO ALFAMA RIBEIRO",
       "Categoria_Vyco": "ADIANTAMENTO/ VALE SALARIAL",
       "Valor (R$)": -1000.0,
       "Tipo": "Débito",
@@ -6414,11 +6425,11 @@
     },
     {
       "Descrição": "LOJAO DAS TINTAS - RESICOLOR ESM COLOR BRILHANTE VERDE FOLHA, RESICOLOR ESM COLOR BRILHANTE BRANCO 900ML, RESICOLOR AGUARRAS 900ML",
-      "Categoria_Vyco": "MATERIAIS DE USO E CONSUMO",
+      "Categoria_Vyco": "MANUTENÇÕES E REFORMAS MAQUINÁRIAS",
       "Valor (R$)": -155.0,
       "Tipo": "Débito",
       "Data": "2025-09-24 00:00:00",
-      "Categoria": "Outras Desp. Adm",
+      "Categoria": "Manutenção Predial / Equipamentos",
       "Considerar": "Sim",
       "centro_custo": null,
       "Valor_Formatado": "R$ -155,00"
@@ -6743,17 +6754,6 @@
       "Valor_Formatado": "R$ -1.500,00"
     },
     {
-      "Descrição": "PIX ENVIADO OTAVIO SILVA",
-      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
-      "Valor (R$)": -2000.0,
-      "Tipo": "Débito",
-      "Data": "2025-09-29 00:00:00",
-      "Categoria": "Sem Identificação",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -2.000,00"
-    },
-    {
       "Descrição": "PIX - ENVIADO - 27/09 14:24 MAICON MARQUES CARVALHO",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -2000.0,
@@ -6765,7 +6765,7 @@
       "Valor_Formatado": "R$ -2.000,00"
     },
     {
-      "Descrição": "PIX - ENVIADO - 27/09 14:39 ERVANDIL BUENO MARINHO",
+      "Descrição": "PIX ENVIADO OTAVIO SILVA",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -2000.0,
       "Tipo": "Débito",
@@ -6777,6 +6777,17 @@
     },
     {
       "Descrição": "PIX ENVIADO ELWERTON SIL",
+      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Valor (R$)": -2000.0,
+      "Tipo": "Débito",
+      "Data": "2025-09-29 00:00:00",
+      "Categoria": "Sem Identificação",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -2.000,00"
+    },
+    {
+      "Descrição": "PIX - ENVIADO - 27/09 14:39 ERVANDIL BUENO MARINHO",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -2000.0,
       "Tipo": "Débito",
@@ -6809,7 +6820,7 @@
       "Valor_Formatado": "R$ -3.000,00"
     },
     {
-      "Descrição": "PIX ENVIADO SERGIO MIGUE",
+      "Descrição": "PIX ENVIADO ROGERIO RODR",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -4000.0,
       "Tipo": "Débito",
@@ -6820,7 +6831,7 @@
       "Valor_Formatado": "R$ -4.000,00"
     },
     {
-      "Descrição": "PIX ENVIADO ROGERIO RODR",
+      "Descrição": "PIX ENVIADO SERGIO MIGUE",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -4000.0,
       "Tipo": "Débito",
@@ -7920,117 +7931,7 @@
       "Valor_Formatado": "R$ -1.101,28"
     },
     {
-      "Descrição": "CONS PARCELA785839028483",
-      "Categoria_Vyco": "CONSÓRCIO",
-      "Valor (R$)": -1251.45,
-      "Tipo": "Débito",
-      "Data": "2025-10-06 00:00:00",
-      "Categoria": "Compra de Equipamentos",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -1.251,45"
-    },
-    {
-      "Descrição": "CONS PARCELA785839028137",
-      "Categoria_Vyco": "CONSÓRCIO",
-      "Valor (R$)": -1251.45,
-      "Tipo": "Débito",
-      "Data": "2025-10-06 00:00:00",
-      "Categoria": "Compra de Equipamentos",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -1.251,45"
-    },
-    {
-      "Descrição": "CONS PARCELA785839027956",
-      "Categoria_Vyco": "CONSÓRCIO",
-      "Valor (R$)": -1251.45,
-      "Tipo": "Débito",
-      "Data": "2025-10-06 00:00:00",
-      "Categoria": "Compra de Equipamentos",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -1.251,45"
-    },
-    {
-      "Descrição": "CONS PARCELA785839028012",
-      "Categoria_Vyco": "CONSÓRCIO",
-      "Valor (R$)": -1251.45,
-      "Tipo": "Débito",
-      "Data": "2025-10-06 00:00:00",
-      "Categoria": "Compra de Equipamentos",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -1.251,45"
-    },
-    {
-      "Descrição": "CONS PARCELA785839028103",
-      "Categoria_Vyco": "CONSÓRCIO",
-      "Valor (R$)": -1251.45,
-      "Tipo": "Débito",
-      "Data": "2025-10-06 00:00:00",
-      "Categoria": "Compra de Equipamentos",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -1.251,45"
-    },
-    {
-      "Descrição": "CONS PARCELA785839028350",
-      "Categoria_Vyco": "CONSÓRCIO",
-      "Valor (R$)": -1251.45,
-      "Tipo": "Débito",
-      "Data": "2025-10-06 00:00:00",
-      "Categoria": "Compra de Equipamentos",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -1.251,45"
-    },
-    {
-      "Descrição": "CONS PARCELA785839028434",
-      "Categoria_Vyco": "CONSÓRCIO",
-      "Valor (R$)": -1251.45,
-      "Tipo": "Débito",
-      "Data": "2025-10-06 00:00:00",
-      "Categoria": "Compra de Equipamentos",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -1.251,45"
-    },
-    {
-      "Descrição": "CONS PARCELA785839027949",
-      "Categoria_Vyco": "CONSÓRCIO",
-      "Valor (R$)": -1251.45,
-      "Tipo": "Débito",
-      "Data": "2025-10-06 00:00:00",
-      "Categoria": "Compra de Equipamentos",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -1.251,45"
-    },
-    {
-      "Descrição": "CONS PARCELA785839028079",
-      "Categoria_Vyco": "CONSÓRCIO",
-      "Valor (R$)": -1251.45,
-      "Tipo": "Débito",
-      "Data": "2025-10-06 00:00:00",
-      "Categoria": "Compra de Equipamentos",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -1.251,45"
-    },
-    {
-      "Descrição": "CONS PARCELA785839027931",
-      "Categoria_Vyco": "CONSÓRCIO",
-      "Valor (R$)": -1251.45,
-      "Tipo": "Débito",
-      "Data": "2025-10-06 00:00:00",
-      "Categoria": "Compra de Equipamentos",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -1.251,45"
-    },
-    {
-      "Descrição": "CONS PARCELA785839027964",
+      "Descrição": "CONS PARCELA785839028194",
       "Categoria_Vyco": "CONSÓRCIO",
       "Valor (R$)": -1251.45,
       "Tipo": "Débito",
@@ -8052,7 +7953,95 @@
       "Valor_Formatado": "R$ -1.251,45"
     },
     {
-      "Descrição": "CONS PARCELA785839028194",
+      "Descrição": "CONS PARCELA785839027964",
+      "Categoria_Vyco": "CONSÓRCIO",
+      "Valor (R$)": -1251.45,
+      "Tipo": "Débito",
+      "Data": "2025-10-06 00:00:00",
+      "Categoria": "Compra de Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -1.251,45"
+    },
+    {
+      "Descrição": "CONS PARCELA785839027931",
+      "Categoria_Vyco": "CONSÓRCIO",
+      "Valor (R$)": -1251.45,
+      "Tipo": "Débito",
+      "Data": "2025-10-06 00:00:00",
+      "Categoria": "Compra de Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -1.251,45"
+    },
+    {
+      "Descrição": "CONS PARCELA785839028079",
+      "Categoria_Vyco": "CONSÓRCIO",
+      "Valor (R$)": -1251.45,
+      "Tipo": "Débito",
+      "Data": "2025-10-06 00:00:00",
+      "Categoria": "Compra de Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -1.251,45"
+    },
+    {
+      "Descrição": "CONS PARCELA785839027949",
+      "Categoria_Vyco": "CONSÓRCIO",
+      "Valor (R$)": -1251.45,
+      "Tipo": "Débito",
+      "Data": "2025-10-06 00:00:00",
+      "Categoria": "Compra de Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -1.251,45"
+    },
+    {
+      "Descrição": "CONS PARCELA785839028434",
+      "Categoria_Vyco": "CONSÓRCIO",
+      "Valor (R$)": -1251.45,
+      "Tipo": "Débito",
+      "Data": "2025-10-06 00:00:00",
+      "Categoria": "Compra de Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -1.251,45"
+    },
+    {
+      "Descrição": "CONS PARCELA785839028350",
+      "Categoria_Vyco": "CONSÓRCIO",
+      "Valor (R$)": -1251.45,
+      "Tipo": "Débito",
+      "Data": "2025-10-06 00:00:00",
+      "Categoria": "Compra de Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -1.251,45"
+    },
+    {
+      "Descrição": "CONS PARCELA785839028103",
+      "Categoria_Vyco": "CONSÓRCIO",
+      "Valor (R$)": -1251.45,
+      "Tipo": "Débito",
+      "Data": "2025-10-06 00:00:00",
+      "Categoria": "Compra de Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -1.251,45"
+    },
+    {
+      "Descrição": "CONS PARCELA785839028012",
+      "Categoria_Vyco": "CONSÓRCIO",
+      "Valor (R$)": -1251.45,
+      "Tipo": "Débito",
+      "Data": "2025-10-06 00:00:00",
+      "Categoria": "Compra de Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -1.251,45"
+    },
+    {
+      "Descrição": "CONS PARCELA785839027956",
       "Categoria_Vyco": "CONSÓRCIO",
       "Valor (R$)": -1251.45,
       "Tipo": "Débito",
@@ -8064,6 +8053,28 @@
     },
     {
       "Descrição": "CONS PARCELA785839028111",
+      "Categoria_Vyco": "CONSÓRCIO",
+      "Valor (R$)": -1251.45,
+      "Tipo": "Débito",
+      "Data": "2025-10-06 00:00:00",
+      "Categoria": "Compra de Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -1.251,45"
+    },
+    {
+      "Descrição": "CONS PARCELA785839028137",
+      "Categoria_Vyco": "CONSÓRCIO",
+      "Valor (R$)": -1251.45,
+      "Tipo": "Débito",
+      "Data": "2025-10-06 00:00:00",
+      "Categoria": "Compra de Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -1.251,45"
+    },
+    {
+      "Descrição": "CONS PARCELA785839028483",
       "Categoria_Vyco": "CONSÓRCIO",
       "Valor (R$)": -1251.45,
       "Tipo": "Débito",
@@ -8448,7 +8459,7 @@
       "Valor_Formatado": "R$ -930,00"
     },
     {
-      "Descrição": "PIX - ENVIADO - 07/10 16:48 ARANI PARCIANELLO",
+      "Descrição": "PIX - ENVIADO - 07/10 16:50 BIANCA SCHMITT PARCIANELL",
       "Categoria_Vyco": "DISTRIBUIÇÃO DE LUCROS",
       "Valor (R$)": -1351.02,
       "Tipo": "Débito",
@@ -8459,7 +8470,7 @@
       "Valor_Formatado": "R$ -1.351,02"
     },
     {
-      "Descrição": "PIX - ENVIADO - 07/10 16:50 BIANCA SCHMITT PARCIANELL",
+      "Descrição": "PIX - ENVIADO - 07/10 16:48 ARANI PARCIANELLO",
       "Categoria_Vyco": "DISTRIBUIÇÃO DE LUCROS",
       "Valor (R$)": -1351.02,
       "Tipo": "Débito",
@@ -9207,17 +9218,6 @@
       "Valor_Formatado": "R$ -234,19"
     },
     {
-      "Descrição": "PIX - ENVIADO - 16/10 10:39 OPERADOR NACIONAL DO SIST",
-      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
-      "Valor (R$)": -328.24,
-      "Tipo": "Débito",
-      "Data": "2025-10-16 00:00:00",
-      "Categoria": "Sem Identificação",
-      "Considerar": "Sim",
-      "centro_custo": null,
-      "Valor_Formatado": "R$ -328,24"
-    },
-    {
       "Descrição": "PIX - ENVIADO - 16/10 10:40 OPERADOR NACIONAL DO SIST",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -328.24,
@@ -9252,6 +9252,17 @@
     },
     {
       "Descrição": "PIX - ENVIADO - 16/10 10:38 OPERADOR NACIONAL DO SIST",
+      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Valor (R$)": -328.24,
+      "Tipo": "Débito",
+      "Data": "2025-10-16 00:00:00",
+      "Categoria": "Sem Identificação",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -328,24"
+    },
+    {
+      "Descrição": "PIX - ENVIADO - 16/10 10:39 OPERADOR NACIONAL DO SIST",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -328.24,
       "Tipo": "Débito",
@@ -9735,7 +9746,7 @@
       "Valor_Formatado": "R$ -979,25"
     },
     {
-      "Descrição": "COMPRA COM CARTÃO - 23/10 09:03 NILSON CABREIRA LOPE",
+      "Descrição": "COMPRA COM CARTÃO - 23/10 18:17 MAICON RAMOS DOS SAN",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -60.0,
       "Tipo": "Débito",
@@ -9746,7 +9757,7 @@
       "Valor_Formatado": "R$ -60,00"
     },
     {
-      "Descrição": "COMPRA COM CARTÃO - 23/10 18:17 MAICON RAMOS DOS SAN",
+      "Descrição": "COMPRA COM CARTÃO - 23/10 09:03 NILSON CABREIRA LOPE",
       "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
       "Valor (R$)": -60.0,
       "Tipo": "Débito",
@@ -10085,6 +10096,72 @@
       "Considerar": "Sim",
       "centro_custo": null,
       "Valor_Formatado": "R$ -9.012,77"
+    },
+    {
+      "Descrição": "PIX - ENVIADO - 28/10 15:53 LOJAO DAS TINTAS",
+      "Categoria_Vyco": "MANUTENÇÕES E REFORMAS MAQUINÁRIAS",
+      "Valor (R$)": -19.75,
+      "Tipo": "Débito",
+      "Data": "2025-10-28 00:00:00",
+      "Categoria": "Manutenção Predial / Equipamentos",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -19,75"
+    },
+    {
+      "Descrição": "PIX - ENVIADO - 28/10 21:41 PIX MARKETPLACE",
+      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Valor (R$)": -134.91,
+      "Tipo": "Débito",
+      "Data": "2025-10-28 00:00:00",
+      "Categoria": "Sem Identificação",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -134,91"
+    },
+    {
+      "Descrição": "PIX - ENVIADO - 28/10 21:26 PIX MARKETPLACE",
+      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Valor (R$)": -152.51,
+      "Tipo": "Débito",
+      "Data": "2025-10-28 00:00:00",
+      "Categoria": "Sem Identificação",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -152,51"
+    },
+    {
+      "Descrição": "PIX - ENVIADO - 29/10 10:49 PIX MARKETPLACE",
+      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Valor (R$)": -250.26,
+      "Tipo": "Débito",
+      "Data": "2025-10-29 00:00:00",
+      "Categoria": "Sem Identificação",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -250,26"
+    },
+    {
+      "Descrição": "PIX - ENVIADO - 29/10 10:21 PIX MARKETPLACE",
+      "Categoria_Vyco": "SEM IDENTIFICAÇÃO (-)",
+      "Valor (R$)": -3317.0,
+      "Tipo": "Débito",
+      "Data": "2025-10-29 00:00:00",
+      "Categoria": "Sem Identificação",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -3.317,00"
+    },
+    {
+      "Descrição": "PIX - ENVIADO - 31/10 08:19 POSTO LIDER",
+      "Categoria_Vyco": "DISTRIBUIÇÃO DE LUCROS",
+      "Valor (R$)": -17.97,
+      "Tipo": "Débito",
+      "Data": "2025-10-31 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "centro_custo": null,
+      "Valor_Formatado": "R$ -17,97"
     }
   ]
 }
