@@ -1,12 +1,13 @@
 {
   "empresa": "CBM",
-  "timestamp": "2025-11-18T17:06:48.338225",
+  "timestamp": "2026-01-16T10:34:33.336461",
   "tipo": "dre_estruturado",
   "metadata": {
     "licenca": "CBM",
-    "total_transacoes": 7506,
-    "gerado_em": "2025-11-18T17:06:47.251362",
-    "origem": "vyco_parecer_diagnostico"
+    "total_transacoes": 8239,
+    "gerado_em": "2026-01-16T10:34:32.855429",
+    "origem": "vyco_parecer_gpt",
+    "descricao_empresa": "CBM é uma industria de produtos quimicos"
   },
   "estrutura": "secoes_organizadas",
   "dre_estruturado": {
@@ -28,18 +29,20 @@
             "2024-10": 0.0,
             "2024-11": 0.0,
             "2024-12": 0.0,
-            "2025-01": 358206.95,
-            "2025-02": 409346.59,
-            "2025-03": 323304.23,
-            "2025-04": 437615.59,
-            "2025-05": 390408.4,
-            "2025-06": 464503.1,
-            "2025-07": 459651.74,
-            "2025-08": 420603.16,
-            "2025-09": 538410.93,
-            "2025-10": 440019.85,
-            "2025-11": 0.0,
-            "TOTAL": 4242070.540000001,
+            "2025-01": 0.0,
+            "2025-02": 0.0,
+            "2025-03": 0.0,
+            "2025-04": 0.0,
+            "2025-05": 0.0,
+            "2025-06": 0.0,
+            "2025-07": 0.0,
+            "2025-08": 0.0,
+            "2025-09": 0.0,
+            "2025-10": 0.0,
+            "2025-11": 450000.0,
+            "2025-12": 460000.0,
+            "2026-01": 470000.0,
+            "TOTAL": 1380000.0,
             "%": 100.0
           }
         },
@@ -66,11 +69,13 @@
             "2025-06": 390767.37,
             "2025-07": 466197.38,
             "2025-08": 440123.36,
-            "2025-09": 429865.62,
-            "2025-10": 429588.67,
-            "2025-11": 296599.74,
-            "TOTAL": 8716373.35,
-            "%": 205.4745027884425
+            "2025-09": 433619.7,
+            "2025-10": 431788.31,
+            "2025-11": 459685.07,
+            "2025-12": 381845.1,
+            "2026-01": 230417.40000000002,
+            "TOTAL": 9497674.9,
+            "%": 688.237311594203
           }
         },
         "RECEITA EXTRA OPERACIONAL": {
@@ -99,8 +104,10 @@
             "2025-09": 0.0,
             "2025-10": 0.0,
             "2025-11": 0.0,
+            "2025-12": 0.0,
+            "2026-01": 0.0,
             "TOTAL": 79183.27,
-            "%": 1.8666184179011787
+            "%": 5.737918115942029
           }
         }
       }
@@ -132,10 +139,12 @@
             "2025-07": 103705.02,
             "2025-08": 41963.0,
             "2025-09": 42404.85,
-            "2025-10": 99531.26000000001,
-            "2025-11": 31408.89,
-            "TOTAL": 1169400.0999999999,
-            "%": 27.56672924161227
+            "2025-10": 99609.35,
+            "2025-11": 46698.5,
+            "2025-12": 55487.600000000006,
+            "2026-01": 8175.6,
+            "TOTAL": 1248431.0,
+            "%": 90.46601449275362
           }
         },
         "DESPESA OPERACIONAL": {
@@ -163,9 +172,11 @@
             "2025-08": 214784.6,
             "2025-09": 214798.57,
             "2025-10": 168158.41999999998,
-            "2025-11": 84159.48000000001,
-            "TOTAL": 3750477.8499999996,
-            "%": 88.41149185605006
+            "2025-11": 171753.24000000002,
+            "2025-12": 254413.25,
+            "2026-01": 46366.39,
+            "TOTAL": 4138851.2500000005,
+            "%": 299.91675724637685
           },
           "detalhamento": {
             "2024-01": [
@@ -5574,14 +5585,14 @@
               {
                 "subcategoria": "BOLETO PAGO SURTEC DO BRASIL LTDA 03.117.903/0003-07",
                 "tipo": "Débito",
-                "quantidade": 6,
-                "valor": -14224.89
+                "quantidade": 13,
+                "valor": -33284.27
               },
               {
                 "subcategoria": "BOLETO PAGO KEMISK COM DE OLEOS LTDA 18.767.025/0001-80",
                 "tipo": "Débito",
-                "quantidade": 1,
-                "valor": -13242.16
+                "quantidade": 2,
+                "valor": -26484.32
               },
               {
                 "subcategoria": "PIX ENVIADO TKL REPRESENTACOES E ASSESSORIA EMPRESARIAL LTDA 49.798.916/0001-28",
@@ -5590,10 +5601,22 @@
                 "valor": -7692.02
               },
               {
+                "subcategoria": "BOLETO PAGO BSC QUIMICA LTDA 07.920.916/0001-09",
+                "tipo": "Débito",
+                "quantidade": 4,
+                "valor": -7474.6
+              },
+              {
                 "subcategoria": "BOLETO PAGO INCASA S A 84.689.090/0001-60",
                 "tipo": "Débito",
                 "quantidade": 1,
                 "valor": -7020.63
+              },
+              {
+                "subcategoria": "BOLETO PAGO INCASA SA 84.689.090/0001-60",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -6959.99
               },
               {
                 "subcategoria": "PAGAMENTOS TRANSF CC ITAU HERON ROTH RODRIGUES 011.125.210-54- COMISSAO + AJUDA ...",
@@ -5602,10 +5625,16 @@
                 "valor": -6384.8
               },
               {
-                "subcategoria": "BOLETO PAGO BSC QUIMICA LTDA 07.920.916/0001-09",
+                "subcategoria": "BOLETO PAGO QUIMICAMAR I C P QUIMICOS LTDA 94.464.914/0001-57",
                 "tipo": "Débito",
-                "quantidade": 3,
-                "valor": -5511.77
+                "quantidade": 9,
+                "valor": -5994.72
+              },
+              {
+                "subcategoria": "BOLETO PAGO BASILE QUIMICA IND COM LTDA 58.958.893/0001-62",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -5208.75
               },
               {
                 "subcategoria": "BOLETO PAGO ATLANTA FUNDO DE INV EM DIR CRED N PAD 11.468.186/0001-24",
@@ -5614,10 +5643,28 @@
                 "valor": -5055.5
               },
               {
-                "subcategoria": "BOLETO PAGO QUIMICAMAR I C P QUIMICOS LTDA 94.464.914/0001-57",
+                "subcategoria": "BOLETO PAGO MS OPEN FUNDO DE INVESTIMENTO EM DIREITO 35.654.917/0001-94",
                 "tipo": "Débito",
-                "quantidade": 6,
-                "valor": -4204.45
+                "quantidade": 2,
+                "valor": -5027.73
+              },
+              {
+                "subcategoria": "BOLETO PAGO PRO BRIL IND E COMERCIO LTDA 52.342.094/0001-80",
+                "tipo": "Débito",
+                "quantidade": 3,
+                "valor": -4497.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO PLASTUPAN EMBAL PLAST LTDA EPP 04.586.600/0001-34",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -4385.95
+              },
+              {
+                "subcategoria": "BOLETO PAGO TRATHO EFLUENTES LTDA 04.712.612/0001-68",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -3610.0
               },
               {
                 "subcategoria": "PIX ENVIADO ADRIANO ALIBUNE 256.172.378-02",
@@ -5626,22 +5673,70 @@
                 "valor": -3575.48
               },
               {
-                "subcategoria": "BOLETO PAGO PRO BRIL IND E COMERCIO LTDA 52.342.094/0001-80",
+                "subcategoria": "BOLETO PAGO HYPLASS IND QUIMICAS LT 90.547.274/0001-98",
                 "tipo": "Débito",
-                "quantidade": 2,
-                "valor": -2998.0
+                "quantidade": 4,
+                "valor": -3280.0
               },
               {
                 "subcategoria": "BOLETO PAGO VETTA QUIMICA IMPORTACAO E EXPORTACAO LTDA 08.062.665/0001-31",
                 "tipo": "Débito",
-                "quantidade": 2,
-                "valor": -2111.1
+                "quantidade": 3,
+                "valor": -3166.65
               },
               {
                 "subcategoria": "BOLETO PAGO UP QUIMICA LTDA 00.596.161/0001-90",
                 "tipo": "Débito",
-                "quantidade": 3,
-                "valor": -1607.41
+                "quantidade": 5,
+                "valor": -2582.84
+              },
+              {
+                "subcategoria": "BOLETO PAGO LUMEN QUIMICA LTDA 65.865.057/0001-07",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -2557.28
+              },
+              {
+                "subcategoria": "BOLETO PAGO QUALITECH IND C P QUIM LTDA 03.967.068/0001-32",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -2051.05
+              },
+              {
+                "subcategoria": "BOLETO PAGO NOKXELLER QUIMICA LTDA 00.107.621/0001-79",
+                "tipo": "Débito",
+                "quantidade": 5,
+                "valor": -1850.15
+              },
+              {
+                "subcategoria": "BOLETO PAGO TSA QUIMICA DO BRASIL LTDA 73.767.394/0001-81",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1840.75
+              },
+              {
+                "subcategoria": "BOLETO PAGO IND QUIMICA ANASTACIO S A 60.874.724/0001-96",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1712.02
+              },
+              {
+                "subcategoria": "BOLETO PAGO INOVATEC TEC PROD IND LTDA 08.217.560/0001-04",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -1617.64
+              },
+              {
+                "subcategoria": "BOLETO PAGO NEWSUL S.A. EMBALAGENS E COMPONENTES 00.386.430/0001-93",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1531.56
+              },
+              {
+                "subcategoria": "BOLETO PAGO BUSCHLE LEPPER SA BUSCHLE LEPPER SA 84.684.471/0001-56",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1503.0
               },
               {
                 "subcategoria": "BOLETO PAGO CAVALLI INDUSTRIA E COMERCIO D 19.949.785/0001-71",
@@ -5656,22 +5751,28 @@
                 "valor": -1289.72
               },
               {
-                "subcategoria": "BOLETO PAGO LUMEN QUIMICA LTDA 65.865.057/0001-07",
-                "tipo": "Débito",
-                "quantidade": 1,
-                "valor": -1279.28
-              },
-              {
                 "subcategoria": "PIX ENVIADO CELSO ANTONIO DIAS SEVERO 347.989.350-34",
                 "tipo": "Débito",
                 "quantidade": 1,
                 "valor": -1260.0
               },
               {
-                "subcategoria": "BOLETO PAGO HYPLASS IND QUIMICAS LT 90.547.274/0001-98",
+                "subcategoria": "BOLETO PAGO ALPHA QUIMICA LTDA 93.763.555/0001-76",
                 "tipo": "Débito",
                 "quantidade": 2,
-                "valor": -1108.0
+                "valor": -1241.48
+              },
+              {
+                "subcategoria": "BOLETO PAGO MIRACEMA-NUODEX 46.040.242/0001-00",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1097.35
+              },
+              {
+                "subcategoria": "BOLETO PAGO GR IND E COM DE PROD QUIM SA 03.157.268/0006-34",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1013.58
               },
               {
                 "subcategoria": "DEV CH NAC 104 000186 41",
@@ -5680,22 +5781,58 @@
                 "valor": -1000.0
               },
               {
+                "subcategoria": "BOLETO PAGO TAMBORSUL INDUSTRIA C E LTDA 93.622.983/0001-89",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -997.38
+              },
+              {
                 "subcategoria": "PIX ENVIADO TSA QUIMICA DO BRASIL LTDA 73.767.394/0001-81",
                 "tipo": "Débito",
                 "quantidade": 1,
                 "valor": -970.69
               },
               {
-                "subcategoria": "BOLETO PAGO NOKXELLER QUIMICA LTDA 00.107.621/0001-79",
-                "tipo": "Débito",
-                "quantidade": 3,
-                "valor": -950.15
-              },
-              {
-                "subcategoria": "BOLETO PAGO ALPHA QUIMICA LTDA 93.763.555/0001-76",
+                "subcategoria": "BOLETO PAGO SOBBER SISTEMAS DE GESTAO LTDA 01.081.786/0001-81",
                 "tipo": "Débito",
                 "quantidade": 1,
-                "valor": -620.74
+                "valor": -839.33
+              },
+              {
+                "subcategoria": "BOLETO PAGO ADITEX IND COM DE AD QUIM LTDA 06.149.282/0001-70",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -833.37
+              },
+              {
+                "subcategoria": "BOLETO PAGO NEON COM R ANALITICOS LTDA 00.327.149/0003-41",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -654.6
+              },
+              {
+                "subcategoria": "DADOS DO RELOGIO PONTO- DANIELLI SOARES CAJUEIRO DA SILVA 50.015.664/0001-00",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -540.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO VERONESE INDUSTRIA DE PRODUTOS QUIMICOS LTDA. 14.725.074/0001-08",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -475.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO AGRO QUIMICA MARINGA S A 61.980.181/0001-54",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -471.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO LABSTOCK SUPRIMENTOS PARA LABORATORIO LT 10.497.291/0001-29",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -421.09
               },
               {
                 "subcategoria": "BOLETO PAGO QUIMISUL 24.788.909/0001-14",
@@ -5710,10 +5847,410 @@
                 "valor": -353.6
               },
               {
+                "subcategoria": "RIBBON/LABORATORIO - MERCADO LIVRE",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -136.83
+              },
+              {
+                "subcategoria": "BOLETO PAGO KLEIN COMERCIO DE RACOES E TRANSPORTES LTDA 94.680.311/0001-92",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -110.43
+              },
+              {
                 "subcategoria": "FARMÁCIA- LUVA",
                 "tipo": "Débito",
                 "quantidade": 1,
                 "valor": -52.9
+              }
+            ],
+            "2025-12": [
+              {
+                "subcategoria": "BOLETO PAGO SURTEC DO BRASIL LTDA 03.117.903/0003-07",
+                "tipo": "Débito",
+                "quantidade": 18,
+                "valor": -47735.54
+              },
+              {
+                "subcategoria": "PIX ENVIADO TKL REPRESENTACOES E ASSESSORIA EMPRESARIAL LTDA 49.798.916/0001-28",
+                "tipo": "Débito",
+                "quantidade": 3,
+                "valor": -22200.94
+              },
+              {
+                "subcategoria": "BOLETO PAGO INCASA SA 84.689.090/0001-60",
+                "tipo": "Débito",
+                "quantidade": 3,
+                "valor": -20931.05
+              },
+              {
+                "subcategoria": "BOLETO PAGO QUIMICAMAR I C P QUIMICOS LTDA 94.464.914/0001-57",
+                "tipo": "Débito",
+                "quantidade": 15,
+                "valor": -13720.9
+              },
+              {
+                "subcategoria": "BOLETO PAGO BASILE QUIMICA IND COM LTDA 58.958.893/0001-62",
+                "tipo": "Débito",
+                "quantidade": 3,
+                "valor": -13308.75
+              },
+              {
+                "subcategoria": "BOLETO PAGO VENTOS DO BRASIL LTDA 04.608.019/0001-76",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -11561.25
+              },
+              {
+                "subcategoria": "PIX ENVIADO ADRIANO ALIBUNE 256.172.378-02",
+                "tipo": "Débito",
+                "quantidade": 3,
+                "valor": -9791.02
+              },
+              {
+                "subcategoria": "PIX ENVIADO HERON ROTH RODRIGUES 011.125.210-54-COMISSAO + AJUDA DE CUSTOS",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -8823.34
+              },
+              {
+                "subcategoria": "BOLETO PAGO TECNO CLEAN INDUSTRIAL LTDA. 03.723.481/0002-32",
+                "tipo": "Débito",
+                "quantidade": 3,
+                "valor": -8807.85
+              },
+              {
+                "subcategoria": "PAGAMENTOS TRANSF CC ITAU HERON ROTH RODRIGUES 011.125.210-54",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -8621.34
+              },
+              {
+                "subcategoria": "BOLETO PAGO COMPANHIA BIOCHEMICALS BRASIL 21.539.359/0001-01",
+                "tipo": "Débito",
+                "quantidade": 6,
+                "valor": -8515.33
+              },
+              {
+                "subcategoria": "BOLETO PAGO PLASTUPAN EMBAL PLAST LTDA EPP 04.586.600/0001-34",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -8259.07
+              },
+              {
+                "subcategoria": "BOLETO PAGO TRATHO EFLUENTES LTDA 04.712.612/0001-68",
+                "tipo": "Débito",
+                "quantidade": 4,
+                "valor": -7294.59
+              },
+              {
+                "subcategoria": "PIX ENVIADO HERON ROTH RODRIGUES 011.125.210-54",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -7134.8
+              },
+              {
+                "subcategoria": "BOLETO PAGO MIRACEMA-NUODEX 46.040.242/0001-00",
+                "tipo": "Débito",
+                "quantidade": 5,
+                "valor": -6375.91
+              },
+              {
+                "subcategoria": "BOLETO PAGO ATLANTA FUNDO DE INV EM DIR CRED N PAD 11.468.186/0001-24",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -5134.24
+              },
+              {
+                "subcategoria": "BOLETO PAGO HYPLASS IND QUIMICAS LT 90.547.274/0001-98",
+                "tipo": "Débito",
+                "quantidade": 5,
+                "valor": -4545.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO SIGMAALDRICH BRASIL LTDA 68.337.658/0001-27",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -4495.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO CELTA BRASIL 02.901.092/0001-06",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -3702.71
+              },
+              {
+                "subcategoria": "BOLETO PAGO UP QUIMICA LTDA 00.596.161/0001-90",
+                "tipo": "Débito",
+                "quantidade": 5,
+                "valor": -3475.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO MS OPEN FUNDO DE INVESTIMENTO EM DIREITO 35.654.917/0001-94",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -2515.98
+              },
+              {
+                "subcategoria": "BOLETO PAGO BSC QUIMICA LTDA 07.920.916/0001-09",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -2413.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO GR IND E COM DE PROD QUIM SA 03.157.268/0006-34",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -2391.48
+              },
+              {
+                "subcategoria": "BOLETO PAGO IPEL-ITIBANYL PRODUTOS ESPECIA 59.743.773/0001-00",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -2126.92
+              },
+              {
+                "subcategoria": "BOLETO PAGO QUALITECH IND C P QUIM LTDA 03.967.068/0001-32",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -2051.05
+              },
+              {
+                "subcategoria": "BOLETO PAGO SELLOR FUNDO DE INVESTIMENTO EM DIREITOS 55.257.461/0001-36",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1747.02
+              },
+              {
+                "subcategoria": "BOLETO PAGO IND QUIMICA ANASTACIO S A 60.874.724/0001-96",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1712.02
+              },
+              {
+                "subcategoria": "BOLETO PAGO BUSCHLE LEPPER SA BUSCHLE LEPPER SA 84.684.471/0001-56",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -1703.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO NEWSUL S.A. EMBALAGENS E COMPONENTES 00.386.430/0001-93",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1531.56
+              },
+              {
+                "subcategoria": "BOLETO PAGO CAVALLI INDUSTRIA E COMERCIO D 19.949.785/0001-71",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1292.2
+              },
+              {
+                "subcategoria": "BOLETO PAGO IRMAOS GALEAZI LTDA 62.923.354/0001-65",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1249.33
+              },
+              {
+                "subcategoria": "BOLETO PAGO AURIQUIMICA LTDA 54.429.345/0002-75",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1020.11
+              },
+              {
+                "subcategoria": "PIX ENVIADO CHARLES LUIZ DE DEUS ALVES 001.045.220-62",
+                "tipo": "Débito",
+                "quantidade": 3,
+                "valor": -976.52
+              },
+              {
+                "subcategoria": "BOLETO PAGO NOKXELLER QUIMICA LTDA 00.107.621/0001-79",
+                "tipo": "Débito",
+                "quantidade": 3,
+                "valor": -954.15
+              },
+              {
+                "subcategoria": "BOLETO PAGO MANDARINO COM DE ADITIVOS LTDA 07.040.437/0001-06",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -911.73
+              },
+              {
+                "subcategoria": "BOLETO PAGO SOBBER SISTEMAS DE GESTAO LTDA 01.081.786/0001-81",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -839.33
+              },
+              {
+                "subcategoria": "BOLETO PAGO QUIMISUL 24.788.909/0001-14",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -824.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO INOVATEC TEC PROD IND LTDA 08.217.560/0001-04",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -724.5
+              },
+              {
+                "subcategoria": "BOLETO PAGO 50 015 664 DANIELLI SOARES CAJUEIRO 50.015.664/0001-00",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -700.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO KLEIN COMERCIO DE RACOES E TRANSPORTES LTDA 94.680.311/0001-92",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -413.64
+              },
+              {
+                "subcategoria": "BOLETO PAGO FACERE EMBALAGENS LTDA - ME 07.457.157/0001-90",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -366.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO LABSTOCK SUPRIMENTOS PARA LABORATORIO LT 10.497.291/0001-29",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -343.36
+              },
+              {
+                "subcategoria": "BOLETO PAGO TIARLES FOFONKA FLORES 014.588.900-90",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -279.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO MERCOLAB PRODUTOS PARA LABORATORIOS LTDA 02.107.610/0001-14",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -238.5
+              },
+              {
+                "subcategoria": "FRETE - NEWSUL",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -216.0
+              },
+              {
+                "subcategoria": "CADEIRAS -BRINDE NOKOPIEL",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -159.8
+              },
+              {
+                "subcategoria": "BOLETO PAGO TSA QUIMICA DO BRASIL LTDA 73.767.394/0001-81",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -114.62
+              },
+              {
+                "subcategoria": "CARBONATO DE CÁCIO",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -100.0
+              },
+              {
+                "subcategoria": "COMPRA NO DÉBITO BOURBON COUNTRY=- CADEIRA",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -64.8
+              }
+            ],
+            "2026-01": [
+              {
+                "subcategoria": "BOLETO PAGO SURTEC DO BR SURTEC DO BRASIL LTDA 03.117.903/0003-07",
+                "tipo": "Débito",
+                "quantidade": 5,
+                "valor": -11899.98
+              },
+              {
+                "subcategoria": "BOLETO PAGO TRATHO EFLUE TRATHO EFLUENTES LTDA 04.712.612/0001-68",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -6766.88
+              },
+              {
+                "subcategoria": "BOLETO PAGO COMPANHIA BI COMPANHIA BIOCHEMICALS BRASIL 21.539.359/0001-01",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -3803.47
+              },
+              {
+                "subcategoria": "BOLETO PAGO PLASTUPAN EM PLASTUPAN EMBAL PLAST LTDA EPP 04.586.600/0001-34",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -3740.22
+              },
+              {
+                "subcategoria": "BOLETO PAGO BSC QUIMICA BSC QUIMICA LTDA 07.920.916/0001-09",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -3627.98
+              },
+              {
+                "subcategoria": "BOLETO PAGO QUIMICAMAR I QUIMICAMAR I C P QUIMICOS LTDA 94.464.914/0001-57",
+                "tipo": "Débito",
+                "quantidade": 4,
+                "valor": -3089.82
+              },
+              {
+                "subcategoria": "BOLETO PAGO NEWSUL S.A. NEWSUL S.A. EMBALAGENS E COMPONENTES 00.386.430/0001-93",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -3063.12
+              },
+              {
+                "subcategoria": "BOLETO PAGO LUMEN QUIMIC LUMEN QUIMICA LTDA 65.865.057/0001-07",
+                "tipo": "Débito",
+                "quantidade": 2,
+                "valor": -2464.5
+              },
+              {
+                "subcategoria": "BOLETO PAGO L ESSENCE IN L ESSENCE INDUSTRIA E COMERCIO LTDA 64.949.480/0001-14",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1928.66
+              },
+              {
+                "subcategoria": "BOLETO PAGO TRATHO METAL QUIMICA LTDA 18.001.764/0001-67",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1920.63
+              },
+              {
+                "subcategoria": "BOLETO PAGO GR IND E COM GR IND E COM DE PROD QUIM SA 03.157.268/0006-34",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1377.9
+              },
+              {
+                "subcategoria": "BOLETO PAGO HYPLASS IND HYPLASS IND QUIMICAS LT 90.547.274/0001-98",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -1212.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO BANCO SOFISA BANCO SOFISA S/A 60.889.128/0001-80",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -731.23
+              },
+              {
+                "subcategoria": "BOLETO PAGO PLASTUPAN EM PLASTUPAN EMBAL PLASTICAS LTDA 04.586.600/0001-34",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -540.0
+              },
+              {
+                "subcategoria": "BOLETO PAGO BUSCHLE LE BUSCHLE LEPPER SA 84.684.471/0001-56",
+                "tipo": "Débito",
+                "quantidade": 1,
+                "valor": -200.0
               }
             ]
           }
@@ -5746,11 +6283,13 @@
             "2025-06": 205683.13,
             "2025-07": 146315.46,
             "2025-08": 183375.75999999998,
-            "2025-09": 172662.2,
-            "2025-10": 161898.99,
-            "2025-11": 181031.36999999997,
-            "TOTAL": 3796495.3999999994,
-            "%": 89.49628169078014
+            "2025-09": 176416.28000000003,
+            "2025-10": 164020.53999999998,
+            "2025-11": 241233.33,
+            "2025-12": 71944.25,
+            "2026-01": 175875.41000000003,
+            "TOTAL": 4110392.6499999994,
+            "%": 297.85453985507246
           }
         }
       }
@@ -5783,9 +6322,11 @@
             "2025-08": 65996.28000000001,
             "2025-09": 68066.56000000001,
             "2025-10": 66783.26999999999,
-            "2025-11": 26242.74,
-            "TOTAL": 1297300.47,
-            "%": 30.58177504987929
+            "2025-11": 47941.96000000001,
+            "2025-12": 116746.15999999999,
+            "2026-01": 35439.39,
+            "TOTAL": 1471185.24,
+            "%": 106.60762608695653
           }
         },
         "DESPESA ADMINISTRATIVA": {
@@ -5813,9 +6354,11 @@
             "2025-08": 24850.16,
             "2025-09": 20473.98,
             "2025-10": 19758.89,
-            "2025-11": 10719.67,
-            "TOTAL": 361368.00999999995,
-            "%": 8.518670460392672
+            "2025-11": 13418.489999999998,
+            "2025-12": 14379.999999999998,
+            "2026-01": 11580.42,
+            "TOTAL": 390027.24999999994,
+            "%": 28.262844202898545
           }
         }
       }
@@ -5846,11 +6389,13 @@
             "2025-06": 127775.43000000001,
             "2025-07": 49560.63999999999,
             "2025-08": 92529.31999999996,
-            "2025-09": 84121.66,
-            "2025-10": 75356.83,
-            "2025-11": 144068.95999999996,
-            "TOTAL": 2137826.9199999995,
-            "%": 50.39583618050819
+            "2025-09": 87875.74000000002,
+            "2025-10": 77478.37999999999,
+            "2025-11": 179872.88,
+            "2025-12": -59181.90999999999,
+            "2026-01": 128855.60000000002,
+            "TOTAL": 2249180.1599999997,
+            "%": 162.98406956521737
           }
         }
       }
@@ -5883,9 +6428,11 @@
             "2025-08": 39011.79,
             "2025-09": 48225.41,
             "2025-10": 81052.4,
-            "2025-11": 15221.76,
-            "TOTAL": 393611.81000000006,
-            "%": 9.27876626021405
+            "2025-11": 28518.920000000002,
+            "2025-12": 29649.89,
+            "2026-01": 4940.0,
+            "TOTAL": 441498.86,
+            "%": 31.992671014492753
           }
         },
         "DESPESA EXTRA OPERACIONAL": {
@@ -5911,11 +6458,13 @@
             "2025-06": 40559.24,
             "2025-07": 14312.570000000002,
             "2025-08": 16111.449999999999,
-            "2025-09": 14215.029999999999,
-            "2025-10": 18325.79,
-            "2025-11": 6305.99,
-            "TOTAL": 641552.3199999998,
-            "%": 15.123565578426229
+            "2025-09": 14395.749999999998,
+            "2025-10": 18514.64,
+            "2025-11": 6480.63,
+            "2025-12": 6999.71,
+            "2026-01": 727.75,
+            "TOTAL": 649823.99,
+            "%": 47.08869492753623
           }
         },
         "RETIRADAS SÓCIOS": {
@@ -5943,9 +6492,11 @@
             "2025-08": 30001.0,
             "2025-09": 30000.0,
             "2025-10": 30000.0,
-            "2025-11": 200000.0,
-            "TOTAL": 1287429.96,
-            "%": 30.34909362916911
+            "2025-11": 211429.52,
+            "2025-12": 198570.47999999998,
+            "2026-01": 0.0,
+            "TOTAL": 1497429.96,
+            "%": 108.50941739130435
           }
         }
       }
@@ -5976,11 +6527,13 @@
             "2025-06": 29002.610000000008,
             "2025-07": -9399.850000000008,
             "2025-08": 37406.079999999965,
-            "2025-09": 21681.22,
-            "2025-10": -24021.359999999993,
-            "2025-11": 122541.20999999996,
-            "TOTAL": 1102662.7899999998,
-            "%": 25.99350434186791
+            "2025-09": 25254.580000000016,
+            "2025-10": -22088.660000000003,
+            "2025-11": 144873.33,
+            "2025-12": -95831.51,
+            "2026-01": 123187.85000000002,
+            "TOTAL": 1157857.3099999998,
+            "%": 83.90270362318839
           }
         },
         "RESULTADO": {
@@ -6006,11 +6559,13 @@
             "2025-06": -20997.389999999992,
             "2025-07": -27081.240000000005,
             "2025-08": 7405.079999999965,
-            "2025-09": -8318.779999999999,
-            "2025-10": -54021.35999999999,
-            "2025-11": -77458.79000000004,
-            "TOTAL": -105583.90000000023,
-            "%": -2.488970869400022
+            "2025-09": -4745.419999999984,
+            "2025-10": -52088.66,
+            "2025-11": -66556.19,
+            "2025-12": -294401.99,
+            "2026-01": 123187.85000000002,
+            "TOTAL": -260389.38000000018,
+            "%": -18.868795652173926
           }
         }
       }
@@ -6044,38 +6599,10 @@
             "2025-09": 297032.38,
             "2025-10": 327856.58,
             "2025-11": 0.0,
+            "2025-12": 0.0,
+            "2026-01": 0.0,
             "TOTAL": 2895405.58,
-            "%": 68.25453638024604
-          }
-        },
-        "SALDO": {
-          "nome_linha": "SALDO",
-          "valores": {
-            "2024-01": 0.0,
-            "2024-02": 0.0,
-            "2024-03": 0.0,
-            "2024-04": 0.0,
-            "2024-05": 0.0,
-            "2024-06": 0.0,
-            "2024-07": 0.0,
-            "2024-08": 0.0,
-            "2024-09": 0.0,
-            "2024-10": 0.0,
-            "2024-11": 0.0,
-            "2024-12": 0.0,
-            "2025-01": 0.0,
-            "2025-02": 0.0,
-            "2025-03": 0.0,
-            "2025-04": 0.0,
-            "2025-05": 0.0,
-            "2025-06": 0.0,
-            "2025-07": 0.0,
-            "2025-08": 0.0,
-            "2025-09": 0.0,
-            "2025-10": 0.0,
-            "2025-11": 0.0,
-            "TOTAL": 0.0,
-            "%": 0.0
+            "%": 209.81199855072467
           }
         }
       }
@@ -6106,11 +6633,13 @@
             "2025-06": 278827.1,
             "2025-07": 286784.46,
             "2025-08": 336187.52999999997,
-            "2025-09": 288713.6,
-            "2025-10": 273835.22000000003,
-            "2025-11": -77458.79000000004,
-            "TOTAL": 2789821.6799999997,
-            "%": 65.76556551084602
+            "2025-09": 292286.96,
+            "2025-10": 275767.92000000004,
+            "2025-11": -66556.19,
+            "2025-12": -294401.99,
+            "2026-01": 123187.85000000002,
+            "TOTAL": 2635016.1999999997,
+            "%": 190.9432028985507
           }
         }
       }
@@ -6130,18 +6659,20 @@
       "2024-10": 0.0,
       "2024-11": 0.0,
       "2024-12": 0.0,
-      "2025-01": 358206.95,
-      "2025-02": 409346.59,
-      "2025-03": 323304.23,
-      "2025-04": 437615.59,
-      "2025-05": 390408.4,
-      "2025-06": 464503.1,
-      "2025-07": 459651.74,
-      "2025-08": 420603.16,
-      "2025-09": 538410.93,
-      "2025-10": 440019.85,
-      "2025-11": 0.0,
-      "TOTAL": 4242070.540000001,
+      "2025-01": 0.0,
+      "2025-02": 0.0,
+      "2025-03": 0.0,
+      "2025-04": 0.0,
+      "2025-05": 0.0,
+      "2025-06": 0.0,
+      "2025-07": 0.0,
+      "2025-08": 0.0,
+      "2025-09": 0.0,
+      "2025-10": 0.0,
+      "2025-11": 450000.0,
+      "2025-12": 460000.0,
+      "2026-01": 470000.0,
+      "TOTAL": 1380000.0,
       "%": 100.0
     },
     {
@@ -6165,11 +6696,13 @@
       "2025-06": 390767.37,
       "2025-07": 466197.38,
       "2025-08": 440123.36,
-      "2025-09": 429865.62,
-      "2025-10": 429588.67,
-      "2025-11": 296599.74,
-      "TOTAL": 8716373.35,
-      "%": 205.4745027884425
+      "2025-09": 433619.7,
+      "2025-10": 431788.31,
+      "2025-11": 459685.07,
+      "2025-12": 381845.1,
+      "2026-01": 230417.40000000002,
+      "TOTAL": 9497674.9,
+      "%": 688.237311594203
     },
     {
       "2024-01": 49814.39,
@@ -6193,10 +6726,12 @@
       "2025-07": 103705.02,
       "2025-08": 41963.0,
       "2025-09": 42404.85,
-      "2025-10": 99531.26000000001,
-      "2025-11": 31408.89,
-      "TOTAL": 1169400.0999999999,
-      "%": 27.56672924161227
+      "2025-10": 99609.35,
+      "2025-11": 46698.5,
+      "2025-12": 55487.600000000006,
+      "2026-01": 8175.6,
+      "TOTAL": 1248431.0,
+      "%": 90.46601449275362
     },
     {
       "2024-01": 114601.93,
@@ -6221,9 +6756,11 @@
       "2025-08": 214784.6,
       "2025-09": 214798.57,
       "2025-10": 168158.41999999998,
-      "2025-11": 84159.48000000001,
-      "TOTAL": 3750477.8499999996,
-      "%": 88.41149185605006
+      "2025-11": 171753.24000000002,
+      "2025-12": 254413.25,
+      "2026-01": 46366.39,
+      "TOTAL": 4138851.2500000005,
+      "%": 299.91675724637685
     },
     {
       "2024-01": 86558.47000000003,
@@ -6246,11 +6783,13 @@
       "2025-06": 205683.13,
       "2025-07": 146315.46,
       "2025-08": 183375.75999999998,
-      "2025-09": 172662.2,
-      "2025-10": 161898.99,
-      "2025-11": 181031.36999999997,
-      "TOTAL": 3796495.3999999994,
-      "%": 89.49628169078014
+      "2025-09": 176416.28000000003,
+      "2025-10": 164020.53999999998,
+      "2025-11": 241233.33,
+      "2025-12": 71944.25,
+      "2026-01": 175875.41000000003,
+      "TOTAL": 4110392.6499999994,
+      "%": 297.85453985507246
     },
     {
       "2024-01": 32440.97,
@@ -6275,9 +6814,11 @@
       "2025-08": 65996.28000000001,
       "2025-09": 68066.56000000001,
       "2025-10": 66783.26999999999,
-      "2025-11": 26242.74,
-      "TOTAL": 1297300.47,
-      "%": 30.58177504987929
+      "2025-11": 47941.96000000001,
+      "2025-12": 116746.15999999999,
+      "2026-01": 35439.39,
+      "TOTAL": 1471185.24,
+      "%": 106.60762608695653
     },
     {
       "2024-01": 9390.119999999999,
@@ -6302,9 +6843,11 @@
       "2025-08": 24850.16,
       "2025-09": 20473.98,
       "2025-10": 19758.89,
-      "2025-11": 10719.67,
-      "TOTAL": 361368.00999999995,
-      "%": 8.518670460392672
+      "2025-11": 13418.489999999998,
+      "2025-12": 14379.999999999998,
+      "2026-01": 11580.42,
+      "TOTAL": 390027.24999999994,
+      "%": 28.262844202898545
     },
     {
       "2024-01": 44727.380000000034,
@@ -6327,11 +6870,13 @@
       "2025-06": 127775.43000000001,
       "2025-07": 49560.63999999999,
       "2025-08": 92529.31999999996,
-      "2025-09": 84121.66,
-      "2025-10": 75356.83,
-      "2025-11": 144068.95999999996,
-      "TOTAL": 2137826.9199999995,
-      "%": 50.39583618050819
+      "2025-09": 87875.74000000002,
+      "2025-10": 77478.37999999999,
+      "2025-11": 179872.88,
+      "2025-12": -59181.90999999999,
+      "2026-01": 128855.60000000002,
+      "TOTAL": 2249180.1599999997,
+      "%": 162.98406956521737
     },
     {
       "2024-01": 0.0,
@@ -6356,9 +6901,11 @@
       "2025-08": 39011.79,
       "2025-09": 48225.41,
       "2025-10": 81052.4,
-      "2025-11": 15221.76,
-      "TOTAL": 393611.81000000006,
-      "%": 9.27876626021405
+      "2025-11": 28518.920000000002,
+      "2025-12": 29649.89,
+      "2026-01": 4940.0,
+      "TOTAL": 441498.86,
+      "%": 31.992671014492753
     },
     {
       "2024-01": 20451.590000000004,
@@ -6381,11 +6928,13 @@
       "2025-06": 40559.24,
       "2025-07": 14312.570000000002,
       "2025-08": 16111.449999999999,
-      "2025-09": 14215.029999999999,
-      "2025-10": 18325.79,
-      "2025-11": 6305.99,
-      "TOTAL": 641552.3199999998,
-      "%": 15.123565578426229
+      "2025-09": 14395.749999999998,
+      "2025-10": 18514.64,
+      "2025-11": 6480.63,
+      "2025-12": 6999.71,
+      "2026-01": 727.75,
+      "TOTAL": 649823.99,
+      "%": 47.08869492753623
     },
     {
       "2024-01": 24275.79000000003,
@@ -6408,11 +6957,13 @@
       "2025-06": 29002.610000000008,
       "2025-07": -9399.850000000008,
       "2025-08": 37406.079999999965,
-      "2025-09": 21681.22,
-      "2025-10": -24021.359999999993,
-      "2025-11": 122541.20999999996,
-      "TOTAL": 1102662.7899999998,
-      "%": 25.99350434186791
+      "2025-09": 25254.580000000016,
+      "2025-10": -22088.660000000003,
+      "2025-11": 144873.33,
+      "2025-12": -95831.51,
+      "2026-01": 123187.85000000002,
+      "TOTAL": 1157857.3099999998,
+      "%": 83.90270362318839
     },
     {
       "2024-01": 36170.43,
@@ -6437,9 +6988,11 @@
       "2025-08": 30001.0,
       "2025-09": 30000.0,
       "2025-10": 30000.0,
-      "2025-11": 200000.0,
-      "TOTAL": 1287429.96,
-      "%": 30.34909362916911
+      "2025-11": 211429.52,
+      "2025-12": 198570.47999999998,
+      "2026-01": 0.0,
+      "TOTAL": 1497429.96,
+      "%": 108.50941739130435
     },
     {
       "2024-01": 0.0,
@@ -6465,8 +7018,10 @@
       "2025-09": 0.0,
       "2025-10": 0.0,
       "2025-11": 0.0,
+      "2025-12": 0.0,
+      "2026-01": 0.0,
       "TOTAL": 79183.27,
-      "%": 1.8666184179011787
+      "%": 5.737918115942029
     },
     {
       "2024-01": -11894.63999999997,
@@ -6489,11 +7044,13 @@
       "2025-06": -20997.389999999992,
       "2025-07": -27081.240000000005,
       "2025-08": 7405.079999999965,
-      "2025-09": -8318.779999999999,
-      "2025-10": -54021.35999999999,
-      "2025-11": -77458.79000000004,
-      "TOTAL": -105583.90000000023,
-      "%": -2.488970869400022
+      "2025-09": -4745.419999999984,
+      "2025-10": -52088.66,
+      "2025-11": -66556.19,
+      "2025-12": -294401.99,
+      "2026-01": 123187.85000000002,
+      "TOTAL": -260389.38000000018,
+      "%": -18.868795652173926
     },
     {
       "2024-01": 0.0,
@@ -6519,35 +7076,10 @@
       "2025-09": 297032.38,
       "2025-10": 327856.58,
       "2025-11": 0.0,
+      "2025-12": 0.0,
+      "2026-01": 0.0,
       "TOTAL": 2895405.58,
-      "%": 68.25453638024604
-    },
-    {
-      "2024-01": 0.0,
-      "2024-02": 0.0,
-      "2024-03": 0.0,
-      "2024-04": 0.0,
-      "2024-05": 0.0,
-      "2024-06": 0.0,
-      "2024-07": 0.0,
-      "2024-08": 0.0,
-      "2024-09": 0.0,
-      "2024-10": 0.0,
-      "2024-11": 0.0,
-      "2024-12": 0.0,
-      "2025-01": 0.0,
-      "2025-02": 0.0,
-      "2025-03": 0.0,
-      "2025-04": 0.0,
-      "2025-05": 0.0,
-      "2025-06": 0.0,
-      "2025-07": 0.0,
-      "2025-08": 0.0,
-      "2025-09": 0.0,
-      "2025-10": 0.0,
-      "2025-11": 0.0,
-      "TOTAL": 0.0,
-      "%": 0.0
+      "%": 209.81199855072467
     },
     {
       "2024-01": -11894.63999999997,
@@ -6570,11 +7102,13 @@
       "2025-06": 278827.1,
       "2025-07": 286784.46,
       "2025-08": 336187.52999999997,
-      "2025-09": 288713.6,
-      "2025-10": 273835.22000000003,
-      "2025-11": -77458.79000000004,
-      "TOTAL": 2789821.6799999997,
-      "%": 65.76556551084602
+      "2025-09": 292286.96,
+      "2025-10": 275767.92000000004,
+      "2025-11": -66556.19,
+      "2025-12": -294401.99,
+      "2026-01": 123187.85000000002,
+      "TOTAL": 2635016.1999999997,
+      "%": 190.9432028985507
     }
   ],
   "dados_indexados": {
@@ -6591,18 +7125,20 @@
       "2024-10": 0.0,
       "2024-11": 0.0,
       "2024-12": 0.0,
-      "2025-01": 358206.95,
-      "2025-02": 409346.59,
-      "2025-03": 323304.23,
-      "2025-04": 437615.59,
-      "2025-05": 390408.4,
-      "2025-06": 464503.1,
-      "2025-07": 459651.74,
-      "2025-08": 420603.16,
-      "2025-09": 538410.93,
-      "2025-10": 440019.85,
-      "2025-11": 0.0,
-      "TOTAL": 4242070.540000001,
+      "2025-01": 0.0,
+      "2025-02": 0.0,
+      "2025-03": 0.0,
+      "2025-04": 0.0,
+      "2025-05": 0.0,
+      "2025-06": 0.0,
+      "2025-07": 0.0,
+      "2025-08": 0.0,
+      "2025-09": 0.0,
+      "2025-10": 0.0,
+      "2025-11": 450000.0,
+      "2025-12": 460000.0,
+      "2026-01": 470000.0,
+      "TOTAL": 1380000.0,
       "%": 100.0
     },
     "RECEITA": {
@@ -6626,11 +7162,13 @@
       "2025-06": 390767.37,
       "2025-07": 466197.38,
       "2025-08": 440123.36,
-      "2025-09": 429865.62,
-      "2025-10": 429588.67,
-      "2025-11": 296599.74,
-      "TOTAL": 8716373.35,
-      "%": 205.4745027884425
+      "2025-09": 433619.7,
+      "2025-10": 431788.31,
+      "2025-11": 459685.07,
+      "2025-12": 381845.1,
+      "2026-01": 230417.40000000002,
+      "TOTAL": 9497674.9,
+      "%": 688.237311594203
     },
     "IMPOSTOS": {
       "2024-01": 49814.39,
@@ -6654,10 +7192,12 @@
       "2025-07": 103705.02,
       "2025-08": 41963.0,
       "2025-09": 42404.85,
-      "2025-10": 99531.26000000001,
-      "2025-11": 31408.89,
-      "TOTAL": 1169400.0999999999,
-      "%": 27.56672924161227
+      "2025-10": 99609.35,
+      "2025-11": 46698.5,
+      "2025-12": 55487.600000000006,
+      "2026-01": 8175.6,
+      "TOTAL": 1248431.0,
+      "%": 90.46601449275362
     },
     "DESPESA OPERACIONAL": {
       "2024-01": 114601.93,
@@ -6682,9 +7222,11 @@
       "2025-08": 214784.6,
       "2025-09": 214798.57,
       "2025-10": 168158.41999999998,
-      "2025-11": 84159.48000000001,
-      "TOTAL": 3750477.8499999996,
-      "%": 88.41149185605006
+      "2025-11": 171753.24000000002,
+      "2025-12": 254413.25,
+      "2026-01": 46366.39,
+      "TOTAL": 4138851.2500000005,
+      "%": 299.91675724637685
     },
     "MARGEM CONTRIBUIÇÃO": {
       "2024-01": 86558.47000000003,
@@ -6707,11 +7249,13 @@
       "2025-06": 205683.13,
       "2025-07": 146315.46,
       "2025-08": 183375.75999999998,
-      "2025-09": 172662.2,
-      "2025-10": 161898.99,
-      "2025-11": 181031.36999999997,
-      "TOTAL": 3796495.3999999994,
-      "%": 89.49628169078014
+      "2025-09": 176416.28000000003,
+      "2025-10": 164020.53999999998,
+      "2025-11": 241233.33,
+      "2025-12": 71944.25,
+      "2026-01": 175875.41000000003,
+      "TOTAL": 4110392.6499999994,
+      "%": 297.85453985507246
     },
     "DESPESAS COM PESSOAL": {
       "2024-01": 32440.97,
@@ -6736,9 +7280,11 @@
       "2025-08": 65996.28000000001,
       "2025-09": 68066.56000000001,
       "2025-10": 66783.26999999999,
-      "2025-11": 26242.74,
-      "TOTAL": 1297300.47,
-      "%": 30.58177504987929
+      "2025-11": 47941.96000000001,
+      "2025-12": 116746.15999999999,
+      "2026-01": 35439.39,
+      "TOTAL": 1471185.24,
+      "%": 106.60762608695653
     },
     "DESPESA ADMINISTRATIVA": {
       "2024-01": 9390.119999999999,
@@ -6763,9 +7309,11 @@
       "2025-08": 24850.16,
       "2025-09": 20473.98,
       "2025-10": 19758.89,
-      "2025-11": 10719.67,
-      "TOTAL": 361368.00999999995,
-      "%": 8.518670460392672
+      "2025-11": 13418.489999999998,
+      "2025-12": 14379.999999999998,
+      "2026-01": 11580.42,
+      "TOTAL": 390027.24999999994,
+      "%": 28.262844202898545
     },
     "LUCRO OPERACIONAL": {
       "2024-01": 44727.380000000034,
@@ -6788,11 +7336,13 @@
       "2025-06": 127775.43000000001,
       "2025-07": 49560.63999999999,
       "2025-08": 92529.31999999996,
-      "2025-09": 84121.66,
-      "2025-10": 75356.83,
-      "2025-11": 144068.95999999996,
-      "TOTAL": 2137826.9199999995,
-      "%": 50.39583618050819
+      "2025-09": 87875.74000000002,
+      "2025-10": 77478.37999999999,
+      "2025-11": 179872.88,
+      "2025-12": -59181.90999999999,
+      "2026-01": 128855.60000000002,
+      "TOTAL": 2249180.1599999997,
+      "%": 162.98406956521737
     },
     "INVESTIMENTOS": {
       "2024-01": 0.0,
@@ -6817,9 +7367,11 @@
       "2025-08": 39011.79,
       "2025-09": 48225.41,
       "2025-10": 81052.4,
-      "2025-11": 15221.76,
-      "TOTAL": 393611.81000000006,
-      "%": 9.27876626021405
+      "2025-11": 28518.920000000002,
+      "2025-12": 29649.89,
+      "2026-01": 4940.0,
+      "TOTAL": 441498.86,
+      "%": 31.992671014492753
     },
     "DESPESA EXTRA OPERACIONAL": {
       "2024-01": 20451.590000000004,
@@ -6842,11 +7394,13 @@
       "2025-06": 40559.24,
       "2025-07": 14312.570000000002,
       "2025-08": 16111.449999999999,
-      "2025-09": 14215.029999999999,
-      "2025-10": 18325.79,
-      "2025-11": 6305.99,
-      "TOTAL": 641552.3199999998,
-      "%": 15.123565578426229
+      "2025-09": 14395.749999999998,
+      "2025-10": 18514.64,
+      "2025-11": 6480.63,
+      "2025-12": 6999.71,
+      "2026-01": 727.75,
+      "TOTAL": 649823.99,
+      "%": 47.08869492753623
     },
     "LUCRO LIQUIDO": {
       "2024-01": 24275.79000000003,
@@ -6869,11 +7423,13 @@
       "2025-06": 29002.610000000008,
       "2025-07": -9399.850000000008,
       "2025-08": 37406.079999999965,
-      "2025-09": 21681.22,
-      "2025-10": -24021.359999999993,
-      "2025-11": 122541.20999999996,
-      "TOTAL": 1102662.7899999998,
-      "%": 25.99350434186791
+      "2025-09": 25254.580000000016,
+      "2025-10": -22088.660000000003,
+      "2025-11": 144873.33,
+      "2025-12": -95831.51,
+      "2026-01": 123187.85000000002,
+      "TOTAL": 1157857.3099999998,
+      "%": 83.90270362318839
     },
     "RETIRADAS SÓCIOS": {
       "2024-01": 36170.43,
@@ -6898,9 +7454,11 @@
       "2025-08": 30001.0,
       "2025-09": 30000.0,
       "2025-10": 30000.0,
-      "2025-11": 200000.0,
-      "TOTAL": 1287429.96,
-      "%": 30.34909362916911
+      "2025-11": 211429.52,
+      "2025-12": 198570.47999999998,
+      "2026-01": 0.0,
+      "TOTAL": 1497429.96,
+      "%": 108.50941739130435
     },
     "RECEITA EXTRA OPERACIONAL": {
       "2024-01": 0.0,
@@ -6926,8 +7484,10 @@
       "2025-09": 0.0,
       "2025-10": 0.0,
       "2025-11": 0.0,
+      "2025-12": 0.0,
+      "2026-01": 0.0,
       "TOTAL": 79183.27,
-      "%": 1.8666184179011787
+      "%": 5.737918115942029
     },
     "RESULTADO": {
       "2024-01": -11894.63999999997,
@@ -6950,11 +7510,13 @@
       "2025-06": -20997.389999999992,
       "2025-07": -27081.240000000005,
       "2025-08": 7405.079999999965,
-      "2025-09": -8318.779999999999,
-      "2025-10": -54021.35999999999,
-      "2025-11": -77458.79000000004,
-      "TOTAL": -105583.90000000023,
-      "%": -2.488970869400022
+      "2025-09": -4745.419999999984,
+      "2025-10": -52088.66,
+      "2025-11": -66556.19,
+      "2025-12": -294401.99,
+      "2026-01": 123187.85000000002,
+      "TOTAL": -260389.38000000018,
+      "%": -18.868795652173926
     },
     "ESTOQUE": {
       "2024-01": 0.0,
@@ -6980,35 +7542,10 @@
       "2025-09": 297032.38,
       "2025-10": 327856.58,
       "2025-11": 0.0,
+      "2025-12": 0.0,
+      "2026-01": 0.0,
       "TOTAL": 2895405.58,
-      "%": 68.25453638024604
-    },
-    "SALDO": {
-      "2024-01": 0.0,
-      "2024-02": 0.0,
-      "2024-03": 0.0,
-      "2024-04": 0.0,
-      "2024-05": 0.0,
-      "2024-06": 0.0,
-      "2024-07": 0.0,
-      "2024-08": 0.0,
-      "2024-09": 0.0,
-      "2024-10": 0.0,
-      "2024-11": 0.0,
-      "2024-12": 0.0,
-      "2025-01": 0.0,
-      "2025-02": 0.0,
-      "2025-03": 0.0,
-      "2025-04": 0.0,
-      "2025-05": 0.0,
-      "2025-06": 0.0,
-      "2025-07": 0.0,
-      "2025-08": 0.0,
-      "2025-09": 0.0,
-      "2025-10": 0.0,
-      "2025-11": 0.0,
-      "TOTAL": 0.0,
-      "%": 0.0
+      "%": 209.81199855072467
     },
     "RESULTADO GERENCIAL": {
       "2024-01": -11894.63999999997,
@@ -7031,42 +7568,44 @@
       "2025-06": 278827.1,
       "2025-07": 286784.46,
       "2025-08": 336187.52999999997,
-      "2025-09": 288713.6,
-      "2025-10": 273835.22000000003,
-      "2025-11": -77458.79000000004,
-      "TOTAL": 2789821.6799999997,
-      "%": 65.76556551084602
+      "2025-09": 292286.96,
+      "2025-10": 275767.92000000004,
+      "2025-11": -66556.19,
+      "2025-12": -294401.99,
+      "2026-01": 123187.85000000002,
+      "TOTAL": 2635016.1999999997,
+      "%": 190.9432028985507
     }
   },
   "resumo_dre": {
     "totais_por_secao": {
       "receitas": {
         "nome": "RECEITAS",
-        "total": 13037627.16
+        "total": 10956858.17
       },
       "custos_diretos": {
         "nome": "CUSTOS E DESPESAS DIRETAS",
-        "total": 4919877.949999999
+        "total": 5387282.25
       },
       "margem_contribuicao": {
         "nome": "MARGEM DE CONTRIBUIÇÃO",
-        "total": 3796495.3999999994
+        "total": 4110392.6499999994
       },
       "despesas_operacionais": {
         "nome": "DESPESAS OPERACIONAIS",
-        "total": 1658668.48
+        "total": 1861212.49
       },
       "resultado_operacional": {
         "nome": "RESULTADO OPERACIONAL",
-        "total": 2137826.9199999995
+        "total": 2249180.1599999997
       },
       "outras_despesas": {
         "nome": "OUTRAS DESPESAS E INVESTIMENTOS",
-        "total": 2322594.09
+        "total": 2588752.81
       },
       "resultado_liquido": {
         "nome": "RESULTADO LÍQUIDO",
-        "total": 997078.8899999995
+        "total": 897467.9299999997
       },
       "patrimonial": {
         "nome": "INFORMAÇÕES PATRIMONIAIS",
@@ -7074,16 +7613,16 @@
       },
       "resultado_gerencial": {
         "nome": "RESULTADO GERENCIAL FINAL",
-        "total": 2789821.6799999997
+        "total": 2635016.1999999997
       }
     },
-    "total_receitas": 13037627.16,
-    "total_custos_diretos": 4919877.949999999,
-    "total_despesas_operacionais": 1658668.48,
-    "resultado_liquido": 997078.8899999995,
-    "custos_diretos": 4919877.949999999,
-    "custos_administrativos": 1658668.48,
-    "despesas_extra": 1035164.1299999999,
-    "retiradas": 1287429.96
+    "total_receitas": 10956858.17,
+    "total_custos_diretos": 5387282.25,
+    "total_despesas_operacionais": 1861212.49,
+    "resultado_liquido": 897467.9299999997,
+    "custos_diretos": 5387282.25,
+    "custos_administrativos": 1861212.49,
+    "despesas_extra": 1091322.85,
+    "retiradas": 1497429.96
   }
 }

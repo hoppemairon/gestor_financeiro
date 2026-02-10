@@ -1,0 +1,11 @@
+{
+  "licenca": "MT INFORMATICA",
+  "data_geracao": "2026-01-14T16:47:35.998374",
+  "timestamp": "20260114_164735",
+  "parecer_texto": "Erro: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-********************************************************************************************************************************************************MT0A. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}",
+  "metadata": {
+    "descricao_empresa": "Empresa de suporte de informática dentro de Santo Antonio da Patrulha RS",
+    "periodo_analise": "2025-10 a 2025-12",
+    "total_caracteres": 408
+  }
+}

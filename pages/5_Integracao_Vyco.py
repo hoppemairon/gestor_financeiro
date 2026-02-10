@@ -1698,7 +1698,8 @@ def coletar_faturamentos_vyco(df_transacoes, licenca_nome):
             )
             
             try:
-                valor_numerico = float(input_valor.replace(".", "").replace(",", ".").strip())
+                # Usar função helper que trata corretamente R$ e formatação BR
+                valor_numerico = converter_para_float(input_valor)
                 valores_input[mes] = valor_numerico
                 dados_atualizados[mes] = valor_numerico
             except:
@@ -1761,7 +1762,8 @@ def coletar_estoques_vyco(df_transacoes, licenca_nome):
             )
             
             try:
-                valor_numerico = float(input_valor.replace(".", "").replace(",", ".").strip())
+                # Usar função helper que trata corretamente R$ e formatação BR
+                valor_numerico = converter_para_float(input_valor)
                 valores_input[mes] = valor_numerico
                 dados_atualizados[mes] = valor_numerico
             except:
