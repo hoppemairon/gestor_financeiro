@@ -1,13 +1,12 @@
 {
   "empresa": "MT INFORMATICA",
-  "timestamp": "2026-02-21T19:57:47.440448",
+  "timestamp": "2026-02-22T09:47:36.382257",
   "tipo": "transacoes_categorizadas",
   "metadata": {
     "licenca": "MT INFORMATICA",
     "total_transacoes": 2021,
-    "gerado_em": "2026-02-21T19:57:47.398970",
-    "origem": "vyco_parecer_gpt",
-    "descricao_empresa": "A MT Informática, localizada em Santo Antônio da Patrulha - RS, é uma empresa de TI com 14 anos de experiência, focada em suporte técnico, soluções em infraestrutura, redes, segurança, e consultoria para empresas. Oferece serviços como monitoramento de redes, backup em nuvem, virtualização, certificação digital e suporte remoto/presencial"
+    "gerado_em": "2026-02-22T09:47:36.291861",
+    "origem": "vyco_integração"
   },
   "total_transacoes": 2021,
   "transacoes": [
@@ -22,7 +21,7 @@
       "Valor_Formatado": "R$ 60,00"
     },
     {
-      "Descrição": "ACESSO REMOTO - LABSAP",
+      "Descrição": "ACESSO REMOTO - PINDORAMA",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -32,7 +31,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "ACESSO REMOTO - PINDORAMA",
+      "Descrição": "ACESSO REMOTO - LABSAP",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -522,7 +521,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX-PIX_CRED ***239330** TONI BAZARELLI BORGES",
+      "Descrição": "RECEBIMENTO PIX ECOFIELD E M A LTDA 08.549.629 0001-05 - VENDA - ECOFIELD",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 90.0,
       "Tipo": "Crédito",
@@ -532,7 +531,7 @@
       "Valor_Formatado": "R$ 90,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX ECOFIELD E M A LTDA 08.549.629 0001-05 - VENDA - ECOFIELD",
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED ***239330** TONI BAZARELLI BORGES",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 90.0,
       "Tipo": "Crédito",
@@ -1122,7 +1121,7 @@
       "Valor_Formatado": "R$ 60,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - SAVALE",
+      "Descrição": "RECEBIMENTO PIX PRISCILA DA ROSA SANTOS ***.906.130-** PACOTE OFFICE PRISCILA TOP COM - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 60.0,
       "Tipo": "Crédito",
@@ -1132,7 +1131,7 @@
       "Valor_Formatado": "R$ 60,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX PRISCILA DA ROSA SANTOS ***.906.130-** PACOTE OFFICE PRISCILA TOP COM - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - SAVALE",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 60.0,
       "Tipo": "Crédito",
@@ -1192,6 +1191,16 @@
       "Valor_Formatado": "R$ 79,16"
     },
     {
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - AÇORIANA",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 100.0,
+      "Tipo": "Crédito",
+      "Data": "2025-10-13 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 100,00"
+    },
+    {
       "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - SAP 7",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 100.0,
@@ -1203,16 +1212,6 @@
     },
     {
       "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - MARCO ZERO",
-      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
-      "Valor (R$)": 100.0,
-      "Tipo": "Crédito",
-      "Data": "2025-10-13 00:00:00",
-      "Categoria": "Receita de Serviços",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 100,00"
-    },
-    {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - AÇORIANA",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -1302,7 +1301,7 @@
       "Valor_Formatado": "R$ 200,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - CONNECT",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - SAVALE",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 200.0,
       "Tipo": "Crédito",
@@ -1312,7 +1311,7 @@
       "Valor_Formatado": "R$ 200,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - SAVALE",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - CONNECT",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 200.0,
       "Tipo": "Crédito",
@@ -1622,7 +1621,7 @@
       "Valor_Formatado": "R$ 90,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - J EDUARDO",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - DIST. LOPES",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -1632,7 +1631,7 @@
       "Valor_Formatado": "R$ 120,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - DIST. LOPES",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - J EDUARDO",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -1842,7 +1841,7 @@
       "Valor_Formatado": "R$ 75,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX HELENITA MARKOWSKI ***.047.640-** MANUT E CABO DE INTERNET - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX C A ZANOTTO AMP CIA LTDA 93.306.736 0001-73 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -1852,7 +1851,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX C A ZANOTTO AMP CIA LTDA 93.306.736 0001-73 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX HELENITA MARKOWSKI ***.047.640-** MANUT E CABO DE INTERNET - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -2282,7 +2281,7 @@
       "Valor_Formatado": "R$ 160,00"
     },
     {
-      "Descrição": "CERTIFICADO E-CNPJ A1 - FABRICA DE EMBUTIDOS DI VALORE LTDA",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - OFICINA MARQUES",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -2292,7 +2291,7 @@
       "Valor_Formatado": "R$ 195,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - OFICINA MARQUES",
+      "Descrição": "CERTIFICADO E-CNPJ A1 - FABRICA DE EMBUTIDOS DI VALORE LTDA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -2382,7 +2381,7 @@
       "Valor_Formatado": "R$ 158,32"
     },
     {
-      "Descrição": "RECEBIMENTO PIX-PIX_CRED 88883152000120 N. T. DOS SANTOS LTDA",
+      "Descrição": "RECEBIMENTO PIX FRANCISCO JUNIOR DA SILVA ***.533.280-** - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 160.0,
       "Tipo": "Crédito",
@@ -2392,7 +2391,7 @@
       "Valor_Formatado": "R$ 160,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX FRANCISCO JUNIOR DA SILVA ***.533.280-** - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED 88883152000120 N. T. DOS SANTOS LTDA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 160.0,
       "Tipo": "Crédito",
@@ -2542,7 +2541,7 @@
       "Valor_Formatado": "R$ 50,00"
     },
     {
-      "Descrição": "RENI PIRES",
+      "Descrição": "RECEBIMENTO PIX WV MATERIAIS DE CONSTRUCAO 05.483.650 0001-59 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 60.0,
       "Tipo": "Crédito",
@@ -2552,7 +2551,7 @@
       "Valor_Formatado": "R$ 60,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX WV MATERIAIS DE CONSTRUCAO 05.483.650 0001-59 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RENI PIRES",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 60.0,
       "Tipo": "Crédito",
@@ -2572,17 +2571,7 @@
       "Valor_Formatado": "R$ 78,16"
     },
     {
-      "Descrição": "RECEBIMENTO PIX STEFANI RODRIGUES DA SILVA ***.344.680-** - PIX RECEBIDO - OUTRA IF",
-      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
-      "Valor (R$)": 80.0,
-      "Tipo": "Crédito",
-      "Data": "2025-10-27 00:00:00",
-      "Categoria": "Receita de Serviços",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 80,00"
-    },
-    {
-      "Descrição": "RECEBIMENTO PIX RONILDA SOARES RAMOS 03.433.529 0001-97 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX ADRIANO RAMOS MICHELON ***.860.280-** - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -2602,7 +2591,17 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX ADRIANO RAMOS MICHELON ***.860.280-** - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX STEFANI RODRIGUES DA SILVA ***.344.680-** - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2025-10-27 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX RONILDA SOARES RAMOS 03.433.529 0001-97 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -2652,7 +2651,7 @@
       "Valor_Formatado": "R$ 120,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX-PIX_CRED 94489351020 GABRIEL FERNANDES LOPES MULLER",
+      "Descrição": "RECEBIMENTO PIX RUBEM CARLOS SOARES ***.627.770-** - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 180.0,
       "Tipo": "Crédito",
@@ -2662,7 +2661,7 @@
       "Valor_Formatado": "R$ 180,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX RUBEM CARLOS SOARES ***.627.770-** - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED 94489351020 GABRIEL FERNANDES LOPES MULLER",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 180.0,
       "Tipo": "Crédito",
@@ -2992,7 +2991,7 @@
       "Valor_Formatado": "R$ 93,33"
     },
     {
-      "Descrição": "RECEBIMENTO PIX AUTO POSTO PARAISO LTDA 12.321.423 0001-92 PAGAMENTO NFSE. 2025648 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX AUTO POSTO BOA VIAGEM LTDA 02.463.295 0001-68 PAGAMENTO NFSE. 2025649 PORTO ALEGRE - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -3002,7 +3001,7 @@
       "Valor_Formatado": "R$ 120,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX AUTO POSTO BOA VIAGEM LTDA 02.463.295 0001-68 PAGAMENTO NFSE. 2025649 PORTO ALEGRE - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX AUTO POSTO PARAISO LTDA 12.321.423 0001-92 PAGAMENTO NFSE. 2025648 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -3402,7 +3401,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "RESTAURANTE PITANGUEIRAS",
+      "Descrição": "SERGIO R S",
       "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -3412,7 +3411,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "SERGIO R S",
+      "Descrição": "RESTAURANTE PITANGUEIRAS",
       "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -3572,7 +3571,7 @@
       "Valor_Formatado": "R$ 60,00"
     },
     {
-      "Descrição": "MGV",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - TRPA",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -3582,7 +3581,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - TRPA",
+      "Descrição": "MGV",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -3762,7 +3761,7 @@
       "Valor_Formatado": "R$ 90,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - DUTRA",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - LAUCK",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -3772,7 +3771,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - LAUCK",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - DUTRA",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -4342,7 +4341,7 @@
       "Valor_Formatado": "R$ 150,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - SAVALE",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - POSTO MARCO ZERO",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 150.0,
       "Tipo": "Crédito",
@@ -4352,7 +4351,7 @@
       "Valor_Formatado": "R$ 150,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - POSTO MARCO ZERO",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - SAVALE",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 150.0,
       "Tipo": "Crédito",
@@ -6192,7 +6191,7 @@
       "Valor_Formatado": "R$ 60,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - WELTPAX",
+      "Descrição": "RECEBIMENTO PIX KATIELE APARECIDA DOS SANTOS ***.455.550-** - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -6202,7 +6201,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX KATIELE APARECIDA DOS SANTOS ***.455.550-** - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - WELTPAX",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -6562,16 +6561,6 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - M P COELHO",
-      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
-      "Valor (R$)": 80.0,
-      "Tipo": "Crédito",
-      "Data": "2025-12-08 00:00:00",
-      "Categoria": "Receita de Serviços",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 80,00"
-    },
-    {
       "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - BLOOMS",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
@@ -6583,6 +6572,16 @@
     },
     {
       "Descrição": "RECEBIMENTO PIX MANIA MODA E CALCADOS LTDA 02.711.105 0001-84 - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2025-12-08 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - M P COELHO",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -6672,6 +6671,16 @@
       "Valor_Formatado": "R$ 125,00"
     },
     {
+      "Descrição": "RECEBIMENTO PIX RONALDO OLIVEIRA CONTABILIDADE LTDA 32.296.217 0001-87 DELETAR ARQUIVOS - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 150.0,
+      "Tipo": "Crédito",
+      "Data": "2025-12-08 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 150,00"
+    },
+    {
       "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - HALD",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 150.0,
@@ -6683,16 +6692,6 @@
     },
     {
       "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - ECOFIELD",
-      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
-      "Valor (R$)": 150.0,
-      "Tipo": "Crédito",
-      "Data": "2025-12-08 00:00:00",
-      "Categoria": "Receita de Serviços",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 150,00"
-    },
-    {
-      "Descrição": "RECEBIMENTO PIX RONALDO OLIVEIRA CONTABILIDADE LTDA 32.296.217 0001-87 DELETAR ARQUIVOS - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 150.0,
       "Tipo": "Crédito",
@@ -6912,7 +6911,7 @@
       "Valor_Formatado": "R$ 95,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX MILTON JUNIOR RAMOS PEREIRA ***.517.040-** - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - J EDUARDO",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -6922,7 +6921,7 @@
       "Valor_Formatado": "R$ 120,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - J EDUARDO",
+      "Descrição": "RECEBIMENTO PIX MILTON JUNIOR RAMOS PEREIRA ***.517.040-** - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -7642,7 +7641,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX VIVENDA PROJETOS E DECORACAO LTDA 29.275.939 0001-40 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX SICREDI-CX800740 88883152000120 N T DOS SANTOS LTDA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -7652,7 +7651,7 @@
       "Valor_Formatado": "R$ 195,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX SICREDI-CX800740 88883152000120 N T DOS SANTOS LTDA",
+      "Descrição": "RECEBIMENTO PIX VIVENDA PROJETOS E DECORACAO LTDA 29.275.939 0001-40 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -9542,7 +9541,7 @@
       "Valor_Formatado": "R$ 45,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MULT MÓVEIS",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - AÇORIANA",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -9552,7 +9551,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - AÇORIANA",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MULT MÓVEIS",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -9902,16 +9901,6 @@
       "Valor_Formatado": "R$ 192,95"
     },
     {
-      "Descrição": "CERTIFICADO E-CNPJ A1 CFC SANTO ANTÔNIO DA PATRULHA",
-      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
-      "Valor (R$)": 195.0,
-      "Tipo": "Crédito",
-      "Data": "2026-01-14 00:00:00",
-      "Categoria": "Receita de Vendas",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 195,00"
-    },
-    {
       "Descrição": "RECEBIMENTO PIX SOCIEDADE BENEFI - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
@@ -9923,6 +9912,16 @@
     },
     {
       "Descrição": "RECEBIMENTO PIX LUCIANO SENTI DA - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 195.0,
+      "Tipo": "Crédito",
+      "Data": "2026-01-14 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 195,00"
+    },
+    {
+      "Descrição": "CERTIFICADO E-CNPJ A1 CFC SANTO ANTÔNIO DA PATRULHA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -10452,16 +10451,6 @@
       "Valor_Formatado": "R$ 128,63"
     },
     {
-      "Descrição": "CERTIFICADO E-CNPJ A1 - IMOBILIÁRIA CEBM LTDA",
-      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
-      "Valor (R$)": 195.0,
-      "Tipo": "Crédito",
-      "Data": "2026-01-21 00:00:00",
-      "Categoria": "Receita de Vendas",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 195,00"
-    },
-    {
       "Descrição": "CERTIFICADO E-CNPJ A1 - CARLA FABIANI DE SOUZA WERNER",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
@@ -10473,6 +10462,16 @@
     },
     {
       "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - CFC ROLANTE",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 195.0,
+      "Tipo": "Crédito",
+      "Data": "2026-01-21 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 195,00"
+    },
+    {
+      "Descrição": "CERTIFICADO E-CNPJ A1 - IMOBILIÁRIA CEBM LTDA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -10752,16 +10751,6 @@
       "Valor_Formatado": "R$ 150,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX-PIX_CRED  02768896063 LUCAS SILVEIRA STECANELA",
-      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
-      "Valor (R$)": 195.0,
-      "Tipo": "Crédito",
-      "Data": "2026-01-28 00:00:00",
-      "Categoria": "Receita de Vendas",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 195,00"
-    },
-    {
       "Descrição": "CERTIFICADO A. G. MACIAZEKI LTDA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
@@ -10773,6 +10762,16 @@
     },
     {
       "Descrição": "RECEBIMENTO PIX-PIX_CRED  53564934000112 PEIXOTO NEGOCIOS E REPRESENTACOES LTDA.",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 195.0,
+      "Tipo": "Crédito",
+      "Data": "2026-01-28 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 195,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED  02768896063 LUCAS SILVEIRA STECANELA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -11042,7 +11041,7 @@
       "Valor_Formatado": "R$ 140,00"
     },
     {
-      "Descrição": "PIX RECEBIDO 06695710000160 - SANTOS E HELLER",
+      "Descrição": "RECEBIMENTO PIX FERNANDES FERNAN - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 150.0,
       "Tipo": "Crédito",
@@ -11052,7 +11051,7 @@
       "Valor_Formatado": "R$ 150,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX FERNANDES FERNAN - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "PIX RECEBIDO 06695710000160 - SANTOS E HELLER",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 150.0,
       "Tipo": "Crédito",
@@ -11402,7 +11401,7 @@
       "Valor_Formatado": "R$ 1.640,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - TRPA",
+      "Descrição": "REM.: BISS PRODUCOES E EVENTOS L - TRANSF.RECEBIDA - PIX SICOOB",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -11412,7 +11411,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "REM.: BISS PRODUCOES E EVENTOS L - TRANSF.RECEBIDA - PIX SICOOB",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - TRPA",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -11922,7 +11921,7 @@
       "Valor_Formatado": "R$ 597,70"
     },
     {
-      "Descrição": "RESTAURANTE SANTOS",
+      "Descrição": "RECEBIMENTO PIX JOAO GUILHERME B - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -11932,7 +11931,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX JOAO GUILHERME B - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RESTAURANTE SANTOS",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -11952,7 +11951,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "REM.: MR REPRESENTACOES LTDA TRA - TRANSF.RECEBIDA - PIX SICOOB",
+      "Descrição": "CERTIFICADO E-CNPJ A1 - JOSIMAR RODRIGUES SILVA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -11962,7 +11961,7 @@
       "Valor_Formatado": "R$ 195,00"
     },
     {
-      "Descrição": "CERTIFICADO E-CNPJ A1 - JOSIMAR RODRIGUES SILVA",
+      "Descrição": "REM.: MR REPRESENTACOES LTDA TRA - TRANSF.RECEBIDA - PIX SICOOB",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -12202,16 +12201,6 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MAXMIDIA",
-      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
-      "Valor (R$)": 80.0,
-      "Tipo": "Crédito",
-      "Data": "2026-02-11 00:00:00",
-      "Categoria": "Receita de Serviços",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 80,00"
-    },
-    {
       "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - VERO",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
@@ -12222,7 +12211,17 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX 59.595.399 ANTON - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MAXMIDIA",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "MENSALIDADE DOCES D'SANTO",
       "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
       "Valor (R$)": 90.0,
       "Tipo": "Crédito",
@@ -12232,7 +12231,7 @@
       "Valor_Formatado": "R$ 90,00"
     },
     {
-      "Descrição": "MENSALIDADE DOCES D'SANTO",
+      "Descrição": "RECEBIMENTO PIX 59.595.399 ANTON - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
       "Valor (R$)": 90.0,
       "Tipo": "Crédito",
@@ -12272,16 +12271,6 @@
       "Valor_Formatado": "R$ 120,00"
     },
     {
-      "Descrição": "MENSALIDADE MR CAR",
-      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
-      "Valor (R$)": 120.0,
-      "Tipo": "Crédito",
-      "Data": "2026-02-11 00:00:00",
-      "Categoria": "Receita de Serviços",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 120,00"
-    },
-    {
       "Descrição": "MENSALIDADE CORUJINHA KIDS",
       "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
       "Valor (R$)": 120.0,
@@ -12293,6 +12282,16 @@
     },
     {
       "Descrição": "MENSALIDADE AM CONSTRUÇÕES",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 120.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 120,00"
+    },
+    {
+      "Descrição": "MENSALIDADE MR CAR",
       "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -12422,7 +12421,7 @@
       "Valor_Formatado": "R$ 260,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX VALE MONEY COMER - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - PREVINA",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 266.0,
       "Tipo": "Crédito",
@@ -12432,7 +12431,7 @@
       "Valor_Formatado": "R$ 266,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - PREVINA",
+      "Descrição": "RECEBIMENTO PIX VALE MONEY COMER - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 266.0,
       "Tipo": "Crédito",

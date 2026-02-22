@@ -1,13 +1,12 @@
 {
   "empresa": "MT INFORMATICA",
-  "timestamp": "2026-02-21T19:57:47.437487",
+  "timestamp": "2026-02-22T09:47:36.377948",
   "tipo": "dre_estruturado",
   "metadata": {
     "licenca": "MT INFORMATICA",
     "total_transacoes": 2021,
-    "gerado_em": "2026-02-21T19:57:47.398970",
-    "origem": "vyco_parecer_gpt",
-    "descricao_empresa": "A MT Informática, localizada em Santo Antônio da Patrulha - RS, é uma empresa de TI com 14 anos de experiência, focada em suporte técnico, soluções em infraestrutura, redes, segurança, e consultoria para empresas. Oferece serviços como monitoramento de redes, backup em nuvem, virtualização, certificação digital e suporte remoto/presencial"
+    "gerado_em": "2026-02-22T09:47:36.291861",
+    "origem": "vyco_integração"
   },
   "estrutura": "secoes_organizadas",
   "dre_estruturado": {
