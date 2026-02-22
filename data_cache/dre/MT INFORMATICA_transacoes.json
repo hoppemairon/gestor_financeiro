@@ -1,14 +1,15 @@
 {
   "empresa": "MT INFORMATICA",
-  "timestamp": "2026-02-10T11:19:40.282744",
+  "timestamp": "2026-02-21T19:57:47.440448",
   "tipo": "transacoes_categorizadas",
   "metadata": {
     "licenca": "MT INFORMATICA",
-    "total_transacoes": 1815,
-    "gerado_em": "2026-02-10T11:19:40.238343",
-    "origem": "vyco_integração"
+    "total_transacoes": 2021,
+    "gerado_em": "2026-02-21T19:57:47.398970",
+    "origem": "vyco_parecer_gpt",
+    "descricao_empresa": "A MT Informática, localizada em Santo Antônio da Patrulha - RS, é uma empresa de TI com 14 anos de experiência, focada em suporte técnico, soluções em infraestrutura, redes, segurança, e consultoria para empresas. Oferece serviços como monitoramento de redes, backup em nuvem, virtualização, certificação digital e suporte remoto/presencial"
   },
-  "total_transacoes": 1815,
+  "total_transacoes": 2021,
   "transacoes": [
     {
       "Descrição": "VENDA PRODUTO - PRIMAVERA",
@@ -21,7 +22,7 @@
       "Valor_Formatado": "R$ 60,00"
     },
     {
-      "Descrição": "ACESSO REMOTO - PINDORAMA",
+      "Descrição": "ACESSO REMOTO - LABSAP",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -31,7 +32,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "ACESSO REMOTO - LABSAP",
+      "Descrição": "ACESSO REMOTO - PINDORAMA",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -61,7 +62,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "SISTEMA - RESTAURANTE PITANGUEIRAS",
+      "Descrição": "SISTEMA - SERGIO R S",
       "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -71,7 +72,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "SISTEMA - SERGIO R S",
+      "Descrição": "SISTEMA - RESTAURANTE PITANGUEIRAS",
       "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -341,16 +342,6 @@
       "Valor_Formatado": "R$ 1.700,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX J. F COSTA CIA. LTDA - ME 13.183.887 0001-42 - PIX RECEBIDO - OUTRA IF - MESMA TIT.",
-      "Categoria_Vyco": "RECEITA DE VENDAS",
-      "Valor (R$)": 1800.0,
-      "Tipo": "Crédito",
-      "Data": "2025-10-03 00:00:00",
-      "Categoria": "Receita de Vendas",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 1.800,00"
-    },
-    {
       "Descrição": "MANUTENÇÃO INTERNA - S E C COMÉRCIO",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
@@ -551,7 +542,7 @@
       "Valor_Formatado": "R$ 90,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX ANTONIO J L COELHO ***.020.270-** O FUNCIONARIO TINHA COBRADO 60,00 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - ACESSO REMOTO LAUCK",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -561,7 +552,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - ACESSO REMOTO LAUCK",
+      "Descrição": "RECEBIMENTO PIX ANTONIO J L COELHO ***.020.270-** O FUNCIONARIO TINHA COBRADO 60,00 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -1121,7 +1112,7 @@
       "Valor_Formatado": "R$ 56,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX PRISCILA DA ROSA SANTOS ***.906.130-** PACOTE OFFICE PRISCILA TOP COM - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - CONNECT",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 60.0,
       "Tipo": "Crédito",
@@ -1141,7 +1132,7 @@
       "Valor_Formatado": "R$ 60,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - CONNECT",
+      "Descrição": "RECEBIMENTO PIX PRISCILA DA ROSA SANTOS ***.906.130-** PACOTE OFFICE PRISCILA TOP COM - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 60.0,
       "Tipo": "Crédito",
@@ -1201,6 +1192,16 @@
       "Valor_Formatado": "R$ 79,16"
     },
     {
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - SAP 7",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 100.0,
+      "Tipo": "Crédito",
+      "Data": "2025-10-13 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 100,00"
+    },
+    {
       "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - MARCO ZERO",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 100.0,
@@ -1212,16 +1213,6 @@
     },
     {
       "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - AÇORIANA",
-      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
-      "Valor (R$)": 100.0,
-      "Tipo": "Crédito",
-      "Data": "2025-10-13 00:00:00",
-      "Categoria": "Receita de Serviços",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 100,00"
-    },
-    {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - SAP 7",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -1631,7 +1622,7 @@
       "Valor_Formatado": "R$ 90,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - DIST. LOPES",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - J EDUARDO",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -1641,7 +1632,7 @@
       "Valor_Formatado": "R$ 120,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - J EDUARDO",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - DIST. LOPES",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -1851,7 +1842,7 @@
       "Valor_Formatado": "R$ 75,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX C A ZANOTTO AMP CIA LTDA 93.306.736 0001-73 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX HELENITA MARKOWSKI ***.047.640-** MANUT E CABO DE INTERNET - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -1861,7 +1852,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX HELENITA MARKOWSKI ***.047.640-** MANUT E CABO DE INTERNET - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX C A ZANOTTO AMP CIA LTDA 93.306.736 0001-73 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -2171,6 +2162,16 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
+      "Descrição": "DEP CHEQUE - ESCOLA PATRULHENSE",
+      "Categoria_Vyco": "RECEITA DE CONTRATO",
+      "Valor (R$)": 150.0,
+      "Tipo": "Crédito",
+      "Data": "2025-10-20 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 150,00"
+    },
+    {
       "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - BODISUL",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 160.0,
@@ -2281,7 +2282,7 @@
       "Valor_Formatado": "R$ 160,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - OFICINA MARQUES",
+      "Descrição": "CERTIFICADO E-CNPJ A1 - FABRICA DE EMBUTIDOS DI VALORE LTDA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -2291,7 +2292,7 @@
       "Valor_Formatado": "R$ 195,00"
     },
     {
-      "Descrição": "CERTIFICADO E-CNPJ A1 - FABRICA DE EMBUTIDOS DI VALORE LTDA",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - OFICINA MARQUES",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -2381,7 +2382,7 @@
       "Valor_Formatado": "R$ 158,32"
     },
     {
-      "Descrição": "RECEBIMENTO PIX FRANCISCO JUNIOR DA SILVA ***.533.280-** - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED 88883152000120 N. T. DOS SANTOS LTDA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 160.0,
       "Tipo": "Crédito",
@@ -2391,7 +2392,7 @@
       "Valor_Formatado": "R$ 160,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX-PIX_CRED 88883152000120 N. T. DOS SANTOS LTDA",
+      "Descrição": "RECEBIMENTO PIX FRANCISCO JUNIOR DA SILVA ***.533.280-** - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 160.0,
       "Tipo": "Crédito",
@@ -2571,7 +2572,7 @@
       "Valor_Formatado": "R$ 78,16"
     },
     {
-      "Descrição": "RECEBIMENTO PIX ADRIANO RAMOS MICHELON ***.860.280-** - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX STEFANI RODRIGUES DA SILVA ***.344.680-** - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -2581,7 +2582,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX STEFANI RODRIGUES DA SILVA ***.344.680-** - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX RONILDA SOARES RAMOS 03.433.529 0001-97 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -2601,7 +2602,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX RONILDA SOARES RAMOS 03.433.529 0001-97 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX ADRIANO RAMOS MICHELON ***.860.280-** - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -2651,7 +2652,7 @@
       "Valor_Formatado": "R$ 120,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX RUBEM CARLOS SOARES ***.627.770-** - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED 94489351020 GABRIEL FERNANDES LOPES MULLER",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 180.0,
       "Tipo": "Crédito",
@@ -2661,7 +2662,7 @@
       "Valor_Formatado": "R$ 180,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX-PIX_CRED 94489351020 GABRIEL FERNANDES LOPES MULLER",
+      "Descrição": "RECEBIMENTO PIX RUBEM CARLOS SOARES ***.627.770-** - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 180.0,
       "Tipo": "Crédito",
@@ -2961,7 +2962,7 @@
       "Valor_Formatado": "R$ 58,62"
     },
     {
-      "Descrição": "RECEBIMENTO PIX GUSTAVO FREITAS PIZZARIA LTDA 57.355.072 0001-79 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX RAISA MANUELLE BOHLKE ***.307.520-** - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -2971,7 +2972,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX RAISA MANUELLE BOHLKE ***.307.520-** - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX GUSTAVO FREITAS PIZZARIA LTDA 57.355.072 0001-79 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -2991,7 +2992,7 @@
       "Valor_Formatado": "R$ 93,33"
     },
     {
-      "Descrição": "RECEBIMENTO PIX AUTO POSTO BOA VIAGEM LTDA 02.463.295 0001-68 PAGAMENTO NFSE. 2025649 PORTO ALEGRE - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX AUTO POSTO PARAISO LTDA 12.321.423 0001-92 PAGAMENTO NFSE. 2025648 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -3001,7 +3002,7 @@
       "Valor_Formatado": "R$ 120,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX AUTO POSTO PARAISO LTDA 12.321.423 0001-92 PAGAMENTO NFSE. 2025648 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX AUTO POSTO BOA VIAGEM LTDA 02.463.295 0001-68 PAGAMENTO NFSE. 2025649 PORTO ALEGRE - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 120.0,
       "Tipo": "Crédito",
@@ -3151,7 +3152,7 @@
       "Valor_Formatado": "R$ 18,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX KATIELI DE OLIVEIRA RAPHAELLI ***.832.460-** - PAGAMENTO PASTEL",
+      "Descrição": "PIX RECEBIDO 01753022002 - PAGAMENTO PASTEL",
       "Categoria_Vyco": "OUTROS RECEBIMENTOS",
       "Valor (R$)": 21.75,
       "Tipo": "Crédito",
@@ -3161,7 +3162,7 @@
       "Valor_Formatado": "R$ 21,75"
     },
     {
-      "Descrição": "PIX RECEBIDO 01753022002 - PAGAMENTO PASTEL",
+      "Descrição": "RECEBIMENTO PIX KATIELI DE OLIVEIRA RAPHAELLI ***.832.460-** - PAGAMENTO PASTEL",
       "Categoria_Vyco": "OUTROS RECEBIMENTOS",
       "Valor (R$)": 21.75,
       "Tipo": "Crédito",
@@ -3401,7 +3402,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "SERGIO R S",
+      "Descrição": "RESTAURANTE PITANGUEIRAS",
       "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -3411,7 +3412,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "RESTAURANTE PITANGUEIRAS",
+      "Descrição": "SERGIO R S",
       "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -3967,6 +3968,16 @@
       "Tipo": "Crédito",
       "Data": "2025-11-07 00:00:00",
       "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 135,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - BODISUL",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 135.0,
+      "Tipo": "Crédito",
+      "Data": "2025-11-07 00:00:00",
+      "Categoria": "Receita de Serviços",
       "Considerar": "Sim",
       "Valor_Formatado": "R$ 135,00"
     },
@@ -6231,7 +6242,7 @@
       "Valor_Formatado": "R$ 170,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - RAMOS E AZAMBUJA ADVOGADOS",
+      "Descrição": "RECEBIMENTO PIX CIRILO BARCELOS OLIVEIRA ***.986.410-** CERTIFICADO IMOB 3 LACOS - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -6241,7 +6252,7 @@
       "Valor_Formatado": "R$ 195,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX CIRILO BARCELOS OLIVEIRA ***.986.410-** CERTIFICADO IMOB 3 LACOS - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - RAMOS E AZAMBUJA ADVOGADOS",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -6521,7 +6532,7 @@
       "Valor_Formatado": "R$ 60,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - MARCO ZERO",
+      "Descrição": "RECEBIMENTO PIX BELLATECH MOVEIS SOB MEDID 31.109.547 0001-53 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -6541,7 +6552,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX BELLATECH MOVEIS SOB MEDID 31.109.547 0001-53 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - MARCO ZERO",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -6551,7 +6562,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - BLOOMS",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - M P COELHO",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -6561,7 +6572,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - M P COELHO",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - BLOOMS",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -6611,7 +6622,7 @@
       "Valor_Formatado": "R$ 97,70"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - BIANCHIN",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - LAUCK",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -6621,7 +6632,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - LAUCK",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - BIANCHIN",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 100.0,
       "Tipo": "Crédito",
@@ -6671,7 +6682,7 @@
       "Valor_Formatado": "R$ 150,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX RONALDO OLIVEIRA CONTABILIDADE LTDA 32.296.217 0001-87 DELETAR ARQUIVOS - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - ECOFIELD",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 150.0,
       "Tipo": "Crédito",
@@ -6681,7 +6692,7 @@
       "Valor_Formatado": "R$ 150,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - ECOFIELD",
+      "Descrição": "RECEBIMENTO PIX RONALDO OLIVEIRA CONTABILIDADE LTDA 32.296.217 0001-87 DELETAR ARQUIVOS - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 150.0,
       "Tipo": "Crédito",
@@ -7061,7 +7072,7 @@
       "Valor_Formatado": "R$ 250,00"
     },
     {
-      "Descrição": "CERTIFICADO E-CPF CARTÃO 3 ANOS - JOSE LEVY DE ASSIS PEIXOTO",
+      "Descrição": "CERTIFICADO E-CPF CARTÃO 3 ANOS - CLAUDIO FRANCISCO FONTANA HANUS",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 290.0,
       "Tipo": "Crédito",
@@ -7071,7 +7082,7 @@
       "Valor_Formatado": "R$ 290,00"
     },
     {
-      "Descrição": "CERTIFICADO E-CPF CARTÃO 3 ANOS - CLAUDIO FRANCISCO FONTANA HANUS",
+      "Descrição": "CERTIFICADO E-CPF CARTÃO 3 ANOS - JOSE LEVY DE ASSIS PEIXOTO",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 290.0,
       "Tipo": "Crédito",
@@ -7631,7 +7642,7 @@
       "Valor_Formatado": "R$ 100,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX SICREDI-CX800740 88883152000120 N T DOS SANTOS LTDA",
+      "Descrição": "RECEBIMENTO PIX VIVENDA PROJETOS E DECORACAO LTDA 29.275.939 0001-40 - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -7641,7 +7652,7 @@
       "Valor_Formatado": "R$ 195,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX VIVENDA PROJETOS E DECORACAO LTDA 29.275.939 0001-40 - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "RECEBIMENTO PIX SICREDI-CX800740 88883152000120 N T DOS SANTOS LTDA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -7653,6 +7664,16 @@
     {
       "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - ANALICE COSTA",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 200.0,
+      "Tipo": "Crédito",
+      "Data": "2025-12-15 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 200,00"
+    },
+    {
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - ANALICE COSTA",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 200.0,
       "Tipo": "Crédito",
       "Data": "2025-12-15 00:00:00",
@@ -9091,7 +9112,7 @@
       "Valor_Formatado": "R$ 865,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX-PIX_CRED 14395425000151 F R CALCADOS LTDA ME",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - DSA",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -9101,7 +9122,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - DSA",
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED 14395425000151 F R CALCADOS LTDA ME",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -9521,7 +9542,7 @@
       "Valor_Formatado": "R$ 45,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - AÇORIANA",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MULT MÓVEIS",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -9531,7 +9552,7 @@
       "Valor_Formatado": "R$ 80,00"
     },
     {
-      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MULT MÓVEIS",
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - AÇORIANA",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 80.0,
       "Tipo": "Crédito",
@@ -9881,7 +9902,7 @@
       "Valor_Formatado": "R$ 192,95"
     },
     {
-      "Descrição": "RECEBIMENTO PIX LUCIANO SENTI DA - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "CERTIFICADO E-CNPJ A1 CFC SANTO ANTÔNIO DA PATRULHA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -9901,7 +9922,7 @@
       "Valor_Formatado": "R$ 195,00"
     },
     {
-      "Descrição": "CERTIFICADO E-CNPJ A1 CFC SANTO ANTÔNIO DA PATRULHA",
+      "Descrição": "RECEBIMENTO PIX LUCIANO SENTI DA - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -10351,7 +10372,7 @@
       "Valor_Formatado": "R$ 200,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - MISSEL",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - PRETTO EQUIPAMENTOS",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 250.0,
       "Tipo": "Crédito",
@@ -10361,7 +10382,7 @@
       "Valor_Formatado": "R$ 250,00"
     },
     {
-      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - PRETTO EQUIPAMENTOS",
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - MISSEL",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 250.0,
       "Tipo": "Crédito",
@@ -10731,6 +10752,16 @@
       "Valor_Formatado": "R$ 150,00"
     },
     {
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED  02768896063 LUCAS SILVEIRA STECANELA",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 195.0,
+      "Tipo": "Crédito",
+      "Data": "2026-01-28 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 195,00"
+    },
+    {
       "Descrição": "CERTIFICADO A. G. MACIAZEKI LTDA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
@@ -10742,16 +10773,6 @@
     },
     {
       "Descrição": "RECEBIMENTO PIX-PIX_CRED  53564934000112 PEIXOTO NEGOCIOS E REPRESENTACOES LTDA.",
-      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
-      "Valor (R$)": 195.0,
-      "Tipo": "Crédito",
-      "Data": "2026-01-28 00:00:00",
-      "Categoria": "Receita de Vendas",
-      "Considerar": "Sim",
-      "Valor_Formatado": "R$ 195,00"
-    },
-    {
-      "Descrição": "RECEBIMENTO PIX-PIX_CRED  02768896063 LUCAS SILVEIRA STECANELA",
       "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
       "Valor (R$)": 195.0,
       "Tipo": "Crédito",
@@ -11021,7 +11042,7 @@
       "Valor_Formatado": "R$ 140,00"
     },
     {
-      "Descrição": "RECEBIMENTO PIX FERNANDES FERNAN - PIX RECEBIDO - OUTRA IF",
+      "Descrição": "PIX RECEBIDO 06695710000160 - SANTOS E HELLER",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 150.0,
       "Tipo": "Crédito",
@@ -11031,7 +11052,7 @@
       "Valor_Formatado": "R$ 150,00"
     },
     {
-      "Descrição": "PIX RECEBIDO 06695710000160 - SANTOS E HELLER",
+      "Descrição": "RECEBIMENTO PIX FERNANDES FERNAN - PIX RECEBIDO - OUTRA IF",
       "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
       "Valor (R$)": 150.0,
       "Tipo": "Crédito",
@@ -11771,6 +11792,16 @@
       "Valor_Formatado": "R$ 150,00"
     },
     {
+      "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - HALD",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 150.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-06 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 150,00"
+    },
+    {
       "Descrição": "CRÉD.LIQUIDAÇÃO COBRANÇA - M. P. COELHO",
       "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
       "Valor (R$)": 150.0,
@@ -11951,6 +11982,16 @@
       "Valor_Formatado": "R$ 223,56"
     },
     {
+      "Descrição": "RECEBIMENTO PIX RITA DE CASSIA P - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 50.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 50,00"
+    },
+    {
       "Descrição": "VENDA PRODUTO",
       "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
       "Valor (R$)": 60.0,
@@ -11959,6 +12000,1336 @@
       "Categoria": "Receita de Vendas",
       "Considerar": "Sim",
       "Valor_Formatado": "R$ 60,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX PRIME - FACTORIN - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 60.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 60,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MULT MÓVEIS",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - HORTIFRUTI BOM GOSTO",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "SICREDI CREDITO MASTER-797544410 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 110.81,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 110,81"
+    },
+    {
+      "Descrição": "SICREDI DEBITO VISA-797639260 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 118.74,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 118,74"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - WELTPAX",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 120.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 120,00"
+    },
+    {
+      "Descrição": "MENSALIDADE ACASO",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 120.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 120,00"
+    },
+    {
+      "Descrição": "MENSALIDADE KI SAPATO",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE TEF",
+      "Valor (R$)": 145.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 145,00"
+    },
+    {
+      "Descrição": "SICREDI CREDITO VISA-797544415 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 184.68,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 184,68"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX PRIME - FACTORIN - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE BACKUP",
+      "Valor (R$)": 250.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 250,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MAXMIDIA",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 266.67,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 266,67"
+    },
+    {
+      "Descrição": "HORTIFRUTI BOM GOSTO",
+      "Categoria_Vyco": "RECEITA DE BACKUP",
+      "Valor (R$)": 270.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 270,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - S E C",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 350.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 350,00"
+    },
+    {
+      "Descrição": "S E C",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 380.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 380,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MULT MÓVEIS",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 480.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 480,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - S E C",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 600.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 600,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - DEMELLO",
+      "Categoria_Vyco": "RECEITA DE VENDAS DERIVADO DO CONTRATO",
+      "Valor (R$)": 20.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 20,00"
+    },
+    {
+      "Descrição": "MENSALIDADE SEULUIS ETIQUETAS",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 70.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 70,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - BENDITTA",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX RONALDO OLIVEIRA - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MAXMIDIA",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - VERO",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX 59.595.399 ANTON - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 90.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 90,00"
+    },
+    {
+      "Descrição": "MENSALIDADE DOCES D'SANTO",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 90.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 90,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - BENDITTA",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 100.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 100,00"
+    },
+    {
+      "Descrição": "MENSALIDADE TETOUR VIDROS",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 100.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 100,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX LITIELHE DE SOUZ - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 120.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 120,00"
+    },
+    {
+      "Descrição": "MENSALIDADE MR CAR",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 120.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 120,00"
+    },
+    {
+      "Descrição": "MENSALIDADE CORUJINHA KIDS",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 120.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 120,00"
+    },
+    {
+      "Descrição": "MENSALIDADE AM CONSTRUÇÕES",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 120.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 120,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - REDEMAC",
+      "Categoria_Vyco": "RECEITA DE VENDAS DERIVADO DO CONTRATO",
+      "Valor (R$)": 130.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 130,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - LUIZA",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 150.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 150,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - RESIDENCIAL ELITE",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 150.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 150,00"
+    },
+    {
+      "Descrição": "COLARTE",
+      "Categoria_Vyco": "RECEITA DE BACKUP",
+      "Valor (R$)": 172.5,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 172,50"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - COMPRE BEM",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 180.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 180,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - EDISON",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 195.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 195,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX SICREDI-CX701931  05749837000151 V A DA SILVA   CIA LTDA ME",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 195.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 195,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - FRIGORIFICO",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 200.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 200,00"
+    },
+    {
+      "Descrição": "SAVALE",
+      "Categoria_Vyco": "RECEITA DE BACKUP",
+      "Valor (R$)": 205.36,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 205,36"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - PREVINA",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 250.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 250,00"
+    },
+    {
+      "Descrição": "CONTRATO LUZARDO",
+      "Categoria_Vyco": "RECEITA DE CONTRATO",
+      "Valor (R$)": 250.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 250,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - DIST. LOPES",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 260.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 260,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX VALE MONEY COMER - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 266.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 266,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - PREVINA",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 266.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 266,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - COLARTE",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 280.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 280,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - EDISON",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 296.66,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 296,66"
+    },
+    {
+      "Descrição": "DIST. LOPES",
+      "Categoria_Vyco": "RECEITA DE BACKUP",
+      "Valor (R$)": 300.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 300,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - COMPRE BEM",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 330.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 330,00"
+    },
+    {
+      "Descrição": "COMPRE BEM",
+      "Categoria_Vyco": "RECEITA DE BACKUP",
+      "Valor (R$)": 350.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 350,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - VERO",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 352.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 352,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - EDISON",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 360.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 360,00"
+    },
+    {
+      "Descrição": "ESTECOPAL",
+      "Categoria_Vyco": "RECEITA DE BACKUP",
+      "Valor (R$)": 371.17,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 371,17"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - EDISON",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 390.02,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 390,02"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX CPM EE EF AFO C- - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 410.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 410,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - BENDITTA",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 460.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 460,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - GOMES",
+      "Categoria_Vyco": "RECEITA DE VENDAS DERIVADO DO CONTRATO",
+      "Valor (R$)": 484.83,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 484,83"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - PREVINA",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 500.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 500,00"
+    },
+    {
+      "Descrição": "DEMELLO",
+      "Categoria_Vyco": "RECEITA DE BACKUP",
+      "Valor (R$)": 576.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 576,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - BLOOMS",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 640.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 640,00"
+    },
+    {
+      "Descrição": "SICREDI DEBITO VISA-798186221 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 909.35,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 909,35"
+    },
+    {
+      "Descrição": "CONTRATO ESTECOPAL",
+      "Categoria_Vyco": "RECEITA DE CONTRATO",
+      "Valor (R$)": 1100.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 1.100,00"
+    },
+    {
+      "Descrição": "CONTRATO REDEMAC",
+      "Categoria_Vyco": "RECEITA DE CONTRATO",
+      "Valor (R$)": 1200.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 1.200,00"
+    },
+    {
+      "Descrição": "CONTRATO DEMELLO",
+      "Categoria_Vyco": "RECEITA DE CONTRATO",
+      "Valor (R$)": 1300.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 1.300,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX VM COMERCIO DE C - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "MENSALIDADE ECOFIELD",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 90.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 90,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - CONNECT",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 140.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 140,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX JOSIMAR RODRIGUE - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 160.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 160,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED  63589835000149 63.589.835 ANGELA MARIA FRIEDRICH",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 195.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 195,00"
+    },
+    {
+      "Descrição": "VENDA PRODUTO",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 230.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 230,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED  54777224015 JOSE VALTER CARDOSO DA ROCHA",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 42.5,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 42,50"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - HABLICH",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 50.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 50,00"
+    },
+    {
+      "Descrição": "REM.: MINIMERCADO E ACOUGUE CONS - TRANSF.RECEBIDA - PIX SICOOB",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 75.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 75,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX JOSE L DOS SANTO - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "PIX RECEBIDO     03304931082",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 90.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 90,00"
+    },
+    {
+      "Descrição": "PIX RECEBIDO     52068564000160",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 100.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 100,00"
+    },
+    {
+      "Descrição": "VISITA JANAINA MARCOWSKI",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 150.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 150,00"
+    },
+    {
+      "Descrição": "LIBERAÇÃO DE DEPÓSITO BLOQUEADO - ESCOLA PATRULHENSE",
+      "Categoria_Vyco": "RECEITA DE CONTRATO",
+      "Valor (R$)": 150.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 150,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - LAUCK",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 180.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 180,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - HABLICH",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 190.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 190,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX MARI LUCI DA ROC - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 210.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 210,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - LAUCK",
+      "Categoria_Vyco": "RECEITA DE IMPLANTAÇÃO DE SISTEMA",
+      "Valor (R$)": 300.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 300,00"
+    },
+    {
+      "Descrição": "VENDA PRODUTO",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 329.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 329,00"
+    },
+    {
+      "Descrição": "PREFEITURA",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 400.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 400,00"
+    },
+    {
+      "Descrição": "SICREDI CREDITO VISA-799245746 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 712.81,
+      "Tipo": "Crédito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 712,81"
+    },
+    {
+      "Descrição": "SICREDI CREDITO MASTER-799834368 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 11.72,
+      "Tipo": "Crédito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 11,72"
+    },
+    {
+      "Descrição": "SICREDI CREDITO VISA-799834371 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 70.47,
+      "Tipo": "Crédito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 70,47"
+    },
+    {
+      "Descrição": "SICREDI DEBITO VISA-800033662 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 74.21,
+      "Tipo": "Crédito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 74,21"
+    },
+    {
+      "Descrição": "SICREDI CREDITO VISA-799834371 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 77.76,
+      "Tipo": "Crédito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 77,76"
+    },
+    {
+      "Descrição": "SICREDI CREDITO VISA-799834371 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 146.55,
+      "Tipo": "Crédito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 146,55"
+    },
+    {
+      "Descrição": "MENSALIDADE J SILVEIRA",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 180.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 180,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - ESTECOPAL",
+      "Categoria_Vyco": "RECEITA DE VENDAS DERIVADO DO CONTRATO",
+      "Valor (R$)": 319.09,
+      "Tipo": "Crédito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 319,09"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX FABIANO DOS SANT - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 350.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 350,00"
+    },
+    {
+      "Descrição": "PIX RECEBIDO     26887931000147",
+      "Categoria_Vyco": "RECEITA DE IMPLANTAÇÃO DE SISTEMA",
+      "Valor (R$)": 350.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 350,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX-PIX_CRED  84849886000 GIZELLE DE MELLO COSTA DE SOUZA",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 360.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 360,00"
+    },
+    {
+      "Descrição": "VISITA OTICA CENTRAL",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 60.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 60,00"
+    },
+    {
+      "Descrição": "MENSALIDADE LAZZARETTI",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 70.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 70,00"
+    },
+    {
+      "Descrição": "PIX RECEBIDO 32681895000163",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 80.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 80,00"
+    },
+    {
+      "Descrição": "MENSALIDADE S. L. SALAZAR",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 85.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 85,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX DAN CARLOS JESUS - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 100.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 100,00"
+    },
+    {
+      "Descrição": "PIX RECEBIDO     73702994068",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 120.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 120,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - UNIÃO",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 120.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 120,00"
+    },
+    {
+      "Descrição": "PIX RECEBIDO 02615572000100",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 120.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 120,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX FERNANDO RAMOS P - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 134.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 134,00"
+    },
+    {
+      "Descrição": "SICREDI DEBITO MASTER-800827569 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 149.8,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 149,80"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX LUIS CARLOS GENA - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 150.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 150,00"
+    },
+    {
+      "Descrição": "SICREDI CREDITO MASTER-800743282 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 176.25,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 176,25"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX GLUCOSUL COM DOC - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 185.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 185,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - UNIÃO",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 195.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 195,00"
+    },
+    {
+      "Descrição": "MENSALIDADE SANTO ARMARINHO",
+      "Categoria_Vyco": "RECEITA DE MENSALIDADE DE SISTEMA",
+      "Valor (R$)": 220.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 220,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - CIA DOS PARAFUSOS",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 245.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 245,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - MISSEL",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 250.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 250,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - PRETTO EQUIPAMENTOS",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 250.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 250,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - UNIÃO",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 259.75,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 259,75"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - UNIÃO",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 264.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 264,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - UNIÃO",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 280.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 280,00"
+    },
+    {
+      "Descrição": "PIX RECEBIDO 32681895000163",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 300.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 300,00"
+    },
+    {
+      "Descrição": "SICREDI DEBITO MASTER-800827569 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE SERVIÇO INTERNO",
+      "Valor (R$)": 340.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 340,00"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX DAN CARLOS JESUS - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 355.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 355,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - CIA DOS PARAFUSOS",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 431.68,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 431,68"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - CRIATO",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 480.42,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 480,42"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - HIAB",
+      "Categoria_Vyco": "RECEITA DE SERVIÇOS EXTERNOS",
+      "Valor (R$)": 500.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Serviços",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 500,00"
+    },
+    {
+      "Descrição": "PIX RECEBIDO     01582489000110",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 4400.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 4.400,00"
+    },
+    {
+      "Descrição": "VENDA PRODUTO",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 2.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 2,00"
+    },
+    {
+      "Descrição": "REM.: MARCOS DOS REIS SANTOS TRA - TRANSF.RECEBIDA - PIX SICOOB",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 60.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 60,00"
+    },
+    {
+      "Descrição": "REM.: MARCOS ROCHA CAIRUGA TRANS - TRANSF.RECEBIDA - PIX SICOOB",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 75.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 75,00"
+    },
+    {
+      "Descrição": "SICREDI CREDITO MASTER-801303129 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 123.93,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 123,93"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - AJGS",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 141.66,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 141,66"
+    },
+    {
+      "Descrição": "SICREDI CREDITO VISA-801303135 | SICREDI | 0001-42",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 156.32,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 156,32"
+    },
+    {
+      "Descrição": "RECEBIMENTO PIX DANILO RODRIGUES - PIX RECEBIDO - OUTRA IF",
+      "Categoria_Vyco": "RECEITA DE CERTIFICAÇÃO DIGITAL",
+      "Valor (R$)": 195.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 195,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - HIAB",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 575.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 575,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - RR SHOES",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 600.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 600,00"
+    },
+    {
+      "Descrição": "CRÉD. LIQUIDAÇÃO COBRANÇA - COMPRE BEM",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 699.17,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 699,17"
+    },
+    {
+      "Descrição": "PREFEITURA",
+      "Categoria_Vyco": "RECEITA DE VENDAS BALCÃO",
+      "Valor (R$)": 1600.0,
+      "Tipo": "Crédito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Receita de Vendas",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ 1.600,00"
     },
     {
       "Descrição": "TARIFA COBRANÇA",
@@ -12381,6 +13752,16 @@
       "Valor_Formatado": "R$ -39,90"
     },
     {
+      "Descrição": "TAR PACOTE SERV",
+      "Categoria_Vyco": "TARIFAS BANCÁRIAS",
+      "Valor (R$)": -81.4,
+      "Tipo": "Débito",
+      "Data": "2025-10-10 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -81,40"
+    },
+    {
       "Descrição": "DÉB. CONV. SEGUROS",
       "Categoria_Vyco": "SEGURO",
       "Valor (R$)": -116.64,
@@ -12731,6 +14112,26 @@
       "Valor_Formatado": "R$ -9,19"
     },
     {
+      "Descrição": "LANÇAMENTO DE CUSTAS CARTORÁRIAS DE PROT - DÉBITO REPASSE GRAVAÇÃO ELETRÔNICA",
+      "Categoria_Vyco": "CUSTAS CARTORÁRIAS",
+      "Valor (R$)": -9.19,
+      "Tipo": "Débito",
+      "Data": "2025-10-17 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -9,19"
+    },
+    {
+      "Descrição": "LANÇAMENTO DE CUSTAS CARTORÁRIAS DE PROT - DÉBITO REPASSE GRAVAÇÃO ELETRÔNICA",
+      "Categoria_Vyco": "CUSTAS CARTORÁRIAS",
+      "Valor (R$)": -9.19,
+      "Tipo": "Débito",
+      "Data": "2025-10-17 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -9,19"
+    },
+    {
       "Descrição": "TARIFA COBRANÇA",
       "Categoria_Vyco": "TARIFAS BANCÁRIAS",
       "Valor (R$)": -18.67,
@@ -12811,6 +14212,16 @@
       "Valor_Formatado": "R$ -2,00"
     },
     {
+      "Descrição": "TARIFA SAQUE TERMINAL-",
+      "Categoria_Vyco": "TARIFAS BANCÁRIAS",
+      "Valor (R$)": -2.0,
+      "Tipo": "Débito",
+      "Data": "2025-10-20 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -2,00"
+    },
+    {
       "Descrição": "TARIFA COBRANÇA",
       "Categoria_Vyco": "TARIFAS BANCÁRIAS",
       "Valor (R$)": -3.25,
@@ -12821,6 +14232,16 @@
       "Valor_Formatado": "R$ -3,25"
     },
     {
+      "Descrição": "PGTO CARTÃO ELO",
+      "Categoria_Vyco": "CARTÃO DE CRÉDITO",
+      "Valor (R$)": -13.83,
+      "Tipo": "Débito",
+      "Data": "2025-10-20 00:00:00",
+      "Categoria": "Cartão de Crédito",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -13,83"
+    },
+    {
       "Descrição": "PAGAMENTO PIX ***.298.820-** - CORREIO",
       "Categoria_Vyco": "CUSTOS DEVOLUÇÃO DE MERCADORIA",
       "Valor (R$)": -39.85,
@@ -12829,6 +14250,36 @@
       "Categoria": "Outras Desp. Operacionais",
       "Considerar": "Sim",
       "Valor_Formatado": "R$ -39,85"
+    },
+    {
+      "Descrição": "SAQUE DINHEIRO ATM-CE0109064",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -50.0,
+      "Tipo": "Débito",
+      "Data": "2025-10-20 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -50,00"
+    },
+    {
+      "Descrição": "SAQUE DINHEIRO ATM-CE0109064",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -50.0,
+      "Tipo": "Débito",
+      "Data": "2025-10-20 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -50,00"
+    },
+    {
+      "Descrição": "SAQUE DINHEIRO ATM-CE0109064",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -50.0,
+      "Tipo": "Débito",
+      "Data": "2025-10-20 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -50,00"
     },
     {
       "Descrição": "SAQUE DINHEIRO ATM-CE0109064",
@@ -13139,6 +14590,16 @@
       "Categoria": "Tarifas Bancárias",
       "Considerar": "Sim",
       "Valor_Formatado": "R$ -0,25"
+    },
+    {
+      "Descrição": "PIX ENVIADO - BERNANDO SALTIEL DE ASSIS",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -31.01,
+      "Tipo": "Débito",
+      "Data": "2025-10-27 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -31,01"
     },
     {
       "Descrição": "MEGAZAP",
@@ -14049,6 +15510,16 @@
       "Categoria": "Despesas com Fornecedores",
       "Considerar": "Sim",
       "Valor_Formatado": "R$ -738,10"
+    },
+    {
+      "Descrição": "LANÇAMENTO DE CUSTAS CARTORÁRIAS DE PROT - DÉBITO REPASSE GRAVAÇÃO ELETRÔNICA",
+      "Categoria_Vyco": "CUSTAS CARTORÁRIAS",
+      "Valor (R$)": -9.19,
+      "Tipo": "Débito",
+      "Data": "2025-11-18 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -9,19"
     },
     {
       "Descrição": "LANÇAMENTO DE CUSTAS CARTORÁRIAS DE PROT - DÉBITO REPASSE GRAVAÇÃO ELETRÔNICA",
@@ -17041,6 +18512,16 @@
       "Valor_Formatado": "R$ -150,00"
     },
     {
+      "Descrição": "PAGAMENTO PIX ***.255.400-** - PIX EMITIDO OUTRA IF",
+      "Categoria_Vyco": "LIMPEZA",
+      "Valor (R$)": -150.0,
+      "Tipo": "Débito",
+      "Data": "2026-01-30 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -150,00"
+    },
+    {
       "Descrição": "DÉB.CONV.ORGÃOS GOV.",
       "Categoria_Vyco": "MANUTENÇÃO DE VEICULOS",
       "Valor (R$)": -201.5,
@@ -17339,6 +18820,26 @@
       "Categoria": "Sócios",
       "Considerar": "Sim",
       "Valor_Formatado": "R$ -11,98"
+    },
+    {
+      "Descrição": "CORUJÃO - CARTÃO CRÉDITO",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -12.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-03 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -12,00"
+    },
+    {
+      "Descrição": "CORUJÃO - CARTÃO CRÉDITO",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -12.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-03 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -12,00"
     },
     {
       "Descrição": "CORUJÃO - CARTÃO CRÉDITO",
@@ -18159,6 +19660,566 @@
       "Categoria": "Outras Desp. RH",
       "Considerar": "Sim",
       "Valor_Formatado": "R$ -945,95"
+    },
+    {
+      "Descrição": "TARIFA COBRANÇA",
+      "Categoria_Vyco": "TARIFAS BANCÁRIAS",
+      "Valor (R$)": -13.5,
+      "Tipo": "Débito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -13,50"
+    },
+    {
+      "Descrição": "DÉB. CONV. SEGUROS",
+      "Categoria_Vyco": "SEGURO",
+      "Valor (R$)": -116.64,
+      "Tipo": "Débito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Seguro",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -116,64"
+    },
+    {
+      "Descrição": "ELEVATI SOLUÇÕES EM TECNOLOGIA",
+      "Categoria_Vyco": "SISTEMAS",
+      "Valor (R$)": -120.21,
+      "Tipo": "Débito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -120,21"
+    },
+    {
+      "Descrição": "FORCE SEGURANÇA",
+      "Categoria_Vyco": "SEGURANÇA",
+      "Valor (R$)": -132.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -132,00"
+    },
+    {
+      "Descrição": "RF TECNOLOGIA",
+      "Categoria_Vyco": "SISTEMAS",
+      "Valor (R$)": -179.1,
+      "Tipo": "Débito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -179,10"
+    },
+    {
+      "Descrição": "INTERNET TEL 3",
+      "Categoria_Vyco": "TELEFONE / INTERNET",
+      "Valor (R$)": -239.8,
+      "Tipo": "Débito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Telefone / Internet",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -239,80"
+    },
+    {
+      "Descrição": "MAZER DISTRIBUIDORA LTDA",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -873.69,
+      "Tipo": "Débito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -873,69"
+    },
+    {
+      "Descrição": "POSTO MILHAS",
+      "Categoria_Vyco": "COMBUSTIVEL",
+      "Valor (R$)": -1420.88,
+      "Tipo": "Débito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Outras Desp. Operacionais",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1.420,88"
+    },
+    {
+      "Descrição": "PAGAMENTO PIX ***.067.750-** - PIX EMITIDO OUTRA IF",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -1500.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-10 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1.500,00"
+    },
+    {
+      "Descrição": "TARIFA COBRANÇA",
+      "Categoria_Vyco": "TARIFAS BANCÁRIAS",
+      "Valor (R$)": -35.1,
+      "Tipo": "Débito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -35,10"
+    },
+    {
+      "Descrição": "ZUCHETTI SOFTWARE",
+      "Categoria_Vyco": "SISTEMAS",
+      "Valor (R$)": -216.86,
+      "Tipo": "Débito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -216,86"
+    },
+    {
+      "Descrição": "MAZER DISTRIBUIDORA LTDA",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -458.07,
+      "Tipo": "Débito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -458,07"
+    },
+    {
+      "Descrição": "PAUTA DISTRIBUIÇÃO E LOGISTICA",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -461.52,
+      "Tipo": "Débito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -461,52"
+    },
+    {
+      "Descrição": "PAGAMENTO PIX ***.067.750-** - PIX EMITIDO OUTRA IF",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -500.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -500,00"
+    },
+    {
+      "Descrição": "PAGAMENTO CARTAO CREDITO BCE     11/02 10:46 CARTAO MASTER",
+      "Categoria_Vyco": "CARTÃO DE CRÉDITO",
+      "Valor (R$)": -1506.2,
+      "Tipo": "Débito",
+      "Data": "2026-02-11 00:00:00",
+      "Categoria": "Cartão de Crédito",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1.506,20"
+    },
+    {
+      "Descrição": "TARIFA COBRANÇA",
+      "Categoria_Vyco": "TARIFAS BANCÁRIAS",
+      "Valor (R$)": -0.7,
+      "Tipo": "Débito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -0,70"
+    },
+    {
+      "Descrição": "SAIONARA",
+      "Categoria_Vyco": "LIMPEZA",
+      "Valor (R$)": -150.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -150,00"
+    },
+    {
+      "Descrição": "PDVX (SISTEMA GISAS)",
+      "Categoria_Vyco": "SISTEMAS",
+      "Valor (R$)": -254.4,
+      "Tipo": "Débito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -254,40"
+    },
+    {
+      "Descrição": "PAUTA DISTRIBUIÇÃO E LOGISTICA",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -515.58,
+      "Tipo": "Débito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -515,58"
+    },
+    {
+      "Descrição": "DISTRIBUIDORA DE PAPEIS BRAILE",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -536.38,
+      "Tipo": "Débito",
+      "Data": "2026-02-12 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -536,38"
+    },
+    {
+      "Descrição": "TARIFA COBRANÇA",
+      "Categoria_Vyco": "TARIFAS BANCÁRIAS",
+      "Valor (R$)": -2.2,
+      "Tipo": "Débito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -2,20"
+    },
+    {
+      "Descrição": "ASTRO COMÉRCIO E AUTOMAÇÃO",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -420.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -420,00"
+    },
+    {
+      "Descrição": "PAUTA DISTRIBUIÇÃO E LOGISTICA",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -873.96,
+      "Tipo": "Débito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -873,96"
+    },
+    {
+      "Descrição": null,
+      "Categoria_Vyco": "ALUGUEL",
+      "Valor (R$)": -883.25,
+      "Tipo": "Débito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Aluguel",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -883,25"
+    },
+    {
+      "Descrição": "KASSIO SELISTRE",
+      "Categoria_Vyco": "MARKETING E PUBLICIDADE",
+      "Valor (R$)": -1999.99,
+      "Tipo": "Débito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Marketing e Publicidade",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1.999,99"
+    },
+    {
+      "Descrição": "DEB.CTA.FATURA-011055600",
+      "Categoria_Vyco": "CARTÃO DE CRÉDITO",
+      "Valor (R$)": -4710.55,
+      "Tipo": "Débito",
+      "Data": "2026-02-13 00:00:00",
+      "Categoria": "Cartão de Crédito",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -4.710,55"
+    },
+    {
+      "Descrição": "TARIFA COBRANÇA",
+      "Categoria_Vyco": "TARIFAS BANCÁRIAS",
+      "Valor (R$)": -1.5,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1,50"
+    },
+    {
+      "Descrição": "EQUIPATECH",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -193.35,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -193,35"
+    },
+    {
+      "Descrição": "TELEFONE CLARO",
+      "Categoria_Vyco": "TELEFONE / INTERNET",
+      "Valor (R$)": -226.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Telefone / Internet",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -226,00"
+    },
+    {
+      "Descrição": "DÉB. CONV. SEGUROS",
+      "Categoria_Vyco": "SEGURO",
+      "Valor (R$)": -233.52,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Seguro",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -233,52"
+    },
+    {
+      "Descrição": "PAUTA DISTRIBUIÇÃO E LOGISTICA",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -336.49,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -336,49"
+    },
+    {
+      "Descrição": "SEGURA CERTIFICAÇÃO DIGITAL",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -349.1,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -349,10"
+    },
+    {
+      "Descrição": "PIX ENVIADO     BERNARDO SALTIEL DE ASSIS",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -500.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -500,00"
+    },
+    {
+      "Descrição": "DISTRIBUIDORA DE PAPEIS BRAILE",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -524.29,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -524,29"
+    },
+    {
+      "Descrição": "MAZER DISTRIBUIDORA LTDA",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -584.36,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -584,36"
+    },
+    {
+      "Descrição": "PAGAMENTO PIX ***.067.750-** - PIX EMITIDO OUTRA IF",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -1000.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1.000,00"
+    },
+    {
+      "Descrição": "PIX ENVIADO     64 421 930 GABRIEL DE AZE",
+      "Categoria_Vyco": "FOLHA DE PAGAMENTO",
+      "Valor (R$)": -1017.5,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Folha de Pagamento",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1.017,50"
+    },
+    {
+      "Descrição": "EMPRÉSTIMO CARRO",
+      "Categoria_Vyco": "EMPRÉSTIMOS",
+      "Valor (R$)": -1609.5,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Empréstimos",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1.609,50"
+    },
+    {
+      "Descrição": "DÉB.TIT.COMPE EFETIVADO",
+      "Categoria_Vyco": "SISTEMAS",
+      "Valor (R$)": -3089.5,
+      "Tipo": "Débito",
+      "Data": "2026-02-18 00:00:00",
+      "Categoria": "Outras Desp. Adm",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -3.089,50"
+    },
+    {
+      "Descrição": "TARIFA COBRANÇA",
+      "Categoria_Vyco": "TARIFAS BANCÁRIAS",
+      "Valor (R$)": -16.75,
+      "Tipo": "Débito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -16,75"
+    },
+    {
+      "Descrição": "DÉB. CONV. SEGUROS",
+      "Categoria_Vyco": "SEGURO",
+      "Valor (R$)": -116.16,
+      "Tipo": "Débito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Seguro",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -116,16"
+    },
+    {
+      "Descrição": "MAZER DISTRIBUIDORA LTDA",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -427.24,
+      "Tipo": "Débito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -427,24"
+    },
+    {
+      "Descrição": "PIX ENVIADO     BERNARDO SALTIEL DE ASSIS",
+      "Categoria_Vyco": "RETIRADAS",
+      "Valor (R$)": -2000.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-19 00:00:00",
+      "Categoria": "Sócios",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -2.000,00"
+    },
+    {
+      "Descrição": "TARIFA COBRANÇA",
+      "Categoria_Vyco": "TARIFAS BANCÁRIAS",
+      "Valor (R$)": -6.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -6,00"
+    },
+    {
+      "Descrição": "INTERNET KATIÉLI",
+      "Categoria_Vyco": "FOLHA DE PAGAMENTO",
+      "Valor (R$)": -99.9,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Folha de Pagamento",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -99,90"
+    },
+    {
+      "Descrição": "INTERNET LUIZ",
+      "Categoria_Vyco": "FOLHA DE PAGAMENTO",
+      "Valor (R$)": -109.9,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Folha de Pagamento",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -109,90"
+    },
+    {
+      "Descrição": "INTERNET GABRIEL",
+      "Categoria_Vyco": "FOLHA DE PAGAMENTO",
+      "Valor (R$)": -119.9,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Folha de Pagamento",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -119,90"
+    },
+    {
+      "Descrição": "INTERNET GUILHERME",
+      "Categoria_Vyco": "FOLHA DE PAGAMENTO",
+      "Valor (R$)": -139.9,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Folha de Pagamento",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -139,90"
+    },
+    {
+      "Descrição": "TARIFA MENSALIDADE PACOTE SERVICOS     JANEIRO / 2026",
+      "Categoria_Vyco": "TARIFAS BANCÁRIAS",
+      "Valor (R$)": -224.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Tarifas Bancárias",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -224,00"
+    },
+    {
+      "Descrição": "POTENCIAL SUPRIMENTOS",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -518.42,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -518,42"
+    },
+    {
+      "Descrição": "PIX ENVIADO     TP2 IMPRESSOS E SERVICOS",
+      "Categoria_Vyco": "COMPRA DE IMOBILIZADO",
+      "Valor (R$)": -661.0,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Compra de Imobilizado",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -661,00"
+    },
+    {
+      "Descrição": "FGTS",
+      "Categoria_Vyco": "FGTS",
+      "Valor (R$)": -682.62,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "FGTS",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -682,62"
+    },
+    {
+      "Descrição": "DATASAFER",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -766.08,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -766,08"
+    },
+    {
+      "Descrição": "PAUTA DISTRIBUIÇÃO E LOGISTICA",
+      "Categoria_Vyco": "DESPESAS COM FORNECEDORES",
+      "Valor (R$)": -873.96,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Despesas com Fornecedores",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -873,96"
+    },
+    {
+      "Descrição": "INSS",
+      "Categoria_Vyco": "INSS",
+      "Valor (R$)": -1063.86,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "INSS",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -1.063,86"
+    },
+    {
+      "Descrição": "SIMPLES NACIONAL",
+      "Categoria_Vyco": "IMPOSTOS E ENCARGOS",
+      "Valor (R$)": -3474.76,
+      "Tipo": "Débito",
+      "Data": "2026-02-20 00:00:00",
+      "Categoria": "Impostos e Encargos",
+      "Considerar": "Sim",
+      "Valor_Formatado": "R$ -3.474,76"
     }
   ]
 }

@@ -615,6 +615,120 @@ class DataCacheManager:
             st.error(f"Erro ao salvar transações: {e}")
             return None
     
+    def salvar_parecer_antigravity(self, empresa_nome: str, texto_analise: str) -> str:
+        """
+        Salva o texto do Parecer Antigravity em um arquivo MD
+        """
+        try:
+            filename = f"{self._sanitize_filename(empresa_nome)}_parecer_antigravity.md"
+            filepath = os.path.join(self.base_path, "analises", filename)
+            
+            # Garantir que diretório existe
+            os.makedirs(os.path.dirname(filepath), exist_ok=True)
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(texto_analise)
+                
+            return filepath
+        except Exception as e:
+            st.error(f"Erro ao salvar parecer: {e}")
+            return None
+
+    def salvar_parecer_diagnostico(self, empresa_nome: str, texto_analise: str) -> str:
+        """
+        Salva o texto do Parecer Diagnóstico em um arquivo MD
+        """
+        try:
+            filename = f"{self._sanitize_filename(empresa_nome)}_parecer_diagnostico.md"
+            filepath = os.path.join(self.base_path, "analises", filename)
+            
+            # Garantir que diretório existe
+            os.makedirs(os.path.dirname(filepath), exist_ok=True)
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(texto_analise)
+                
+            return filepath
+        except Exception as e:
+            st.error(f"Erro ao salvar parecer diagnóstico: {e}")
+            return None
+
+    def carregar_parecer_diagnostico(self, empresa_nome: str) -> Optional[str]:
+        """
+        Carrega o texto do último Parecer Diagnóstico salvo
+        """
+        try:
+            filename = f"{self._sanitize_filename(empresa_nome)}_parecer_diagnostico.md"
+            filepath = os.path.join(self.base_path, "analises", filename)
+            
+            if os.path.exists(filepath):
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    return f.read()
+            return None
+        except Exception as e:
+            return None
+
+    def salvar_relatorio_executivo(self, df_relatorio: pd.DataFrame, empresa_nome: str) -> str:
+        """
+        Salva DataFrame do Relatório Executivo em JSON
+        """
+        try:
+            filename = f"{self._sanitize_filename(empresa_nome)}_relatorio_executivo.json"
+            filepath = os.path.join(self.dre_path, filename)
+            
+            data = {
+                "empresa": empresa_nome,
+                "timestamp": datetime.now().isoformat(),
+                "tipo": "relatorio_executivo",
+                "dados": df_relatorio.to_dict('records')
+            }
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2, default=str)
+            
+            return filepath
+        except Exception as e:
+            st.error(f"Erro ao salvar relatório executivo: {e}")
+            return None
+
+    def carregar_relatorio_executivo(self, empresa_nome: str) -> Optional[pd.DataFrame]:
+        """
+        Carrega DataFrame do Relatório Executivo
+        """
+        try:
+            filename = f"{self._sanitize_filename(empresa_nome)}_relatorio_executivo.json"
+            filepath = os.path.join(self.dre_path, filename)
+            
+            if not os.path.exists(filepath):
+                return None
+            
+            with open(filepath, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            dados = data.get('dados', [])
+            if not dados:
+                return None
+            
+            return pd.DataFrame(dados)
+        except Exception as e:
+            st.error(f"Erro ao carregar relatório executivo: {e}")
+            return None
+
+    def carregar_parecer_antigravity(self, empresa_nome: str) -> Optional[str]:
+        """
+        Carrega o texto do último Parecer Antigravity salvo
+        """
+        try:
+            filename = f"{self._sanitize_filename(empresa_nome)}_parecer_antigravity.md"
+            filepath = os.path.join(self.base_path, "analises", filename)
+            
+            if os.path.exists(filepath):
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    return f.read()
+            return None
+        except Exception as e:
+            return None
+    
     def carregar_transacoes(self, empresa_nome: str) -> Optional[pd.DataFrame]:
         """
         Carrega DataFrame de transações categorizadas

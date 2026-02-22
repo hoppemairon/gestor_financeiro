@@ -45,6 +45,7 @@ from logic.Analises_DFC_DRE.gerador_parecer import gerar_parecer_automatico
 from logic.Analises_DFC_DRE.exibir_dre import exibir_dre
 from logic.Analises_DFC_DRE.analise_gpt import analisar_dfs_com_gpt
 from logic.Analises_DFC_DRE.exibir_dre import highlight_rows
+from logic.Analises_DFC_DRE.analise_antigravity import analisar_antigravity_gpt, calcular_indicadores_avancados, formatar_brl
 
 # Novos módulos para tipos de negócio
 from logic.business_types.business_manager import (
@@ -61,6 +62,9 @@ from logic.data_cache_manager import cache_manager
 
 # Importar gerenciador de licenças
 from logic.licenca_manager import licenca_manager
+
+# Importar gerador de PPT
+from logic.gerador_ppt import gerar_apresentacao_vyco
 
 # Configuração da página removida daqui (movida para o topo)
 
@@ -1978,8 +1982,10 @@ if st.sidebar.button("🔍 Buscar Dados do Vyco", type="primary"):
                 df_processado = processar_dados_vyco(df_raw)
                 
                 if not df_processado.empty:
-                    # Remover duplicatas
-                    df_sem_duplicatas = remover_duplicatas(df_processado)
+                    # Na Integração Vyco, NÃO removemos duplicatas, pois os dados vêm do banco e existem 
+                    # transações genuinamente idênticas (mesma data, descrição e valor).
+                    # df_sem_duplicatas = remover_duplicatas(df_processado)
+                    df_sem_duplicatas = df_processado
                     
                     # Armazenar no session_state
                     st.session_state.df_vyco_raw = df_raw
@@ -2020,14 +2026,16 @@ if 'df_vyco_processado' in st.session_state:
     df_debitos = df_dados[df_dados['Valor (R$)'] <= 0].copy() if 'Valor (R$)' in df_dados.columns else pd.DataFrame()
     
     # Tabs principais
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab_antigravity, tab6, tab7, tab_ppt = st.tabs([
         "💰 Categorização", 
         "💹 Faturamento e Estoque", 
         "📅 Projeções", 
         "💼 Parecer Diagnóstico", 
         "🤖 Análise GPT",
+        "🚀 Parecer Antigravity",
         "💾 Cache de Dados",
-        "📊 Relatório Executivo"
+        "📊 Relatório Executivo",
+        "📝 Gerar PPT"
     ])
     
     with tab1:
@@ -2449,19 +2457,40 @@ if 'df_vyco_processado' in st.session_state:
                             estoque = get_val("ESTOQUE")
                             df_projetado.loc["RESULTADO GERENCIAL", mes] = resultado + saldo + estoque
 
-                        # Recalcular totais
-                        todas_colunas = [col for col in df_projetado.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
-                        df_projetado["TOTAL"] = df_projetado[todas_colunas].sum(axis=1)
+                        # Recalcular totais separados
+                        if "TOTAL" in df_projetado.columns:
+                            df_projetado = df_projetado.drop(columns=["TOTAL"])
+                            
+                        # 1. Total Realizado (meses históricos)
+                        if colunas_meses:
+                            df_projetado["TOTAL REALIZADO"] = df_projetado[colunas_meses].sum(axis=1)
+                        else:
+                            df_projetado["TOTAL REALIZADO"] = 0.0
+                            
+                        # 2. Total Projetado (meses futuros)
+                        if meses_projetados:
+                            df_projetado["TOTAL PROJETADO"] = df_projetado[meses_projetados].sum(axis=1)
+                        else:
+                            df_projetado["TOTAL PROJETADO"] = 0.0
+                            
+                        # Reordenar as colunas: Histórico | TOTAL REALIZADO | % | Projetado | TOTAL PROJETADO | Metadata
+                        cols_meta = [col for col in df_projetado.columns if col in ["__tipo__", "__grupo__", "__ordem__"]]
+                        ordem = colunas_meses + ["TOTAL REALIZADO"]
+                        if "%" in df_projetado.columns:
+                            ordem.append("%")
+                        ordem += meses_projetados + ["TOTAL PROJETADO"] + cols_meta
                         
-                        # Recalcular percentuais
+                        df_projetado = df_projetado[ordem]
+                        
+                        # Recalcular percentuais baseados no TOTAL REALIZADO
                         if "%" in df_projetado.columns:
                             # Encontrar a linha de faturamento para calcular percentuais
                             faturamento_rows = df_projetado.index[df_projetado.index.str.contains("FATURAMENTO", case=False, na=False)]
                             if len(faturamento_rows) > 0:
-                                faturamento_total = df_projetado.loc[faturamento_rows[0], "TOTAL"]
+                                faturamento_total = df_projetado.loc[faturamento_rows[0], "TOTAL REALIZADO"]
                                 if faturamento_total != 0:
                                     for idx in df_projetado.index:
-                                        df_projetado.loc[idx, "%"] = (df_projetado.loc[idx, "TOTAL"] / faturamento_total) * 100
+                                        df_projetado.loc[idx, "%"] = (df_projetado.loc[idx, "TOTAL REALIZADO"] / faturamento_total) * 100
                                 else:
                                     df_projetado["%"] = 0.0
                             else:
@@ -2477,7 +2506,7 @@ if 'df_vyco_processado' in st.session_state:
                         st.subheader("Cenário Realista (apenas inflação)")
                         dre_realista, meses_proj = projetar_valores_vyco(resultado_dre_filtrado, inflacao_anual, meses_futuros)
 
-                        meses_exibir = [col for col in dre_realista.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
+                        meses_exibir = [col for col in dre_realista.columns if col not in ["%", "__tipo__", "__grupo__", "__ordem__"] and "TOTAL" not in str(col).upper()]
                         dre_formatado = formatar_dre(dre_realista, meses_exibir)
 
                         st.dataframe(
@@ -2492,7 +2521,7 @@ if 'df_vyco_processado' in st.session_state:
                         st.subheader(f"Cenário Pessimista ({pess_receita:+.0f}% receitas, {pess_despesa:+.0f}% despesas)")
                         dre_pessimista, _ = projetar_valores_vyco(resultado_dre_filtrado, inflacao_anual, meses_futuros, pess_receita, pess_despesa)
 
-                        meses_exibir = [col for col in dre_pessimista.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
+                        meses_exibir = [col for col in dre_pessimista.columns if col not in ["%", "__tipo__", "__grupo__", "__ordem__"] and "TOTAL" not in str(col).upper()]
                         dre_formatado = formatar_dre(dre_pessimista, meses_exibir)
 
                         st.dataframe(
@@ -2507,7 +2536,7 @@ if 'df_vyco_processado' in st.session_state:
                         st.subheader(f"Cenário Otimista ({otim_receita:+.0f}% receitas, {otim_despesa:+.0f}% despesas)")
                         dre_otimista, _ = projetar_valores_vyco(resultado_dre_filtrado, inflacao_anual, meses_futuros, otim_receita, otim_despesa)
 
-                        meses_exibir = [col for col in dre_otimista.columns if col not in ["TOTAL", "%", "__tipo__", "__grupo__", "__ordem__"]]
+                        meses_exibir = [col for col in dre_otimista.columns if col not in ["%", "__tipo__", "__grupo__", "__ordem__"] and "TOTAL" not in str(col).upper()]
                         dre_formatado = formatar_dre(dre_otimista, meses_exibir)
 
                         st.dataframe(
@@ -2585,6 +2614,16 @@ if 'df_vyco_processado' in st.session_state:
                     
                     # Gerar parecer automático com dados do fluxo de caixa
                     tipo_negocio_atual = st.session_state.get('tipo_negocio_selecionado', None)
+                    
+                    # IMPORTANTE: Salvar o texto como markdown
+                    from logic.Analises_DFC_DRE.gerador_parecer import gerar_texto_parecer
+                    texto_md = gerar_texto_parecer(resultado_fluxo, resultado_dre, tipo_negocio_atual)
+                    
+                    if texto_md and texto_md != "Sem dados suficientes para gerar parecer.":
+                        cache_manager.salvar_parecer_diagnostico(empresa_nome, texto_md)
+                        st.info("💾 Parecer Diagnóstico em texto salvo localmente para exportação PPT.")
+                        
+                    # Renderizar em tela (agora via UI)
                     gerar_parecer_automatico(resultado_fluxo, tipo_negocio=tipo_negocio_atual)
     
     with tab5:
@@ -2687,6 +2726,158 @@ if 'df_vyco_processado' in st.session_state:
                         st.error("❌ Erro ao gerar parecer")
     
     # ===== TAB 6: CACHE DE DADOS =====
+    with tab_antigravity:
+        st.header("🚀 Parecer Antigravity - Análise Financeira Avançada")
+        st.info("💡 **Dica Antigravity:** Esta análise combina indicadores avançados (tendências de curto/longo prazo, volatilidade, EBITDA estimado) com IA para um diagnóstico mais cirúrgico.")
+        
+        col_anti_1, col_anti_2 = st.columns([2, 1])
+        
+        with col_anti_1:
+            descricao_empresa_anti = st.text_area(
+                "📝 Contexto Estratégico da Empresa:",
+                placeholder="Ex.: Retailer de moda feminina, faturamento sazonal (pico em dez), em expansão de lojas físicas...",
+                key="desc_empresa_antigravity",
+                height=150,
+                help="Quanto mais detalhes sobre o momento da empresa, melhor a análise."
+            )
+        
+        with col_anti_2:
+            st.markdown("### 🔍 O que será analisado?")
+            st.markdown("- **Tendência Linear:** Curto (3m) vs Longo Prazo (12m)")
+            st.markdown("- **Volatilidade:** Risco e estabilidade")
+            st.markdown("- **EBITDA:** Estimativa de geração de caixa")
+            st.markdown("- **Diagnóstico:** Saúde real do negócio")
+        
+        if st.button("🚀 Gerar Análise Antigravity", key="btn_antigravity", type="primary"):
+            # Verificar se temos os dados necessários
+            licenca = st.session_state.get('licenca_atual')
+            
+            # Tentar carregar do cache se não estiver na sessão
+            if 'resultado_fluxo_vyco' not in st.session_state or st.session_state.resultado_fluxo_vyco.empty:
+                 if licenca:
+                    with st.spinner("Carregando dados do cache..."):
+                        # Carregar dados brutos do cache
+                        dados_fluxo_cache = cache_manager.carregar_fluxo_caixa(licenca)
+                        dados_dre_cache = cache_manager.carregar_dre(licenca)
+                        
+                        # Converter para DataFrame
+                        if dados_fluxo_cache and 'dados_indexados' in dados_fluxo_cache:
+                             st.session_state.resultado_fluxo_vyco = pd.DataFrame.from_dict(dados_fluxo_cache['dados_indexados'], orient='index')
+                        
+                        if dados_dre_cache and 'dados_indexados' in dados_dre_cache:
+                             st.session_state.resultado_dre_vyco = pd.DataFrame.from_dict(dados_dre_cache['dados_indexados'], orient='index')
+
+            # Verificar se já existe análise salva
+            analise_salva = cache_manager.carregar_parecer_antigravity(st.session_state.get('licenca_atual', ''))
+            
+            if analise_salva and not st.session_state.get('regenerar_analise', False):
+                st.success("✅ Análise carregada do histórico.")
+                resultado_analise = analise_salva
+                
+                # Botão para regenerar
+                if st.button("🔄 Regenerar Análise", key="btn_regenerar_antigravity"):
+                    st.session_state.regenerar_analise = True
+                    st.rerun()
+            
+            elif 'resultado_fluxo_vyco' in st.session_state and not st.session_state.resultado_fluxo_vyco.empty:
+                resultado_analise = analisar_antigravity_gpt(
+                    st.session_state.get('resultado_dre_vyco'),
+                    st.session_state.resultado_fluxo_vyco,
+                    descricao_empresa_anti,
+                    modelo="gpt-4-turbo"
+                )
+                
+                if resultado_analise:
+                    # Corrigir Markdown (escapar cifrão para não interpretar como LaTeX)
+                    resultado_analise = resultado_analise.replace("$", "\$")
+                    
+                    # Salvar análise gerada
+                    cache_manager.salvar_parecer_antigravity(st.session_state.get('licenca_atual', ''), resultado_analise)
+                    st.session_state.regenerar_analise = False
+            
+            # Exibir análise (seja carregada ou nova)
+            if 'resultado_analise' in locals() and resultado_analise:
+                st.markdown("---")
+                st.markdown("## 📊 Relatório Antigravity")
+                st.markdown(resultado_analise) 
+                
+                # Seção de Indicadores Matemáticos
+                st.markdown("### 🧮 Indicadores Fundamentais")
+                
+                df_dre_analise = st.session_state.get('resultado_dre_vyco')
+                df_fluxo_analise = st.session_state.resultado_fluxo_vyco
+                
+                if not df_fluxo_analise.empty:
+                    indicadores = calcular_indicadores_avancados(df_fluxo_analise, df_dre_analise)
+                    
+                    col_ind1, col_ind2, col_ind3 = st.columns(3)
+                    with col_ind1:
+                        st.metric(
+                            "Resultado Médio (12m)", 
+                            formatar_brl(indicadores.get('resultado_medio', 0)),
+                            f"{indicadores.get('margem_liq_media', 0):.1f}% Margem"
+                        )
+                    with col_ind2:
+                        tendencia = indicadores.get('tendencia_resultado_12m', 0)
+                        st.metric(
+                            "Tendência Linear (12m)", 
+                            formatar_brl(tendencia),
+                            f"{'Crescimento' if tendencia > 0 else 'Queda'}/mês"
+                        )
+                    with col_ind3:
+                        if indicadores.get('ebitda_medio'):
+                            st.metric("EBITDA Médio Est.", formatar_brl(indicadores.get('ebitda_medio')))
+                        else:
+                            st.metric("Volatilidade", formatar_brl(indicadores.get('volatilidade_valor', 0)))
+
+                # Seção de Tabelas Detalhadas
+                with st.expander("📂 Ver DRE e Fluxo de Caixa (Dados Base)", expanded=False):
+                    tab_dados_1, tab_dados_2 = st.tabs(["Fluxo de Caixa", "DRE"])
+                    
+                    with tab_dados_1:
+                        # Formatar Fluxo
+                        if not df_fluxo_analise.empty:
+                            df_fluxo_fmt = df_fluxo_analise.copy()
+                            for col in df_fluxo_fmt.columns:
+                                # Tentar formatar apenas colunas numéricas (meses)
+                                try:
+                                    df_fluxo_fmt[col] = df_fluxo_fmt[col].apply(lambda x: formatar_brl(x) if isinstance(x, (int, float)) else x)
+                                except:
+                                    pass
+                            st.dataframe(df_fluxo_fmt, use_container_width=True)
+                        
+                    with tab_dados_2:
+                        if df_dre_analise is not None and not df_dre_analise.empty:
+                            # Formatar DRE
+                            df_dre_fmt = df_dre_analise.copy()
+                            for col in df_dre_fmt.columns:
+                                if col != "%":
+                                    try:
+                                        df_dre_fmt[col] = df_dre_fmt[col].apply(lambda x: formatar_brl(x) if isinstance(x, (int, float)) else x)
+                                    except:
+                                        pass
+                            
+                            # Calcular altura dinâmica para evitar scroll (35px por linha + 40px header)
+                            altura_tabela = (len(df_dre_fmt) * 35) + 40
+                            
+                            st.dataframe(
+                                df_dre_fmt.style.apply(highlight_rows, axis=1),
+                                use_container_width=True,
+                                height=altura_tabela
+                            )
+                        else:
+                            st.warning("DRE não disponível")
+
+                st.download_button(
+                    "📥 Baixar Relatório Antigravity",
+                    data=resultado_analise,
+                    file_name=f"relatorio_antigravity_{datetime.now().strftime('%Y%m%d')}.md",
+                    mime="text/markdown"
+                )
+            else:
+                if 'resultado_fluxo_vyco' not in st.session_state or st.session_state.resultado_fluxo_vyco.empty:
+                    st.error("❌ Dados de Fluxo de Caixa não encontrados. Por favor, gere os relatórios na aba 'DRE & Fluxo' ou carregue uma empresa com dados salvos.")
+
     with tab6:
         st.header("💾 Gerenciamento do Cache de Dados")
         
@@ -3144,7 +3335,7 @@ if 'df_vyco_processado' in st.session_state:
                 impostos = obter_valor_dre_mes("IMPOSTOS", ultimo_mes)
                 lucro_liquido = obter_valor_dre_mes("RESULTADO", ultimo_mes)
                 resultado = obter_valor_dre_mes("RESULTADO", ultimo_mes)
-                estoque = obter_valor_dre_mes("📦 Estoque Final", ultimo_mes)
+                estoque = obter_valor_dre_mes("ESTOQUE", ultimo_mes)
                 
                 # Calcular métricas derivadas do último mês
                 margem_liquida = (lucro_liquido / faturamento * 100) if faturamento != 0 else 0
@@ -3643,6 +3834,154 @@ if 'df_vyco_processado' in st.session_state:
                 st.info("👆 Clique no botão acima para gerar o relatório executivo completo")
         else:
             st.info("👆 Clique no botão acima para gerar o relatório executivo completo")
+            
+    with tab_ppt:
+        st.header("📝 Gerador de Apresentação Executiva")
+        st.info("Gere uma apresentação do PowerPoint (.pptx) contendo todos os dados, tabelas e análises já consolidadas desta licença. O arquivo gerado é totalmente editável.")
+        
+        licenca_atual = st.session_state.get('licenca_atual', '')
+        
+        if not licenca_atual:
+            st.warning("⚠️ Selecione ou busque os dados de uma licença primeiro.")
+        else:
+            # Clean up old state if license changed
+            if st.session_state.get('ppt_licenca') != licenca_atual and 'ppt_file' in st.session_state:
+                del st.session_state['ppt_file']
+            
+            if 'ppt_file' in st.session_state:
+                st.success("✅ Apresentação gerada com sucesso!")
+                st.download_button(
+                    label="📥 Baixar Apresentação (.pptx)",
+                    data=st.session_state['ppt_file'],
+                    file_name=st.session_state['ppt_name'],
+                    mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                    type="primary",
+                    use_container_width=True
+                )
+                if st.button("🔄 Gerar Novamente"):
+                    del st.session_state['ppt_file']
+                    st.rerun()
+            else:
+                if st.button("🪄 Gerar Apresentação em PPT", type="primary", use_container_width=True):
+                    with st.spinner("Compilando dados e gerando slides... Isso pode levar alguns segundos ⏳"):
+                        try:
+                            dados_ppt = {}
+                            
+                            # 1. Faturamento e Estoque
+                            dados_faturamento = carregar_faturamento_json(licenca_atual)
+                            dados_estoque = carregar_estoque_json(licenca_atual)
+                            
+                            if dados_faturamento:
+                                df_faturamento = pd.DataFrame(list(dados_faturamento.items()), columns=['Mês', 'Faturamento'])
+                                df_faturamento.set_index('Mês', inplace=True)
+                            else:
+                                df_faturamento = None
+                                
+                            if dados_estoque:
+                                df_estoque = pd.DataFrame(list(dados_estoque.items()), columns=['Mês', 'Estoque'])
+                                df_estoque.set_index('Mês', inplace=True)
+                            else:
+                                df_estoque = None
+                                
+                            dados_ppt["faturamento_estoque"] = {
+                                "df_faturamento": df_faturamento,
+                                "df_estoque": df_estoque
+                            }
+                            
+                            # 2. Projeções (Pegar o que está no cache de DRE/Fluxo)
+                            dados_dre = cache_manager.carregar_dre(licenca_atual)
+                            df_dre_global = pd.DataFrame()
+                            
+                            if dados_dre:
+                                if dados_dre.get("formato") == "estruturado":
+                                    linhas = []
+                                    for linha, info in dados_dre["indice_linhas"].items():
+                                        dict_linha = info["valores"].copy()
+                                        dict_linha["index"] = linha
+                                        linhas.append(dict_linha)
+                                    df_dre_global = pd.DataFrame(linhas)
+                                    if 'index' in df_dre_global.columns:
+                                        df_dre_global.set_index('index', inplace=True)
+                                elif 'dados' in dados_dre:
+                                    df_dre_global = pd.DataFrame(dados_dre['dados'])
+                                    if 'index' in df_dre_global.columns:
+                                        df_dre_global.set_index('index', inplace=True)
+                            
+                            if not df_dre_global.empty:
+                                dados_ppt["projecoes"] = {"df_fluxo": df_dre_global.copy()}
+                            elif 'resultado_dre' in st.session_state:
+                                df_dre_global = st.session_state.resultado_dre
+                                dados_ppt["projecoes"] = {"df_fluxo": df_dre_global.copy()}
+                            
+                            # 3. Parecer Diagnóstico (Carregar do cache)
+                            parecer_texto = cache_manager.carregar_parecer_diagnostico(licenca_atual)
+                            if parecer_texto:
+                                dados_ppt["parecer_diagnostico"] = parecer_texto
+                            elif 'resultado_dre' in st.session_state and 'resultado_fluxo_vyco' in st.session_state:
+                                # Fallback se tiver na sessão atual (recriar texto apenas)
+                                from logic.Analises_DFC_DRE.gerador_parecer import gerar_texto_parecer
+                                tipo_neg_atual = st.session_state.get('tipo_negocio_selecionado', None)
+                                texto_fallback = gerar_texto_parecer(st.session_state.resultado_fluxo_vyco, st.session_state.resultado_dre, tipo_neg_atual)
+                                if texto_fallback and texto_fallback != "Sem dados suficientes para gerar parecer.":
+                                    dados_ppt["parecer_diagnostico"] = texto_fallback
+                                
+                            # 4. Análise GPT
+                            ultimo_parecer = carregar_ultimo_parecer_gpt(licenca_atual)
+                            if ultimo_parecer and "parecer_texto" in ultimo_parecer:
+                                dados_ppt["analise_gpt"] = ultimo_parecer["parecer_texto"]
+                                
+                            # 5. Parecer Antigravity 
+                            parecer_ag = cache_manager.carregar_parecer_antigravity(licenca_atual)
+                            if parecer_ag:
+                                dados_ppt["parecer_antigravity"] = parecer_ag
+                                
+                            # 6. Relatório Executivo (Podemos recalcular se tiver DRE)
+                            if not df_dre_global.empty:
+                                df_dre_local = df_dre_global.copy()
+                                colunas_meses = [col for col in df_dre_local.columns if '-' in str(col)]
+                                if colunas_meses:
+                                    metricas_todos_meses = []
+                                    for mes in colunas_meses:
+                                        def get_val(linha):
+                                            if linha in df_dre_local.index:
+                                                try:
+                                                    return float(df_dre_local.loc[linha, mes])
+                                                except:
+                                                    return 0.0
+                                            return 0.0
+                                        
+                                        faturamento = get_val("FATURAMENTO")
+                                        impostos = get_val("IMPOSTOS")
+                                        lucro_liquido = get_val("RESULTADO")
+                                        lucro_operacional = get_val("LUCRO OPERACIONAL")
+                                        estoque = get_val("ESTOQUE")
+                                        
+                                        margem_liquida = (lucro_liquido / faturamento * 100) if faturamento != 0 else 0
+                                        margem_ebitda = ((lucro_operacional - impostos) / faturamento * 100) if faturamento != 0 else 0
+                                        
+                                        metricas_todos_meses.append({
+                                            'Mês': mes,
+                                            'Faturamento': formatar_valor_br(faturamento),
+                                            'EBITDA': formatar_valor_br(lucro_operacional-impostos),
+                                            'Margem EBITDA': f"{margem_ebitda:.1f}%",
+                                            'Lucro Líquido': formatar_valor_br(lucro_liquido),
+                                            'Margem Líquida': f"{margem_liquida:.1f}%",
+                                            'Estoque': formatar_valor_br(estoque)
+                                        })
+                                    df_exec = pd.DataFrame(metricas_todos_meses)
+                                    dados_ppt["executivo_mensal"] = df_exec
+                                    
+                            # GERAR PPT
+                            ppt_file = gerar_apresentacao_vyco(licenca_atual, dados_ppt)
+                            nome_arquivo = f"Relatorio_Executivo_{licenca_atual.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d')}.pptx"
+                            
+                            st.session_state['ppt_file'] = ppt_file
+                            st.session_state['ppt_name'] = nome_arquivo
+                            st.session_state['ppt_licenca'] = licenca_atual
+                            st.rerun()
+                            
+                        except Exception as e:
+                            st.error(f"❌ Erro ao gerar PPT: {e}")
 
 else:
     # Instruções iniciais quando não há dados carregados

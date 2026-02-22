@@ -16,3 +16,4 @@ openpyxl
 tabulate
 psycopg2-binary
 sqlalchemy
+python-pptx>=0.6.23

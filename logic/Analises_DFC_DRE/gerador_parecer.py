@@ -565,3 +565,40 @@ def gerar_parecer_automatico(df_fluxo=None, df_dre=None, path_fluxo="./logic/CSV
         parecer_df = pd.DataFrame({"Indicador": list(indicadores.keys()), "Valor": list(indicadores.values())})
         parecer_df.to_excel("parecer_financeiro.xlsx")
         st.success("Parecer exportado para 'parecer_financeiro.xlsx'.")
+
+def gerar_texto_parecer(df_fluxo, df_dre=None, tipo_negocio=None) -> str:
+    """Gera um texto em formato markdown com a análise diagnóstica para ser salvo ou exportado."""
+    if df_fluxo is None or df_fluxo.empty:
+        return "Sem dados suficientes para gerar parecer."
+        
+    metricas = extrair_metricas_principais(df_fluxo, df_dre)
+    indicadores = calcular_indicadores(metricas, tipo_negocio)
+    
+    texto = "### 📊 Indicadores Financeiros Principais\n\n"
+    texto += f"- **Receita Média:** {formatar_brl(indicadores['receita_media'])} (Tendência: {formatar_brl(indicadores['tendencia_receita'])})\n"
+    texto += f"- **Despesa Média:** {formatar_brl(indicadores['despesa_media'])} (Tendência: {formatar_brl(indicadores['tendencia_despesa'])})\n"
+    texto += f"- **Resultado Médio:** {formatar_brl(indicadores['resultado_medio'])} (Tendência: {formatar_brl(indicadores['tendencia_resultado'])})\n\n"
+    
+    texto += f"- **Margem Média:** {indicadores['margem_media']:.1f}%\n"
+    if "margem_bruta" in indicadores and indicadores["margem_bruta"] != 0:
+        texto += f"- **Margem Bruta:** {indicadores['margem_bruta']:.1f}%\n"
+        texto += f"- **Margem Operacional:** {indicadores['margem_operacional']:.1f}%\n"
+        
+    if "giro_estoque" in indicadores and pd.notna(indicadores["giro_estoque"]):
+        texto += f"- **Giro de Estoque:** {indicadores['giro_estoque']:.2f}\n"
+
+    texto += "\n### 🧠 Análise Automática\n\n"
+    insights = gerar_insights(metricas, indicadores)
+    for categoria in ["positivos", "negativos", "neutros", "operacional", "financeiro", "estrategico"]:
+        if insights[categoria]:
+            texto += f"**{categoria.capitalize()}**\n"
+            for key, insight in insights[categoria].items():
+                texto += f"- {insight}\n"
+            texto += "\n"
+
+    texto += "### 🎯 Recomendações Estratégicas\n\n"
+    recomendacoes = gerar_recomendacoes(insights, indicadores)
+    for rec in recomendacoes:
+        texto += f"- **{rec['texto']}** (Prioridade: {rec['prioridade']}, Prazo: {rec['prazo']})\n"
+        
+    return texto

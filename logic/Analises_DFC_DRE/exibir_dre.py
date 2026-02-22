@@ -166,10 +166,16 @@ def formatar_dre(dre: pd.DataFrame, meses: List[str]) -> pd.DataFrame:
     """Formata o DRE para exibição."""
     dre_formatado = dre.copy()
     
+    # Identificar colunas de totais
+    colunas_totais = [col for col in dre_formatado.columns if isinstance(col, str) and "TOTAL" in col.upper()]
+    
     # Formata valores monetários e percentuais
-    for col in meses + ["TOTAL"]:
-        dre_formatado[col] = dre_formatado[col].apply(formatar_brl)
-    dre_formatado["%"] = dre["%"].apply(lambda x: f"{x:.1f}%")
+    for col in meses + colunas_totais:
+        if col in dre_formatado.columns:
+            dre_formatado[col] = dre_formatado[col].apply(formatar_brl)
+            
+    if "%" in dre_formatado.columns:
+        dre_formatado["%"] = dre["%"].apply(lambda x: f"{x:.1f}%")
     
     # Resetando índice para que a primeira coluna seja exibida normalmente
     dre_formatado = dre_formatado.reset_index()
